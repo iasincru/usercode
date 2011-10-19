@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-demo = cms.EDAnalyzer('Ivan',
+demo = cms.EDAnalyzer('Wolf',
                       photonSrc   = cms.untracked.InputTag("cleanPatPhotons"),
                       electronSrc = cms.untracked.InputTag("cleanPatElectrons"),
                       muonSrc     = cms.untracked.InputTag("cleanPatMuons"),
