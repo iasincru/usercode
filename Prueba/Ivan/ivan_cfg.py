@@ -9,6 +9,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.source = cms.Source("PoolSource",
     # replace 'myfile.root' with the source file you want to use
     fileNames = cms.untracked.vstring(
+	#Atention, this file can be found in the '/afs/cern.ch/user/i/iasincru/CMSSW_4_2_5/src/Exer4/Exer04'
         'file:patTuple.root'
     )
 )
