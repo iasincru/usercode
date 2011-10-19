@@ -21,7 +21,6 @@ process.demo = cms.EDAnalyzer('Ivan',
                               tauSrc      = cms.untracked.InputTag("cleanPatTaus"),
                               jetSrc      = cms.untracked.InputTag("cleanPatJets"),
                               metSrc      = cms.untracked.InputTag("patMETs")
-#me lo estoy pasando mu bien
 )
 
 
