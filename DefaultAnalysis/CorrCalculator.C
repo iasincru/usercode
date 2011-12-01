@@ -10,8 +10,6 @@
 #include "TLatex.h"
 
 
-//int newNbin=100;
-
 TString inpath= TString("/scratch/hh/current/cms/user/asincruz/njs/M20Inf/");
 TString outpath=TString("CorrelationPlots/M20Inf/");
 
@@ -19,15 +17,13 @@ TString outpath=TString("CorrelationPlots/M20Inf/");
 void PurityAndStability(TH2F* histo_, TString channel_,TString particle_,  TString outname)
 {
 
-  //  int binX=histo_->GetNbinsX(); //The 2D histograms MUST have the same number of bins in the X&Y axis
 
   TH1 *gen, *reco, *genReco;
   TH1 *eff, *purity, *stability;
   
-  //  std::cout<<"#binX"<<binX<<std::endl;
-  gen=((TH2F*)histo_)->ProjectionX();//std::cout<<"gen #bins= "<<gen->GetNbinsX()<<std::endl;
-  reco=((TH2F*)histo_)->ProjectionY();//std::cout<<"reco #bins= "<<reco->GetNbinsX()<<std::endl;
-  genReco=(TH1F*)gen->Clone();//std::cout<<"gen&reco #bins= "<<genReco->GetNbinsX()<<std::endl;
+  gen=((TH2F*)histo_)->ProjectionX();
+  reco=((TH2F*)histo_)->ProjectionY();
+  genReco=(TH1F*)gen->Clone();
   genReco->SetEntries(0);
   for (int i=0; i<genReco->GetNbinsX(); i++)
     {
@@ -89,7 +85,7 @@ void PurityAndStability(TH2F* histo_, TString channel_,TString particle_,  TStri
 
 
 
-void CorrelationCalculator(TString variable, TString particle, TString step)
+void CorrelationCalculator(TString variable, TString particle, TString step, int rebin_)
 {
 
 
@@ -99,6 +95,8 @@ void CorrelationCalculator(TString variable, TString particle, TString step)
   channel[2]=TString("MM");
   channel[3]=TString("Combined");
 
+  TString directory= TString("analyzeKinSolution"); 
+  directory.Append(step);
 
   if ( variable!="Pt" && variable!="Eta" && variable!="Rapidity" && variable!="Phi")
     { std::cout<<"Bad variable. Choose between: Pt=0, Eta=1, Rapidity=2 or Phi=3"<<std::endl; 
@@ -116,6 +114,8 @@ void CorrelationCalculator(TString variable, TString particle, TString step)
   f[0]=new TFile(inpath.Copy().Append("ee_ttbarsignal.root"));
   f[1]=new TFile(inpath.Copy().Append("emu_ttbarsignal.root"));
   f[2]=new TFile(inpath.Copy().Append("mumu_ttbarsignal.root"));
+ 
+  TDirectory *d[3];
   for (int i=0; i<3; i++)
     {
       if (f[i]->IsZombie())
@@ -123,15 +123,7 @@ void CorrelationCalculator(TString variable, TString particle, TString step)
 	  std::cout<<f[i]->GetName()<<" doesn't exist"<<std::endl; 
 	  return;
 	};
-    };
-  std::cout<<"good files"<<std::endl;
 
-  TString directory= TString("analyzeKinSolution");
-  directory.Append(step);
-
-  TDirectory *d[3];
-  for (int i=0; i<3; i++)
-    {
       d[i]=(TDirectoryFile*)f[i]->Get(directory);
       if(d[i]->IsZombie()) 
 	{
@@ -139,7 +131,6 @@ void CorrelationCalculator(TString variable, TString particle, TString step)
 	  return;
 	};
     };
-  std::cout<<"good directories"<<std::endl;
 
 
   TH2F *h[4];
@@ -155,9 +146,7 @@ void CorrelationCalculator(TString variable, TString particle, TString step)
 	 return;
 	};
     };
-  
-  std::cout<<"Good histograms"<<std::endl;
-  
+
   h[3]=(TH2F*)h[0]->Clone();
   h[3]->SetEntries(0);
   for(int i=0; i<h[3]->GetNbinsX(); i++)
@@ -168,6 +157,8 @@ void CorrelationCalculator(TString variable, TString particle, TString step)
 	  h[3]->SetBinContent(i, j, weight);
 	};
     };
+
+  for (int i=0; i<4; i++){h[i]->Rebin2D(rebin_, rebin_);};
 
  
 
@@ -198,21 +189,26 @@ void CorrelationCalculator(TString variable, TString particle, TString step)
     };
   c1.Close();
 
-  std::cout<<"he llgado al final sin errores"<<std::endl;
 }
 
 
 void CorrCalculator()
 {
+  int rebin=5;//number of bins to be merged together
+  CorrelationCalculator("Pt", "B", "7", rebin);
+  CorrelationCalculator("Pt", "BBar", "7", rebin);
 
-  CorrelationCalculator("Pt", "B", "7");
-  CorrelationCalculator("Pt", "BBar", "7");
-  CorrelationCalculator("Eta", "B", "7");
-  CorrelationCalculator("Eta", "BBar", "7");
-  CorrelationCalculator("Rapidity", "B","7");
-  CorrelationCalculator("Rapidity", "BBar", "7");
-  CorrelationCalculator("Phi", "B", "7");
-  CorrelationCalculator("Phi", "BBar", "7");
+  rebin=1;
+  CorrelationCalculator("Eta", "B", "7", rebin);
+  CorrelationCalculator("Eta", "BBar", "7", rebin);
+
+  rebin=1;
+  CorrelationCalculator("Rapidity", "B","7", rebin);
+  CorrelationCalculator("Rapidity", "BBar", "7", rebin);
+
+  rebin=1;
+  CorrelationCalculator("Phi", "B", "7", rebin);
+  CorrelationCalculator("Phi", "BBar", "7", rebin);
 
 }
 
