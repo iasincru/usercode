@@ -8,11 +8,30 @@
 #include "TStyle.h"
 #include "TLegend.h"
 #include "TLatex.h"
+#include "TPaletteAxis.h"
+#include "TPad.h"
 
 
-TString inpath= TString("/scratch/hh/current/cms/user/asincruz/njs/M20Inf/");
-TString outpath=TString("CorrelationPlots/M20Inf/");
+//****** Different Selection Cuts Sources ********
+//================================================
+//****** Default analysis: Mll>12 GeV  ***********
+//TString inpath=TString("/scratch/hh/current/cms/user/wbehrenh/Oct25default/standard"); TString outpath=TString("CorrelationPlots/Default/");
 
+//Mll>20 GeV Cut
+TString inpath= TString("/scratch/hh/current/cms/user/asincruz/njs/M20Inf/"); TString outpath=TString("CorrelationPlots/M20Inf/");
+
+//Mll>40 GeV
+//TString inpath=TString("/scratch/hh/current/cms/user/asincruz/njs/M40Inf/"); TString outpath=TString("CorrelationPlots/M40Inf/");
+
+//Mll>50 GeV
+//TString inpath=TString("/scratch/hh/current/cms/user/asincruz/njs/M50Inf/"); TString outpath=TString("CorrelationPlots/M50Inf/");
+
+
+
+
+//*****  OUTPUT Format*****
+TString outformat=TString(".eps");
+//TString outformat=TString(".png");
 
 void PurityAndStability(TH2F* histo_, TString channel_,TString particle_,  TString outname)
 {
@@ -49,12 +68,13 @@ void PurityAndStability(TH2F* histo_, TString channel_,TString particle_,  TStri
   reco->SetMarkerStyle(22); reco->SetMarkerColor(2);
     
   TLegend *leg2=new TLegend(0.8, 0.8, 0.95, 0.95);
+  leg2->SetBorderSize(1.5);
   leg2->AddEntry(gen, "Generated", "p");
   leg2->AddEntry(reco,"Reconstructed", "p");
   leg2->AddEntry(genReco, "Gen&Reco", "p");
 
 
-  TLatex *text=new TLatex();
+  TLatex *text=new TLatex(); text->SetNDC(1);
 
 
   TCanvas c11;
@@ -64,19 +84,23 @@ void PurityAndStability(TH2F* histo_, TString channel_,TString particle_,  TStri
   gen->Draw("pSAME");
   leg2->Draw("SAME");
   text->DrawLatex(0.46, 0.91, channel_.Copy().Append(" channel"));
-  c11.SaveAs(outname.Copy().Append(particle_).Append(channel_).Append("Gen&Reco&Genreco.eps"));
+  c11.SaveAs(outname.Copy().Append(particle_).Append(channel_).Append("Gen&Reco&Genreco").Append(outformat));
   c11.Clear();
 
   TLegend *leg=new TLegend(0.8, 0.8, 0.95, 0.95);
-  leg->AddEntry(eff, "Efficiency", "p");
+  leg->SetBorderSize(1.5);
+  //  leg->AddEntry(eff, "Efficiency", "p");
   leg->AddEntry(purity, "Purity", "p");
   leg->AddEntry(stability, "Stability", "p");
 
-  purity->Draw("p");purity->SetStats(0);
+  purity->SetMaximum(1.15);
+  purity->SetMinimum(0);
+  purity->SetStats(0);
+  purity->Draw("p");
   stability->Draw("pSAME");
   leg->Draw("SAME");
   text->DrawLatex(0.46, 0.91, channel_.Copy().Append(" channel"));
-  c11.SaveAs(outname.Copy().Append(histo_->GetName()).Append(channel_).Append("EPS.eps")); 
+  c11.SaveAs(outname.Copy().Append(histo_->GetName()).Append(channel_).Append("EPS").Append(outformat)); 
   c11.Clear();
   c11.Close();
   
@@ -166,7 +190,7 @@ void CorrelationCalculator(TString variable, TString particle, TString step, int
   PurityAndStability(h[0],channel[0], particle, outpath);
   PurityAndStability(h[1],channel[1], particle, outpath);
   PurityAndStability(h[2],channel[2], particle, outpath);
-  PurityAndStability(h[3],channel[2], particle, outpath);
+  PurityAndStability(h[3],channel[3], particle, outpath);
 
   
 
@@ -179,12 +203,18 @@ void CorrelationCalculator(TString variable, TString particle, TString step, int
   TCanvas c1;
   gStyle->SetPalette(1);
 
+  TPaletteAxis *palette[4];
+
   for (int i=0; i<4; i++)
     {
+      h[i]->Draw("COLZ");
+      gPad->Update();
+      palette[i] = (TPaletteAxis*) h[i]->GetListOfFunctions()->FindObject("palette");
+      palette[i]->SetX2NDC(0.93);
       h[i]->SetStats(0);
       h[i]->Draw("COLZ");
       text->DrawLatex(0.46, 0.91, channel[i].Copy().Append(" channel"));
-      c1.SaveAs(outpath.Copy().Append(h[i]->GetName()).Append(channel[i]).Append(".eps"));
+      c1.SaveAs(outpath.Copy().Append(h[i]->GetName()).Append(channel[i]).Append(outformat));
       c1.Clear();
     };
   c1.Close();
@@ -194,7 +224,7 @@ void CorrelationCalculator(TString variable, TString particle, TString step, int
 
 void CorrCalculator()
 {
-  int rebin=5;//number of bins to be merged together
+  int rebin=1;//number of bins to be merged together
   CorrelationCalculator("Pt", "B", "7", rebin);
   CorrelationCalculator("Pt", "BBar", "7", rebin);
 
