@@ -422,9 +422,7 @@ public :
    TH1D *h_deltargenbtogenantib, *h_deltargenjettogenjet, *h_deltarhypbtohypantib, *h_deltarrecojettorecojet;
 
    TH1D *h_hypleptogenlep, *h_hypleptogenantilep, *h_hypantileptogenlep, *h_hypantileptogenantilep;
-   
-   
-   
+    
    
    TH1D *h_GenLeptonpTViaTau, *h_GenAntiLeptonpTViaTau;
    TH1D *h_HypLeptonpTViaTau, *h_HypAntiLeptonpTViaTau;
@@ -433,6 +431,16 @@ public :
    TH1D *h_GenLeptonpTNC, *h_GenAntiLeptonpTNC, *h_HypLeptonpTNC, *h_HypAntiLeptonpTNC;
    
    TH1D *h_hypbptmatching, *h_hypbptnotmatching, *h_hypantibptmatching, *h_hypantibptnotmatching ;
+   TH1D *h_genbptmatching, *h_genbptnotmatching, *h_genantibptmatching, *h_genantibptnotmatching ;
+
+   TH1D *h_hypbetamatching, *h_hypbetanotmatching, *h_hypantibetamatching, *h_hypantibetanotmatching ;
+   TH1D *h_genbetamatching, *h_genbetanotmatching, *h_genantibetamatching, *h_genantibetanotmatching ;
+
+   TH1D *h_hypbematching, *h_hypbenotmatching, *h_hypantibematching, *h_hypantibenotmatching ;
+   TH1D *h_genbematching, *h_genbenotmatching, *h_genantibematching, *h_genantibenotmatching ;
+
+   TH1D *h_GenBMRoot, *h_GenBM, *h_GenAntiBMRoot, *h_GenAntiBM;
+   TH1D *h_HypBMRoot, *h_HypBM, *h_HypAntiBMRoot, *h_HypAntiBM;
 
    ClassDef(Analysis,0);
 };

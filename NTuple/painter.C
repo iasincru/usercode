@@ -5,7 +5,7 @@
 void painter(){
   
   for (int i=0; i<3 ; i++){
-    for (j=0; j<5; j++){
+    for (int j=0; j<5; j++){
       PainterMacro(i, j);
     }
   }
@@ -116,10 +116,35 @@ void PainterMacro(int chn=0, int algoNr=0)
  
  HypAntiBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBpTNotMatching.eps"));
  HypAntiBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBpTMatching.eps"));
- HypAntiBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBpTNotMatching.eps"));
- HypAntiBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBpTMatching.eps"));
+ HypBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBpTNotMatching.eps"));
+ HypBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBpTMatching.eps"));
+
+ GenAntiBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenAntiBpTNotMatching.eps"));
+ GenAntiBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenAntiBpTMatching.eps"));
+ GenBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBpTNotMatching.eps"));
+ GenBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBpTMatching.eps"));
  
- 
+ HypAntiBEtaNotMatching->Draw();       	c1.SaveAs(outpath.Copy().Append("HypAntiBEtaNotMatching.eps"));
+ HypAntiBEtaMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBEtaMatching.eps"));
+ HypBEtaNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBEtaNotMatching.eps"));
+ HypBEtaMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBEtaMatching.eps"));
+
+ GenAntiBEtaNotMatching->Draw();       	c1.SaveAs(outpath.Copy().Append("GenAntiBEtaNotMatching.eps"));
+ GenAntiBEtaMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenAntiBEtaMatching.eps"));
+ GenBEtaNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBEtaNotMatching.eps"));
+ GenBEtaMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBEtaMatching.eps"));
+
+ HypAntiBENotMatching->Draw();       	c1.SaveAs(outpath.Copy().Append("HypAntiBENotMatching.eps"));
+ HypAntiBEMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBEMatching.eps"));
+ HypBENotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBENotMatching.eps"));
+ HypBEMatching->Draw();	        	c1.SaveAs(outpath.Copy().Append("HypBEMatching.eps"));
+
+ GenAntiBENotMatching->Draw();       	c1.SaveAs(outpath.Copy().Append("GenAntiBENotMatching.eps"));
+ GenAntiBEMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenAntiBEMatching.eps"));
+ GenBENotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBENotMatching.eps"));
+ GenBEMatching->Draw();	        	c1.SaveAs(outpath.Copy().Append("GenBEMatching.eps"));
+
+
  c1.SetLogy();
  
  HypBToGenB->Draw();			HypBToGenB->Draw("SAME, TEXT00");		c1.SaveAs(outpath.Copy().Append("HypBToGenBLog.eps"));
@@ -193,8 +218,34 @@ void PainterMacro(int chn=0, int algoNr=0)
 
  HypAntiBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBpTNotMatchingLog.eps"));
  HypAntiBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBpTMatchingLog.eps"));
- HypAntiBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBpTNotMatchingLog.eps"));
- HypAntiBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBpTMatchingLog.eps"));
+ HypBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBpTNotMatchingLog.eps"));
+ HypBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBpTMatchingLog.eps"));
+
+ GenAntiBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenAntiBpTNotMatchingLog.eps"));
+ GenAntiBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenAntiBpTMatchingLog.eps"));
+ GenBpTNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBpTNotMatchingLog.eps"));
+ GenBpTMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBpTMatchingLog.eps"));
+ 
+ HypAntiBEtaNotMatching->Draw();       	c1.SaveAs(outpath.Copy().Append("HypAntiBEtaNotMatchingLog.eps"));
+ HypAntiBEtaMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBEtaMatchingLog.eps"));
+ HypBEtaNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBEtaNotMatchingLog.eps"));
+ HypBEtaMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBEtaMatchingLog.eps"));
+
+ GenAntiBEtaNotMatching->Draw();       	c1.SaveAs(outpath.Copy().Append("GenAntiBEtaNotMatchingLog.eps"));
+ GenAntiBEtaMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenAntiBEtaMatchingLog.eps"));
+ GenBEtaNotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBEtaNotMatchingLog.eps"));
+ GenBEtaMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBEtaMatchingLog.eps"));
+
+
+ HypAntiBENotMatching->Draw();       	c1.SaveAs(outpath.Copy().Append("HypAntiBENotMatchingLog.eps"));
+ HypAntiBEMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypAntiBEMatchingLog.eps"));
+ HypBENotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("HypBENotMatchingLog.eps"));
+ HypBEMatching->Draw();	        	c1.SaveAs(outpath.Copy().Append("HypBEMatchingLog.eps"));
+
+ GenAntiBENotMatching->Draw();       	c1.SaveAs(outpath.Copy().Append("GenAntiBENotMatchingLog.eps"));
+ GenAntiBEMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenAntiBEMatchingLog.eps"));
+ GenBENotMatching->Draw();		c1.SaveAs(outpath.Copy().Append("GenBENotMatchingLog.eps"));
+ GenBEMatching->Draw();	        	c1.SaveAs(outpath.Copy().Append("GenBEMatchingLog.eps"));
 
  
  
@@ -270,28 +321,96 @@ void PainterMacro(int chn=0, int algoNr=0)
 // GenBPhi->Draw();GenAntiBPhi->Draw("same");HypBPhi->Draw("same");HypAntiBPhi->Draw("same"), l2->Draw("same");
 // c1.SaveAs(outpath.Copy().Append("QuarkComparisonPhi.eps"));
 
- TH1D *h1=(TH1D*)f->Get("HypAntiBpTNotMatching");	h1->SetLineColor(kBlack);
- TH1D *h2=(TH1D*)f->Get("HypBpTNotMatching");		h2->SetLineColor(kBlack);
- TH1D *h3=(TH1D*)f->Get("HypAntiBpTMatching");		h3->SetLineColor(kBlue);
- TH1D *h4=(TH1D*)f->Get("HypBpTMatching");		h4->SetLineColor(kBlue);
+ TH1D *h1=(TH1D*)f->Get("HypAntiBpTNotMatching");	h1->SetLineStyle(2);	h1->SetMarkerStyle(20);	double sh1 = h1->Integral(); h1->Scale(1./sh1);
+ TH1D *h2=(TH1D*)f->Get("HypBpTNotMatching");		h2->SetLineStyle(2);	h2->SetMarkerStyle(20);	double sh2 = h2->Integral(); h2->Scale(1./sh2);
+ TH1D *h3=(TH1D*)f->Get("HypAntiBpTMatching");		h3->SetLineStyle(1);	h3->SetMarkerStyle(21);	double sh3 = h3->Integral(); h3->Scale(1./sh3);
+ TH1D *h4=(TH1D*)f->Get("HypBpTMatching");		h4->SetLineStyle(1);	h4->SetMarkerStyle(21);	double sh4 = h4->Integral(); h4->Scale(1./sh4);
  
  TLegend *l3= new TLegend(0.7, 0.7, 0.975, 0.975);
  l3->AddEntry(h1, "Not Matching Distr.", "l");
  l3->AddEntry(h3, "Matching Distr.", "l");
 
  c1.SetLogy(0);
- h3->Draw();		h1->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("HypAntiBDiffMatching.eps"));
- h1->Divide(h3);	h1->SetMaximum(1.0);	h1->Draw();	  c1.SaveAs(outpath.Copy().Append("HypAntiBDiffMatchingRatio.eps"));
- h4->Draw();		h2->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("HypBDiffMatching.eps"));
- h2->Divide(h4);	h2->SetMaximum(1.);	h2->Draw();	  c1.SaveAs(outpath.Copy().Append("HypBDiffMatchingRatio.eps"));
+ h1->Draw("");	 h3->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("HypAntiBpTDiffMatching.eps"));
+ h1->Scale(sh1); h3->Scale(sh3);
+ h1->Divide(h3); h1->SetMaximum(1.5);	h1->Draw();	  c1.SaveAs(outpath.Copy().Append("HypAntiBpTDiffMatchingRatio.eps"));
+ h2->Draw("");	 h4->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("HypBpTDiffMatching.eps"));
+ h2->Scale(sh2); h4->Scale(sh4);
+ h2->Divide(h4); h2->SetMaximum(1.5);	h2->Draw();	  c1.SaveAs(outpath.Copy().Append("HypBpTDiffMatchingRatio.eps"));
+
+
+ h1 = (TH1D*)f->Get("GenAntiBpTNotMatching");	h1->SetLineStyle(2);	h1->SetMarkerStyle(20);	double sh1 = h1->Integral(); h1->Scale(1./sh1);
+ h2 = (TH1D*)f->Get("GenBpTNotMatching");	h2->SetLineStyle(2);	h2->SetMarkerStyle(20);	double sh2 = h2->Integral(); h2->Scale(1./sh2);
+ h3 = (TH1D*)f->Get("GenAntiBpTMatching");	h3->SetLineStyle(1);	h3->SetMarkerStyle(21);	double sh3 = h3->Integral(); h3->Scale(1./sh3);
+ h4 = (TH1D*)f->Get("GenBpTMatching");		h4->SetLineStyle(1);	h4->SetMarkerStyle(21);	double sh4 = h4->Integral(); h4->Scale(1./sh4);
+
+ h1->Draw();	 h3->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("GenAntiBpTDiffMatching.eps"));
+ h1->Scale(sh1); h3->Scale(sh3);
+ h1->Divide(h3); h1->SetMaximum(1.5);	h1->Draw();	  c1.SaveAs(outpath.Copy().Append("GenAntiBpTDiffMatchingRatio.eps"));
+ h2->Draw();	 h4->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("GenBpTDiffMatching.eps"));
+ h2->Scale(sh2); h4->Scale(sh4);
+ h2->Divide(h4); h2->SetMaximum(1.5);	h2->Draw();	  c1.SaveAs(outpath.Copy().Append("GenBpTDiffMatchingRatio.eps"));
+
+
+ h1 = (TH1D*)f->Get("HypAntiBEtaNotMatching"); h1->SetLineStyle(2); double sh1 = h1->Integral(); h1->Scale(1./sh1);
+ h2 = (TH1D*)f->Get("HypBEtaNotMatching");     h2->SetLineStyle(2); double sh2 = h2->Integral(); h2->Scale(1./sh2);
+ h3 = (TH1D*)f->Get("HypAntiBEtaMatching");    h3->SetLineStyle(1);  double sh3 = h3->Integral(); h3->Scale(1./sh3);
+ h4 = (TH1D*)f->Get("HypBEtaMatching");        h4->SetLineStyle(1);  double sh4 = h4->Integral(); h4->Scale(1./sh4);
+
+ h1->Draw();	 h3->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("HypAntiBEtaDiffMatching.eps"));
+ h1->Scale(sh1); h3->Scale(sh3);
+ h1->Divide(h3); h1->SetMaximum(1.5);	h1->Draw();	  c1.SaveAs(outpath.Copy().Append("HypAntiBEtaDiffMatchingRatio.eps"));
+ h2->Draw();	 h4->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("HypBEtaDiffMatching.eps"));
+ h2->Scale(sh2); h4->Scale(sh4);
+ h2->Divide(h4); h2->SetMaximum(1.5);	h2->Draw();	  c1.SaveAs(outpath.Copy().Append("HypBEtaDiffMatchingRatio.eps"));
+
+
+ 
+ h1 = (TH1D*)f->Get("GenAntiBEtaNotMatching"); h1->SetLineStyle(2); double sh1 = h1->Integral(); h1->Scale(1./sh1);
+ h2 = (TH1D*)f->Get("GenBEtaNotMatching");     h2->SetLineStyle(2); double sh2 = h2->Integral(); h2->Scale(1./sh2);
+ h3 = (TH1D*)f->Get("GenAntiBEtaMatching");    h3->SetLineStyle(1);  double sh3 = h3->Integral(); h3->Scale(1./sh3);
+ h4 = (TH1D*)f->Get("GenBEtaMatching");        h4->SetLineStyle(1);  double sh4 = h4->Integral(); h4->Scale(1./sh4);
+
+ h3->Draw();	 h1->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("GenAntiBEtaDiffMatching.eps"));
+ h1->Scale(sh1); h3->Scale(sh3);
+ h1->Divide(h3); h1->SetMaximum(1.5);	h1->Draw();	  c1.SaveAs(outpath.Copy().Append("GenAntiBEtaDiffMatchingRatio.eps"));
+ h4->Draw();	 h2->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("GenBEtaDiffMatching.eps"));
+ h2->Scale(sh2); h4->Scale(sh4);
+ h2->Divide(h4); h2->SetMaximum(1.5);	h2->Draw();	  c1.SaveAs(outpath.Copy().Append("GenBEtaDiffMatchingRatio.eps"));
+
+
+
+
+ h1 = (TH1D*)f->Get("HypAntiBENotMatching"); h1->SetLineStyle(2); double sh1 = h1->Integral(); h1->Scale(1./sh1);
+ h2 = (TH1D*)f->Get("HypBENotMatching");     h2->SetLineStyle(2); double sh2 = h2->Integral(); h2->Scale(1./sh2);
+ h3 = (TH1D*)f->Get("HypAntiBEMatching");    h3->SetLineStyle(1);  double sh3 = h3->Integral(); h3->Scale(1./sh3);
+ h4 = (TH1D*)f->Get("HypBEMatching");        h4->SetLineStyle(1);  double sh4 = h4->Integral(); h4->Scale(1./sh4);
+
+ h1->Draw();	 h3->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("HypAntiBEDiffMatching.eps"));
+ h1->Scale(sh1); h3->Scale(sh3);
+ h1->Divide(h3); h1->SetMaximum(1.5);	h1->Draw();	  c1.SaveAs(outpath.Copy().Append("HypAntiBEDiffMatchingRatio.eps"));
+ h2->Draw();	 h4->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("HypBEDiffMatching.eps"));
+ h2->Scale(sh2); h4->Scale(sh4);
+ h2->Divide(h4); h2->SetMaximum(1.5);	h2->Draw();	  c1.SaveAs(outpath.Copy().Append("HypBEDiffMatchingRatio.eps"));
+
+
+
+ 
+ h1 = (TH1D*)f->Get("GenAntiBENotMatching"); h1->SetLineStyle(2); double sh1 = h1->Integral(); h1->Scale(1./sh1);
+ h2 = (TH1D*)f->Get("GenBENotMatching");     h2->SetLineStyle(2); double sh2 = h2->Integral(); h2->Scale(1./sh2);
+ h3 = (TH1D*)f->Get("GenAntiBEMatching");    h3->SetLineStyle(1);  double sh3 = h3->Integral(); h3->Scale(1./sh3);
+ h4 = (TH1D*)f->Get("GenBEMatching");        h4->SetLineStyle(1);  double sh4 = h4->Integral(); h4->Scale(1./sh4);
+
+ h1->Draw();	 h3->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("GenAntiBEDiffMatching.eps"));
+ h1->Scale(sh1); h3->Scale(sh3);
+ h1->Divide(h3); h1->SetMaximum(1.5);	h1->Draw();	  c1.SaveAs(outpath.Copy().Append("GenAntiBEDiffMatchingRatio.eps"));
+ h2->Draw();	 h4->Draw("same");	l3->Draw("same"); c1.SaveAs(outpath.Copy().Append("GenBEDiffMatching.eps"));
+ h2->Scale(sh2); h4->Scale(sh4);
+ h2->Divide(h4); h2->SetMaximum(1.5);	h2->Draw();	  c1.SaveAs(outpath.Copy().Append("GenBEDiffMatchingRatio.eps"));
+
  
  c1.Close();
  f->Close();
 
  
 }
-
-
-
-
-

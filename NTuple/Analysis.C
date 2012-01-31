@@ -287,6 +287,31 @@ void Analysis::Begin(TTree * /*tree*/)
   h_hypantibptmatching 		= new TH1D("HypAntiBpTMatching","AntiB Hypothesis pT Matched",40,0,400);
   h_hypantibptnotmatching 	= new TH1D("HypAntiBpTNotMatching","AntiB Hypothesis pT Not Matched",40,0,400);
 
+  h_genbptmatching 		= new TH1D("GenBpTMatching","B Genothesis pT Matched",40,0,400);
+  h_genbptnotmatching 		= new TH1D("GenBpTNotMatching","B Genothesis pT Not Matched",40,0,400);
+  h_genantibptmatching 		= new TH1D("GenAntiBpTMatching","AntiB Genothesis pT Matched",40,0,400);
+  h_genantibptnotmatching 	= new TH1D("GenAntiBpTNotMatching","AntiB Genesis pT Not Matched",40,0,400);
+
+  h_hypbetamatching 		= new TH1D("HypBEtaMatching","B Hypothesis Eta Matched",40,-4,4);
+  h_hypbetanotmatching 		= new TH1D("HypBEtaNotMatching","B Hypothesis Eta Not Matched",40,-4,4);
+  h_hypantibetamatching       	= new TH1D("HypAntiBEtaMatching","AntiB Hypothesis Eta Matched",40,-4,4);
+  h_hypantibetanotmatching 	= new TH1D("HypAntiBEtaNotMatching","AntiB Hypothesis Eta Not Matched",40,-4,4);
+
+  h_genbetamatching 		= new TH1D("GenBEtaMatching","B Genothesis Eta Matched",40,-4,4);
+  h_genbetanotmatching 		= new TH1D("GenBEtaNotMatching","B Genothesis Eta Not Matched",40,-4,4);
+  h_genantibetamatching 	= new TH1D("GenAntiBEtaMatching","AntiB Genothesis Eta Matched",40,-4,4);
+  h_genantibetanotmatching 	= new TH1D("GenAntiBEtaNotMatching","AntiB Genesis Eta Not Matched",40,-4,4);
+
+  h_hypbematching 		= new TH1D("HypBEMatching","B Hypothesis E Matched",40,0,400);
+  h_hypbenotmatching 		= new TH1D("HypBENotMatching","B Hypothesis E Not Matched",40,0,400);
+  h_hypantibematching       	= new TH1D("HypAntiBEMatching","AntiB Hypothesis E Matched",40,0,400);
+  h_hypantibenotmatching 	= new TH1D("HypAntiBENotMatching","AntiB Hypothesis E Not Matched",40,0,400);
+
+  h_genbematching 		= new TH1D("GenBEMatching","B Genothesis Energy Matched",40,0,400);
+  h_genbenotmatching 		= new TH1D("GenBENotMatching","B Genothesis Energy Not Matched",40,0,400);
+  h_genantibematching    	= new TH1D("GenAntiBEMatching","AntiB Genothesis Energy Matched",40,-0,400);
+  h_genantibenotmatching 	= new TH1D("GenAntiBENotMatching","AntiB Genesis Energy Not Matched",40,0,400);
+
   //end of matching section
   //***************************************************************************************
 
@@ -310,6 +335,18 @@ void Analysis::Begin(TTree * /*tree*/)
   h_HypLeptonpTNC = new TH1D("HypLeptonpTNC","Lepton Hypothesis pT No Cut",80,0,400);
   h_HypAntiLeptonpTNC = new TH1D("HypAntiLeptonpTNC","AntiLepton Hypothesis pT No Cut",80,0,400);
   
+
+  h_GenBMRoot = new TH1D ("GenBMRoot", "GenB.M()", 50, 2, 8);
+  h_GenAntiBMRoot = new TH1D ("GenAntiBMRoot", "GenAntiB.M()", 50, 2, 8);
+  h_HypBMRoot = new TH1D ("HypBMRoot", "HypB.M()", 100, 0, 100);
+  h_HypAntiBMRoot = new TH1D ("HypAntiBMRoot", "HypAntiB.M()", 100, 0, 100);
+
+
+  h_GenBM = new TH1D ("GenBM", "GenB Mass = sqrt(E^2-p^2)", 50, 2, 8);
+  h_GenAntiBM = new TH1D ("GenAntiBM", "GenAntiB Mass=sqrt(E^2-p^2)", 50, 2, 8);
+  h_HypBM = new TH1D ("HypBM", "HypB Mass = sqrt(E^2-p^2)", 100, 0, 100);
+  h_HypAntiBM = new TH1D ("HypAntiBM", "HypAntiB Mass=sqrt(E^2-p^2)", 100, 0, 100);
+
 }
 
 void Analysis::SlaveBegin(TTree * /*tree*/)
@@ -535,6 +572,9 @@ Bool_t Analysis::Process(Long64_t entry)
       }    
     }
   }//for visible top events	  
+
+
+
   if(lepton_>1){
     dimass = (LVlepton[0]+LVlepton[1]).M();
     h_vertMulti->Fill(vertMulti,weightPU*weightLepSF*lumiWeight*btagSFuse*trigEFF*weightKinFituse);
@@ -636,7 +676,8 @@ Bool_t Analysis::Process(Long64_t entry)
       }      
     } //
     if (dimass>76 && dimass < 106)Looseh1->Fill(dimass,weightPU*weightLepSF*lumiWeight*btagSFuse*trigEFF*weightKinFituse);
-    
+   
+ 
     //if(dimass>12 && (lepQ[0]!=lepQ[1])){//Analysis step 6
     //if(dimass>12 && jet_>1 && (lepQ[0]!=lepQ[1])){//Analysis step 6
     //if(dimass>12 && jet_>1 && BJetIndex.size()>0 && (lepQ[0]!=lepQ[1])){btagSFuse=btagSF;//Analysis step 8?
@@ -764,7 +805,7 @@ Bool_t Analysis::Process(Long64_t entry)
 
 	    //Selection step: 9. Hyp top exists-> KinFit Solution exists
 	    
-	    double deltar=0.5; //0.5; //0.3; //0.75;
+	    double deltar=0.5;
 
 	    h_hypleptogenlep		->Fill(Matching(LVHypLepton[solutionIndex], LVGenLepton, deltar), 1);
 	    h_hypantileptogenlep	->Fill(Matching(LVHypLepton[solutionIndex], LVGenAntiLepton, deltar), 1);
@@ -807,24 +848,68 @@ Bool_t Analysis::Process(Long64_t entry)
 
 	      h_deltarhypbtogenjet->Fill(LVHypB[solutionIndex].DeltaR(LVGenJet[i]), 1);
 	      h_deltarhypantibtogenjet->Fill(LVHypAntiB[solutionIndex].DeltaR(LVGenJet[i]), 1);
-
-	      //Differential distribution's matching or mismatching
-	      if (LVHypB[solutionIndex].DeltaR(LVGenJet[i])<deltar ){
-		if (LVGenJet[i].DeltaR(LVGenB)<deltar)           { h_hypbptmatching->Fill(LVHypB[solutionIndex].Pt(), 1);}
-		else if (LVGenJet[i].DeltaR(LVGenAntiB)<deltar)  { h_hypbptnotmatching->Fill(LVHypB[solutionIndex].Pt(), 1);};
-	      }
-	      else if(LVHypAntiB[solutionIndex].DeltaR(LVGenJet[i])<deltar){
-		if (LVGenJet[i].DeltaR(LVGenB)<deltar)		{ h_hypantibptnotmatching->Fill(LVHypAntiB[solutionIndex].Pt(), 1);}
-		else if (LVGenJet[i].DeltaR(LVGenAntiB)<deltar)	{ h_hypantibptmatching->Fill(LVHypAntiB[solutionIndex].Pt(), 1);};
-	      };
-
+	    
 	      for (int j=i+1; j<(int)LVGenJet.size(); j++){
 		h_deltargenjettogenjet->Fill(LVGenJet[i].DeltaR(LVGenJet[j]), 1);
 	      };
 	    };
+	    
+	    //Differential distribution's matching or mismatching
+            h_GenBMRoot->Fill(LVGenB.M(), 1);
+	    h_HypBMRoot->Fill(LVHypB[solutionIndex].M(), 1);
+            double genbmass= TMath::Sqrt(LVGenB.E()*LVGenB.E()-LVGenB.Px()*LVGenB.Px()-LVGenB.Py()*LVGenB.Py()-LVGenB.Pz()*LVGenB.Pz());
+            double hypbmass= TMath::Sqrt(LVHypB[solutionIndex].E()*LVHypB[solutionIndex].E()-LVHypB[solutionIndex].Px()*LVHypB[solutionIndex].Px()-LVHypB[solutionIndex].Py()*LVHypB[solutionIndex].Py()-LVHypB[solutionIndex].Pz()*LVHypB[solutionIndex].Pz());
+            h_GenBM->Fill(genbmass, 1);
+	    h_HypBM->Fill(hypbmass, 1);
+	    
+	    h_GenAntiBMRoot->Fill(LVGenAntiB.M(), 1);
+	    h_HypAntiBMRoot->Fill(LVHypAntiB[solutionIndex].M(), 1);
+            double genantibmass=TMath::Sqrt(LVGenAntiB.E()*LVGenAntiB.E()-LVGenAntiB.Px()*LVGenAntiB.Px()-LVGenAntiB.Py()*LVGenAntiB.Py()-LVGenAntiB.Pz()*LVGenAntiB.Pz());
+            double hypantibmass=TMath::Sqrt(LVHypAntiB[solutionIndex].E()*LVHypAntiB[solutionIndex].E()-LVHypAntiB[solutionIndex].Px()*LVHypAntiB[solutionIndex].Px()-LVHypAntiB[solutionIndex].Py()*LVHypAntiB[solutionIndex].Py()-LVHypAntiB[solutionIndex].Pz()*LVHypAntiB[solutionIndex].Pz());
+            h_GenAntiBM->Fill(genantibmass, 1);
+	    h_HypAntiBM->Fill(hypantibmass, 1);
+	    
+	    if (Matching(LVHypB[solutionIndex], LVGenJet, LVGenB, deltar) == 1 ){
+	      h_hypbptmatching->Fill(LVHypB[solutionIndex].Pt(), 1);  
+              h_hypbetamatching->Fill(LVHypB[solutionIndex].Eta(), 1); 
+              h_hypbematching->Fill(LVHypB[solutionIndex].E(), 1);
+                
+              h_genbptmatching->Fill(LVGenB.Pt(), 1);                 
+              h_genbetamatching->Fill(LVGenB.Eta(), 1); 
+              h_genbematching->Fill(LVGenB.E(), 1);
+
+	    }
+	    else {
+	      h_hypbptnotmatching->Fill(LVHypB[solutionIndex].Pt(), 1);
+              h_hypbetanotmatching->Fill(LVHypB[solutionIndex].Eta(), 1); 
+              h_hypbenotmatching->Fill(LVHypB[solutionIndex].E(), 1);
+
+              h_genbptnotmatching->Fill(LVGenB.Pt(), 1);
+              h_genbetanotmatching->Fill(LVGenB.Eta(), 1);
+              h_genbenotmatching->Fill(LVGenB.E(), 1);
+	    };
+
+	    if (Matching(LVHypAntiB[solutionIndex], LVGenJet, LVGenAntiB, deltar) == 1){
+	      h_hypantibptmatching->Fill(LVHypAntiB[solutionIndex].Pt(), 1);    
+              h_hypantibetamatching->Fill(LVHypAntiB[solutionIndex].Eta(), 1);
+              h_hypantibematching->Fill(LVHypAntiB[solutionIndex].E(), 1);
+
+              h_genantibptmatching->Fill(LVGenAntiB.Pt(), 1);
+              h_genantibetamatching->Fill(LVGenAntiB.Eta(), 1);
+              h_genantibematching->Fill(LVGenAntiB.E(), 1);
+	    }
+	    else{
+	      h_hypantibptnotmatching->Fill(LVHypAntiB[solutionIndex].Pt(), 1);
+              h_hypantibetanotmatching->Fill(LVHypAntiB[solutionIndex].Eta(), 1);
+              h_hypantibenotmatching->Fill(LVHypAntiB[solutionIndex].E(), 1);
+
+              h_genantibptnotmatching->Fill(LVGenAntiB.Pt(), 1);
+              h_genantibetanotmatching->Fill(LVGenAntiB.Eta(), 1);
+              h_genantibenotmatching->Fill(LVGenAntiB.E(), 1);
+	     };
 	
+	     
 	    for (int i=0; i<(int)LVjet.size(); i++){
-	
 	      h_deltarrecojettohypb->Fill(LVjet[i].DeltaR(LVHypB[solutionIndex]), 1);
 	      h_deltarrecojettohypantib->Fill(LVjet[i].DeltaR(LVHypAntiB[solutionIndex]), 1);
 	      h_deltarrecojettogenb->Fill(LVjet[i].DeltaR(LVGenB), 1);
@@ -1006,21 +1091,71 @@ Bool_t Analysis::Process(Long64_t entry)
 	      h_deltarhypbtogenjet->Fill(LVHypB[solutionIndex].DeltaR(LVGenJet[i]), 1);
 	      h_deltarhypantibtogenjet->Fill(LVHypAntiB[solutionIndex].DeltaR(LVGenJet[i]), 1);
 
-	      //Differential distribution's matching or mismatching
-	      if (LVHypB[solutionIndex].DeltaR(LVGenJet[i])<deltar ){
-		if (LVGenJet[i].DeltaR(LVGenB)<deltar)           { h_hypbptmatching->Fill(LVHypB[solutionIndex].Pt(), 1);}
-		else if (LVGenJet[i].DeltaR(LVGenAntiB)<deltar)  { h_hypbptnotmatching->Fill(LVHypB[solutionIndex].Pt(), 1);};
-	      }
-	      else if(LVHypAntiB[solutionIndex].DeltaR(LVGenJet[i])<deltar){
-		if (LVGenJet[i].DeltaR(LVGenB)<deltar)		{ h_hypantibptnotmatching->Fill(LVHypAntiB[solutionIndex].Pt(), 1);}
-		else if (LVGenJet[i].DeltaR(LVGenAntiB)<deltar)	{ h_hypantibptmatching->Fill(LVHypAntiB[solutionIndex].Pt(), 1);};
-	      };
+
 
 	      for (int j=i+1; j<(int)LVGenJet.size(); j++){
 		h_deltargenjettogenjet->Fill(LVGenJet[i].DeltaR(LVGenJet[j]), 1);
 	      };
 	    };
-	
+	      
+	    //Differential distribution's matching or mismatching
+	    
+	    h_GenAntiBMRoot->Fill(LVGenAntiB.M(), 1);
+	    h_HypAntiBMRoot->Fill(LVHypAntiB[solutionIndex].M(), 1);
+            double genantibmass=TMath::Sqrt(LVGenAntiB.E()*LVGenAntiB.E()-LVGenAntiB.Px()*LVGenAntiB.Px()-LVGenAntiB.Py()*LVGenAntiB.Py()-LVGenAntiB.Pz()*LVGenAntiB.Pz());
+            double hypantibmass=TMath::Sqrt(LVHypAntiB[solutionIndex].E()*LVHypAntiB[solutionIndex].E()-LVHypAntiB[solutionIndex].Px()*LVHypAntiB[solutionIndex].Px()-LVHypAntiB[solutionIndex].Py()*LVHypAntiB[solutionIndex].Py()-LVHypAntiB[solutionIndex].Pz()*LVHypAntiB[solutionIndex].Pz());
+            h_GenAntiBM->Fill(genantibmass, 1);
+	    h_HypAntiBM->Fill(hypantibmass, 1);
+	    
+            h_GenBMRoot->Fill(LVGenB.M(), 1);
+	    h_HypBMRoot->Fill(LVHypB[solutionIndex].M(), 1);
+            double genbmass= TMath::Sqrt(LVGenB.E()*LVGenB.E()-LVGenB.Px()*LVGenB.Px()-LVGenB.Py()*LVGenB.Py()-LVGenB.Pz()*LVGenB.Pz());
+            double hypbmass= TMath::Sqrt(LVHypB[solutionIndex].E()*LVHypB[solutionIndex].E()-LVHypB[solutionIndex].Px()*LVHypB[solutionIndex].Px()-LVHypB[solutionIndex].Py()*LVHypB[solutionIndex].Py()-LVHypB[solutionIndex].Pz()*LVHypB[solutionIndex].Pz());
+            h_GenBM->Fill(genbmass, 1);
+	    h_HypBM->Fill(hypbmass, 1);
+	    
+	    if (Matching(LVHypB[solutionIndex], LVGenJet, LVGenB, deltar) == 1 ){
+	      h_hypbptmatching->Fill(LVHypB[solutionIndex].Pt(), 1);  
+              h_hypbetamatching->Fill(LVHypB[solutionIndex].Eta(), 1); 
+              h_hypbematching->Fill(LVHypB[solutionIndex].E(), 1);
+                
+              h_genbptmatching->Fill(LVGenB.Pt(), 1);                 
+              h_genbetamatching->Fill(LVGenB.Eta(), 1); 
+              h_genbematching->Fill(LVGenB.E(), 1);
+	    }
+	    else {
+	      h_hypbptnotmatching->Fill(LVHypB[solutionIndex].Pt(), 1);
+              h_hypbetanotmatching->Fill(LVHypB[solutionIndex].Eta(), 1); 
+              h_hypbenotmatching->Fill(LVHypB[solutionIndex].E(), 1);
+
+              h_genbptnotmatching->Fill(LVGenB.Pt(), 1);
+              h_genbetanotmatching->Fill(LVGenB.Eta(), 1);
+              h_genbenotmatching->Fill(LVGenB.E(), 1);
+	    };
+
+
+	    
+	    if (Matching(LVHypAntiB[solutionIndex], LVGenJet, LVGenAntiB, deltar) == 1){
+	      h_hypantibptmatching->Fill(LVHypAntiB[solutionIndex].Pt(), 1);
+              h_hypantibetamatching->Fill(LVHypAntiB[solutionIndex].Eta(), 1);
+              h_hypantibematching->Fill(LVHypAntiB[solutionIndex].E(), 1);
+
+              h_genantibptmatching->Fill(LVGenAntiB.Pt(), 1);
+              h_genantibetamatching->Fill(LVGenAntiB.Eta(), 1);
+              h_genantibematching->Fill(LVGenAntiB.E(), 1);
+
+              
+	    }
+	    else{
+	      h_hypantibptnotmatching->Fill(LVHypAntiB[solutionIndex].Pt(), 1);
+              h_hypantibetanotmatching->Fill(LVHypAntiB[solutionIndex].Eta(), 1);
+              h_hypantibenotmatching->Fill(LVHypAntiB[solutionIndex].E(), 1);
+
+              h_genantibptnotmatching->Fill(LVGenAntiB.Pt(), 1);
+              h_genantibetanotmatching->Fill(LVGenAntiB.Eta(), 1);
+              h_genantibenotmatching->Fill(LVGenAntiB.E(), 1);
+	    };
+
 	    for (int i=0; i<(int)LVjet.size(); i++){
 	
 	      h_deltarrecojettohypb->Fill(LVjet[i].DeltaR(LVHypB[solutionIndex]), 1);
@@ -1373,5 +1508,40 @@ void Analysis::Terminate()
   h_hypantibptmatching->Write();
   h_hypantibptnotmatching->Write();
   
+  h_genbptmatching->Write();
+  h_genbptnotmatching->Write();
+  h_genantibptmatching->Write();
+  h_genantibptnotmatching->Write();
+
+  h_hypbetamatching->Write();
+  h_hypbetanotmatching->Write();
+  h_hypantibetamatching->Write();
+  h_hypantibetanotmatching->Write();
+  
+  h_genbetamatching->Write();
+  h_genbetanotmatching->Write();
+  h_genantibetamatching->Write();
+  h_genantibetanotmatching->Write();
+
+  h_hypbematching->Write();
+  h_hypbenotmatching->Write();
+  h_hypantibematching->Write();
+  h_hypantibenotmatching->Write();
+  
+  h_genbematching->Write();
+  h_genbenotmatching->Write();
+  h_genantibematching->Write();
+  h_genantibenotmatching->Write();
+  
+  h_GenAntiBMRoot->Write();
+  h_HypAntiBMRoot->Write();
+  h_GenAntiBM->Write();
+  h_HypAntiBM->Write();
+
+  h_GenBMRoot->Write();
+  h_HypBMRoot->Write();
+  h_GenBM->Write();
+  h_HypBM->Write();
+
   f->Close();
 }
