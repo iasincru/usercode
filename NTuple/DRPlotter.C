@@ -10,9 +10,16 @@
 
 void DRPlotter(){
 
+  //Number of BHadrons' daughter particles in a jet
+  DrawComparisons(4, 0, 1, "SizeLeadingDRDistribLin", ".pdf(");
+  DrawComparisons(4, 0, 1, "SizeLeadingDRDistribLog", ".pdf", 1);
+  
+  //Leading Jet Size distributionfor pT leading not and top
+  DrawComparisons(3, 0, 1, "SizeLeadingDRDistribLin", ".pdf");
+  DrawComparisons(3, 0, 1, "SizeLeadingDRDistribLog", ".pdf", 1);
   
   //Leading Jet Index distributionfor pT leading not and top
-  DrawComparisons(2, 0, 1, "IndexLeadingDRDistrib", ".pdf(");
+  DrawComparisons(2, 0, 1, "IndexLeadingDRDistrib", ".pdf");
   //Leading Jet Index distributionfor pT leading not and top
   DrawComparisons(2, 1, 1, "IndexLeadingDRDistrib", ".pdf");
   
@@ -51,7 +58,7 @@ void DRPlotter(){
   DrawComparisons2(1, "LeadTopJet", "DRpTLeadTopVsDRLeadTop", ".pdf");
   //DR distribution for pT-NLeading or DR-NLeading jets from Top
   DrawComparisons2(1, "LeadTopJet", "DRpTNLeadTopVsDRNLeadTop", ".pdf)");
-  
+
   return;
 }
 
@@ -94,6 +101,13 @@ void DrawComparisons2(int quantity, TString h_name, TString filename, TString fi
   h1 = (TH1D*) f->Get(h1_name);
   h2 = (TH1D*) f->Get(h2_name);
 
+  
+  std::ostringstream h1_entries; h1_entries << h1->GetEntries();
+  std::ostringstream h2_entries; h2_entries << h2->GetEntries();
+
+  h1_legend = "pT ordering. Int: "; h1_legend.Append(h1_entries.str() );
+  h2_legend = "#Delta R ordering. Int: "; h2_legend.Append(h2_entries.str() );
+  
   
   TCanvas *c1 = new TCanvas();//("", "", 0, 0, 1000, 1000);
   //h1->SetTitle(h1_title);
@@ -158,8 +172,16 @@ void DrawComparisons(int quantity, int distribution, bool leading, TString filen
     h1_name.Append("Index");
     h2_name.Append("Index");
   }
+  else if(quantity == 3){
+    h1_name.Append("Size");
+    h2_name.Append("Size");
+  }
+  else if (quantity == 4){
+    h1_name.Append("");
+    h2_name.Append("");
+  }
   else{
-    cout<<"ERROR: you used a wrong set up: pT or DR"<<endl;
+    cout<<"ERROR: you used a wrong set up: 0:pT, 1:DR, 2:Index, 3:Size or 4:BHadrons in Jet"<<endl;
     return;
   };
   
@@ -171,7 +193,7 @@ void DrawComparisons(int quantity, int distribution, bool leading, TString filen
   else if (leading == 0){
     h1_name.Append("NLeadJet");
     h2_name.Append("NLeadTopJet");
-    h1_title.Append(" Next-leading Jets");
+    h1_title.Append("Next-leading Jets");
   }
   else {
     cout<<"ERROR: you used a wrong set up: 1 or 0"<<endl;
@@ -205,16 +227,32 @@ void DrawComparisons(int quantity, int distribution, bool leading, TString filen
     h1_Xaxis = "Jet Index";
     h2_Xaxis = "Jet Index";
   }
+  else if(quantity == 3){
+    h1_Xaxis = "Jet Size";
+    h2_Xaxis = "Jet Size";
+  }
+  else if(quantity == 4){
+    h1_name.Clear(); h1_name.Append("JetSize");
+    h2_name.Clear(); h2_name.Append("TopJetSize");
+    h1_Xaxis = "# Hadrons";
+    h2_Xaxis = "# Hadrons";
+    h1_title.Clear(); h1_title.Append("Number of different BHadrons matched to a jet");
+    h2_title.Clear(); h2_title.Append("Number of different BHadrons matched to a jet");
+  }
   else{
-    cout<<"ERROR: you used a wrong set up: 0:pT, 1:DR or 2:Index "<<endl;
+    cout<<"ERROR: you used a wrong set up: 0:pT, 1:DR, 2:Index or 3:Size "<<endl;
     return;
   }
   
+  
   h1 = (TH1D*) f->Get(h1_name);
   h2 = (TH1D*) f->Get(h2_name);
+  
+  std::ostringstream h1_entries; h1_entries << h1->GetEntries();
+  std::ostringstream h2_entries; h2_entries << h2->GetEntries();
 
-  h1_legend = "Not t-quark";
-  h2_legend = "From t-quark";
+  h1_legend = "Not t-quark. Int.: "; h1_legend.Append(h1_entries.str() );
+  h2_legend = "From t-quark. Int.: "; h2_legend.Append(h2_entries.str() );
   
   
   TCanvas *c1 = new TCanvas();//("", "", 0, 0, 1000, 1000);
