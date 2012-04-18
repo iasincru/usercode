@@ -215,7 +215,7 @@ TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/TopSingleMuonMediumDQM
   
   h1->SetLineColor(kBlack);
   h1->SetLineWidth(5);
-  h1->SetMarkerStyle(20);
+  //h1->SetMarkerStyle(20);
   
   h2->SetLineColor(kRed);
   h2->SetLineWidth(1);
@@ -232,10 +232,10 @@ TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/TopSingleMuonMediumDQM
   
   TCanvas *c1 = new TCanvas();
   
-    
+  /*  
   if (maxh1 >= maxh2){
-    h1->Draw("p");
-    //h1->Draw("same, p");
+    h1->Draw();
+    h1->Draw("same, p");
     h2->Draw("same");
   }
   else{
@@ -243,14 +243,48 @@ TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/TopSingleMuonMediumDQM
     h1->Draw("same");
     c1->SetLogy(1);
   }
+  */
+  
+  
+  h1->Draw();
+  gPad->Update();
+  TPaveStats* sb1=(TPaveStats*)(h1->FindObject("stats"));
+  sb1->SetX1NDC(0.825);
+  sb1->SetX2NDC(0.975);
+  sb1->SetY1NDC(0.825);
+  sb1->SetY2NDC(0.975);
+  sb1->SetTextColor(h1->GetLineColor());
+ // gPad->Modified();
+
+
+  h2->Draw();
+  gPad->Update();
+  TPaveStats* sb2=(TPaveStats*)(h2->FindObject("stats"));
+  sb2->SetX1NDC(0.825);
+  sb2->SetX2NDC(0.975);
+  sb2->SetY1NDC(0.775);
+  sb2->SetY2NDC(0.625);
+  sb2->SetTextColor(h2->GetLineColor());
+  gPad->Modified();
+  
+  
+  h1->Draw();
+  h2->Draw("same");
+
+  
   
   TLegend *l = new TLegend();
 //  l->SetFillStyle(0);
-  l->SetBorderSize(0);
-  l->SetX1NDC(1.0-gStyle->GetPadRightMargin()-gStyle->GetTickLength()-0.60);
+  l->SetBorderSize(1);
+  l->SetX1NDC(0.15);
+  l->SetX2NDC(0.35);
+  l->SetY1NDC(0.91);
+  l->SetY2NDC(0.99);
+/*  l->SetX1NDC(1.0-gStyle->GetPadRightMargin()-gStyle->GetTickLength()-1.0);
   l->SetY1NDC(1.0-gStyle->GetPadTopMargin()-gStyle->GetTickLength()-0.15);
-  l->SetX2NDC(1.0-gStyle->GetPadRightMargin()-gStyle->GetTickLength()-0.40);
+  l->SetX2NDC(1.0-gStyle->GetPadRightMargin()-gStyle->GetTickLength()-0.5);
   l->SetY2NDC(1.0-gStyle->GetPadTopMargin()-gStyle->GetTickLength());
+*/
   l->AddEntry(h1, h1_legend, "lp");
   l->AddEntry(h2, h2_legend, "lp");
   
@@ -355,7 +389,7 @@ void drawRatio(const TH1* histNumerator, TH1* histDenominator, const Double_t& r
   ratio->GetXaxis()->SetTitle(histNumerator->GetXaxis()->GetTitle());
   ratio->GetXaxis()->SetNdivisions(histNumerator->GetNdivisions());
   ratio->GetYaxis()->CenterTitle();
-  ratio->GetYaxis()->SetTitle("#frac{Non t}{t-quark}");
+  ratio->GetYaxis()->SetTitle("Ratio");
   ratio->GetYaxis()->SetTitleSize(histNumerator->GetYaxis()->GetTitleSize()*scaleFactor);
   ratio->GetYaxis()->SetTitleOffset(histNumerator->GetYaxis()->GetTitleOffset()/scaleFactor);
   ratio->GetYaxis()->SetLabelSize(histNumerator->GetYaxis()->GetLabelSize()*scaleFactor);
