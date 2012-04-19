@@ -102,7 +102,7 @@ void Compare(){
 //  Plot1D(f1, f2, "TriggerMon", ".pdf)", dirstr);
 
 
-TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/TopSingleMuonMediumDQM/step1";
+TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/TopSingleMuonMediumDQM/step2";
 
 
 //  Plot1D(f1, f2, "ElecCalIso", ".pdf(", dirstr);
@@ -148,7 +148,7 @@ TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/TopSingleMuonMediumDQM
 
 
 
-TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/TopSingleMuonMediumDQM/step2";
+TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/TopSingleMuonMediumDQM/step3";
 
 
 //  Plot1D(f1, f2, "ElecCalIso", ".pdf(", dirstr);
