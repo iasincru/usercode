@@ -1,0 +1,121 @@
+% layout for presentations with table of contents
+\documentclass{beamer}
+\usepackage{graphicx,color,fancybox,pifont, hyperref}
+
+% basic theme
+\usetheme{Madrid}
+
+% define DESY specific colours
+\definecolor{desycyan}{rgb}{0.000,0.651,0.922}
+\definecolor{desyorange}{rgb}{0.949,0.557,0.00}
+\definecolor{desygray}{rgb}{0.467,0.467,0.467}
+
+% change colours to desy style
+\setbeamercolor{title}{fg=white,bg=desycyan}
+\setbeamercolor{title bar}{fg=white,bg=desycyan}
+\setbeamercolor{frametitle}{fg=white,bg=desycyan}
+\setbeamercolor{section in head/foot}{fg=white,bg=desycyan}
+\setbeamercolor{subsection in head/foot}{fg=desycyan,bg=white}
+\setbeamercolor{normal text}{fg=black,bg=white}
+
+% set toc
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{subsection in toc}{fg=black}
+\setbeamercolor{section number projected}{fg=white,bg=desyorange}
+\setbeamercolor{subsection number projected}{fg=white,bg=desyorange}
+\setbeamertemplate{sections/subsections in toc}[square]
+
+% set itemize environments
+\setbeamercolor{description item}{fg=desyorange}
+\setbeamercolor{enumerate item}{fg=desyorange}
+\setbeamercolor{itemize item}{fg=desyorange}
+\setbeamertemplate{itemize item}{\color{desyorange}{\ding{228}}}
+\setbeamertemplate{itemize subitem}{\color{desygray}{\tiny{\ding{110}}}}
+
+% set block environments
+\setbeamercolor{block title}{fg=white,bg=desycyan}
+
+% add page numbers
+\setbeamertemplate{footline}[frame number]
+
+% settings for boxes
+\cornersize*{4mm}
+
+% remove navigation symbols on all slides
+\beamertemplatenavigationsymbolsempty
+
+
+%Relative path for images
+\graphicspath{{../Images/}}
+
+
+% data for titlepage
+\title[Data Monitoring]{Data Monitoring for Top Group}
+\author[Ivan Asin\inst{1}]{\underline{Ivan Asin}\inst{1}, Abideh Jafari\inst{2} and Enrique Palencia\inst{2}}
+\date{2012-04-26}
+\institute[DESY]{
+	\inst{1} DESY\\
+	\inst{2} School of Particles and Accelerator Inst. for Res. in Fundam. S.\\
+	\inst{3} CERN
+}
+
+\titlegraphic{
+\hspace{1cm}\includegraphics[width=1.5cm, height=1.5cm]{desyLogo.pdf}
+\hspace{6cm}\includegraphics[width=1.5cm, height=1.5cm]{CMSlogo.pdf}
+}
+
+\begin{document}
+
+\begin{frame}
+ \titlepage
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Introduction}
+\begin{itemize}
+%\item Selection criteria interesting for the Top Group (feedback always welcome)
+\item What will be presented later:
+\begin{itemize}
+\item Certified data comparison of consecutive weeks
+\item Certified VS Non Certified data of the same week
+\end{itemize}
+\item Common features
+\begin{itemize}
+\item CMSSW\_5\_2\_3\_patch4
+\item DQM/Physics  (V00-03-15)
+\item Dataset: /SingleMu/Run2012A-PromptReco-v1/AOD  (l+jets)
+\item Golden JSON\footnote{
+\href{https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions12/8TeV/Prompt/Cert_190456-191276\_8TeV\_PromptReco\_Collisions12\_JSON.txt}{$Cert\_190456-191276\_8TeV\_PromptReco\_Collisions12\_JSON.txt$}
+}:
+\begin{itemize}
+\item Week 2012/Apr/7-13: 190456-190688
+\item Week 2012/Apr/14-20: 190689-191276
+\end{itemize}
+\item Non Certified\footnote{\url{https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions12/8TeV/DCSOnly/json_DCSONLY.txt}}:
+\begin{itemize}
+\item Runs: 191276-191939
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Selection Cuts}
+Primary Vertex: $d_X<1.0$ cm, $d_Y<1.0$ cm, $d_Z<20.0$ cm
+\begin{columns}[c]
+\column{5cm}
+\center{Muon}
+\begin{itemize}
+\item 
+\end{itemize}
+\column{5cm}
+\center{Jets}
+\end{columns}
+
+
+
+\end{frame}
+
+\end{document}
