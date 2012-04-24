@@ -3,6 +3,9 @@
 #include <TH1.h>
 #include <TLegend.h>
 #include <TAttLine.h>
+#include <TCanvas.h>
+#include <TStyle.h>
+#include <TString.h>
 
 
 void Compare(){
@@ -76,11 +79,14 @@ void Compare(){
   */
   // ********************** Compare the histograms from 2 different files ***************************************
 
+  TString leg1="" , leg2="";
   
-  
-  f1 = TFile::Open("Week15/DQM_V0001_R000000001__TopVal__190456-190688__SingleMu_Run2012A-PromptReco-v1_week15.root");
-  f2 = TFile::Open("Week16/DQM_V0001_R000000001__TopVal__190689-191276__SingleMu_Run2012A-PromptReco-v1_week16.root");
-  
+  f1 = TFile::Open("Week15/DQM_V0001_R000000001__TopVal__190456-190688__SingleMu_Run2012A-PromptReco-v1_week15.root");	leg1.Append("Week15");
+  f2 = TFile::Open("Week16/DQM_V0001_R000000001__TopVal__190689-191276__SingleMu_Run2012A-PromptReco-v1_week16.root");	leg2.Append("Week16");
+  /*
+  f1 = TFile::Open("Week16/DQM_V0001_R000000001__TopVal__190689-191276__SingleMu_Run2012A-PromptReco-v1_week16.root");		leg1.Append("Certif.");
+  f2 = TFile::Open("Week16/DQM_V0001_R000000001__TopVal__191277-191939__SingleMu_Run2012A-PromptReco-v1_DCSONLY_week16.root");	leg2.Append("Non Certif.");
+  */
   
   
   
@@ -104,56 +110,56 @@ void Compare(){
   WP.Clear();		WP.Append("Loose");
   step.Clear();		step.Append("step0");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Compare2Files(f1, f2, particle, WP, step, outname);
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonLooseDQM/step1 ***************
   particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Loose");
   step.Clear();		step.Append("step1");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Compare2Files(f1, f2, particle, WP, step, outname);
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonLooseDQM/step2 ***************
   particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Loose");
   step.Clear();		step.Append("step2");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Compare2Files(f1, f2, particle, WP, step, outname);
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
     //********  SingleMuonLooseDQM/step3 ***************
   particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Loose");
   step.Clear();		step.Append("step3");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Compare2Files(f1, f2, particle, WP, step, outname);
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonMediumDQM/step0 ***************
   particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Medium");
   step.Clear();		step.Append("step0");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Compare2Files(f1, f2, particle, WP, step, outname);
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonMediumDQM/step1 ***************
   particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Medium");
   step.Clear();		step.Append("step1");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Compare2Files(f1, f2, particle, WP, step, outname);
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonMediumDQM/step2 ***************
   particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Medium");
   step.Clear();		step.Append("step2");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Compare2Files(f1, f2, particle, WP, step, outname);
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
     //********  SingleMuonMediumDQM/step3 ***************
   particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Medium");
   step.Clear();		step.Append("step3");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Compare2Files(f1, f2, particle, WP, step, outname);
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
 
 
@@ -285,7 +291,7 @@ void Plot1File(TFile* f1, TString particle, TString WP, TString step, TString ou
 }
 
 
-void Compare2Files(TFile* f1, TFile* f2, TString particle, TString WP, TString step, TString output){
+void Compare2Files(TFile* f1, TFile* f2, TString particle, TString WP, TString step, TString output, TString leg1, TString leg2){
 
   TString dirstr = "DQMData/Run\ 1/Physics/Run\ summary/Top/Top";
 
@@ -312,97 +318,96 @@ void Compare2Files(TFile* f1, TFile* f2, TString particle, TString WP, TString s
   
   if (particle.Contains("Single") == 1){
     
-    Plot1D(f1, f2, "ElecCalIso", output.Copy().Append("("), dirstr);
-    Plot1D(f1, f2, "ElecEta", output, dirstr);
-    Plot1D(f1, f2, "ElecMult", output, dirstr);
-    Plot1D(f1, f2, "ElecMultIso", output, dirstr);
-    Plot1D(f1, f2, "ElecPt", output, dirstr);
-    Plot1D(f1, f2, "ElecRelIso", output, dirstr);
-    Plot1D(f1, f2, "ElecTrkIso", output, dirstr);
-    Plot1D(f1, f2, "Jet1Pt", output, dirstr);
-    Plot1D(f1, f2, "Jet1PtRaw", output, dirstr);
-    Plot1D(f1, f2, "Jet2Pt", output, dirstr);
-    Plot1D(f1, f2, "Jet2PtRaw", output, dirstr);
-    Plot1D(f1, f2, "Jet3Pt", output, dirstr);
-    Plot1D(f1, f2, "Jet3PtRaw", output, dirstr);
-    Plot1D(f1, f2, "Jet4Pt", output, dirstr);
-    Plot1D(f1, f2, "Jet4PtRaw", output, dirstr);
-    Plot1D(f1, f2, "JetBDiscEff", output, dirstr);
-    Plot1D(f1, f2, "JetBDiscPur", output, dirstr);
-    Plot1D(f1, f2, "JetBDiscVtx", output, dirstr);
-    Plot1D(f1, f2, "JetMult", output, dirstr);
-    Plot1D(f1, f2, "JetMultBEff", output, dirstr);
-    Plot1D(f1, f2, "JetMultBPur", output, dirstr);
-    Plot1D(f1, f2, "JetMultBVtx", output, dirstr);
-    Plot1D(f1, f2, "METCalo", output, dirstr);
-    Plot1D(f1, f2, "METPflow", output, dirstr);
-    Plot1D(f1, f2, "METTC", output, dirstr);
-    Plot1D(f1, f2, "MassTop", output, dirstr);
-    Plot1D(f1, f2, "MassW", output, dirstr);
-    Plot1D(f1, f2, "MuonCalIso", output, dirstr);
-    Plot1D(f1, f2, "MuonDelZ", output, dirstr);
-    Plot1D(f1, f2, "MuonEta", output, dirstr);
-    Plot1D(f1, f2, "MuonMult", output, dirstr);
-    Plot1D(f1, f2, "MuonMultIso", output, dirstr);
-    Plot1D(f1, f2, "MuonPt", output, dirstr);
-    Plot1D(f1, f2, "MuonRelIso", output, dirstr);
-    Plot1D(f1, f2, "MuonTrkIso", output, dirstr);
-    Plot1D(f1, f2, "PvMult", output, dirstr);
-    Plot1D(f1, f2, "TriggerEff", output, dirstr);
-    //Plot1D(f1, f2, "TriggerMon", output, dirstr);
-    Plot1D(f1, f2, "TriggerMon", output.Copy().Append(")"), dirstr);
+    Plot1D(f1, f2, "ElecCalIso", output.Copy().Append("("), dirstr, leg1, leg2);
+    Plot1D(f1, f2, "ElecEta", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "ElecMult", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "ElecMultIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "ElecPt", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "ElecRelIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "ElecTrkIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "Jet1Pt", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "Jet1PtRaw", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "Jet2Pt", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "Jet2PtRaw", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "Jet3Pt", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "Jet3PtRaw", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "Jet4Pt", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "Jet4PtRaw", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "JetBDiscEff", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "JetBDiscPur", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "JetBDiscVtx", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "JetMult", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "JetMultBEff", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "JetMultBPur", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "JetMultBVtx", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "METCalo", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "METPflow", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "METTC", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MassTop", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MassW", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MuonCalIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MuonDelZ", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MuonEta", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MuonMult", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MuonMultIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MuonPt", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MuonRelIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "MuonTrkIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "PvMult", output.Append(")"), dirstr, leg1, leg2);
+    //Plot1D(f1, f2, "TriggerEff", output, dirstr, leg1, leg2);
+    //Plot1D(f1, f2, "TriggerMon", output.Copy().Append(")"), dirstr, leg1, leg2);
   }
   else if( particle.Contains("DiLepton")){
     
-    Plot1D(f1, "DEtaJet1Jet2", output.Copy().Append("("), dirstr);
-    Plot1D(f1, "DEtaJet1Lep1", output, dirstr);
-    Plot1D(f1, "DEtaJet1MET", output, dirstr);
-    Plot1D(f1, "DEtaL1L2", output, dirstr);
-    Plot1D(f1, "DEtaLep1MET", output, dirstr);
-    Plot1D(f1, "DPhiJet1Jet2", output, dirstr);
-    Plot1D(f1, "DPhiJet1Lep1", output, dirstr);
-    Plot1D(f1, "DPhiJet1MET", output, dirstr);
-    Plot1D(f1, "DPhiL1L2", output, dirstr);
-    Plot1D(f1, "DPhiLep1MET", output, dirstr);
-    Plot1D(f1, "DecayChannel", output, dirstr);
-    Plot1D(f1, "DiElecLogger", output, dirstr);
-    Plot1D(f1, "DiMuonEff", output, dirstr);
-    Plot1D(f1, "DiMuonLogger", output, dirstr);
-    Plot1D(f1, "DiMuonMon", output, dirstr);
-    Plot1D(f1, "ElecCalIso", output, dirstr);
-    Plot1D(f1, "ElecMuEff", output, dirstr);
-    Plot1D(f1, "ElecMuLogger", output, dirstr);
-    Plot1D(f1, "ElecMuMon", output, dirstr);
-    Plot1D(f1, "ElecMultIso", output, dirstr);
-    Plot1D(f1, "ElecMultIso", output, dirstr);
-    Plot1D(f1, "ElecPt", output, dirstr);
-    Plot1D(f1, "ElecRelIso", output, dirstr);
-    Plot1D(f1, "ElecTrkIso", output, dirstr);
-    Plot1D(f1, "InvMass", output, dirstr);
-    Plot1D(f1, "InvMassLog", output, dirstr);
-    Plot1D(f1, "InvMassLogWC", output, dirstr);
-    Plot1D(f1, "InvMassWC", output, dirstr);
-    Plot1D(f1, "Jet1Eta", output, dirstr);
-    Plot1D(f1, "Jet1Pt", output, dirstr);
-    Plot1D(f1, "Jet1PtRaw", output, dirstr);
-    Plot1D(f1, "Jet2Eta", output, dirstr);
-    Plot1D(f1, "Jet2Pt", output, dirstr);
-    Plot1D(f1, "Jet2PtRaw", output, dirstr);
-    Plot1D(f1, "JetMult", output, dirstr);
-    Plot1D(f1, "Lep1Pt", output, dirstr);
-    Plot1D(f1, "Lep2Pt", output, dirstr);
-    Plot1D(f1, "LepMultIso", output, dirstr);
-    Plot1D(f1, "METCalo", output, dirstr);
-    Plot1D(f1, "METPflow", output, dirstr);
-    Plot1D(f1, "METTC", output, dirstr);
-    Plot1D(f1, "MuonCalIso", output, dirstr);
-    Plot1D(f1, "MuonDelZ", output, dirstr);
-    Plot1D(f1, "MuonDelXY", output, dirstr);
-    Plot1D(f1, "MuonMultIso", output, dirstr);
-    Plot1D(f1, "MuonPt", output, dirstr);
-    Plot1D(f1, "MuonRelIso", output, dirstr);
-    Plot1D(f1, "MuonTrkIso", output, dirstr);
-    Plot1D(f1, "SumEtaL1L2", output.Copy().Append(")"), dirstr);
+    Plot1D(f1, "DEtaJet1Jet2", output.Copy().Append("("), dirstr, leg1, leg2);
+    Plot1D(f1, "DEtaJet1Lep1", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DEtaJet1MET", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DEtaL1L2", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DEtaLep1MET", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DPhiJet1Jet2", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DPhiJet1Lep1", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DPhiJet1MET", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DPhiL1L2", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DPhiLep1MET", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DecayChannel", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DiElecLogger", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DiMuonEff", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DiMuonLogger", output, dirstr, leg1, leg2);
+    Plot1D(f1, "DiMuonMon", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecCalIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecMuEff", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecMuLogger", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecMuMon", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecMultIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecMultIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecPt", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecRelIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "ElecTrkIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "InvMass", output, dirstr, leg1, leg2);
+    Plot1D(f1, "InvMassLog", output, dirstr, leg1, leg2);
+    Plot1D(f1, "InvMassLogWC", output, dirstr, leg1, leg2);
+    Plot1D(f1, "InvMassWC", output, dirstr, leg1, leg2);
+    Plot1D(f1, "Jet1Eta", output, dirstr, leg1, leg2);
+    Plot1D(f1, "Jet1Pt", output, dirstr, leg1, leg2);
+    Plot1D(f1, "Jet1PtRaw", output, dirstr, leg1, leg2);
+    Plot1D(f1, "Jet2Eta", output, dirstr, leg1, leg2);
+    Plot1D(f1, "Jet2Pt", output, dirstr, leg1, leg2);
+    Plot1D(f1, "Jet2PtRaw", output, dirstr, leg1, leg2);
+    Plot1D(f1, "JetMult", output, dirstr, leg1, leg2);
+    Plot1D(f1, "Lep1Pt", output, dirstr, leg1, leg2);
+    Plot1D(f1, "Lep2Pt", output, dirstr, leg1, leg2);
+    Plot1D(f1, "LepMultIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "METCalo", output, dirstr, leg1, leg2);
+    Plot1D(f1, "METPflow", output, dirstr, leg1, leg2);
+    Plot1D(f1, "METTC", output, dirstr, leg1, leg2);
+    Plot1D(f1, "MuonCalIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "MuonDelZ", output, dirstr, leg1, leg2);
+    Plot1D(f1, "MuonDelXY", output, dirstr, leg1, leg2);
+    Plot1D(f1, "MuonMultIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "MuonPt", output, dirstr, leg1, leg2);
+    Plot1D(f1, "MuonRelIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "MuonTrkIso", output, dirstr, leg1, leg2);
+    Plot1D(f1, "SumEtaL1L2", output.Copy().Append(")"), dirstr, leg1, leg2);
   }
 
   
@@ -459,7 +464,7 @@ void Plot1D(TFile *f1, TString hist, TString filename, TString dirstr){
 
 
 //Function to compare 2 files' histograms and plot also the Ratio plot
-void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr){
+void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr, TString leg1, TString leg2){
   
   TDirectoryFile *dir1 = (TFile*) f1->Get(dirstr);
   TDirectoryFile *dir2 = (TFile*) f2->Get(dirstr);
@@ -471,14 +476,16 @@ void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr
   TH1* h2 = (TH1*)dir2->Get(hist);
   
   h1->SetLineColor(kBlue);
-  h1->SetLineWidth(2);
   //h1->SetMarkerStyle(20);
   
   h2->SetLineColor(kRed);
-  h2->SetLineWidth(1);
+  //h2->SetLineWidth(1);
   
-  TString h1_legend = f1->GetName(); h1_legend.Remove(6);
-  TString h2_legend = f2->GetName(); h2_legend.Remove(6);
+//   TString h1_legend = f1->GetName(); h1_legend.Remove(6);
+//   TString h2_legend = f2->GetName(); h2_legend.Remove(6);
+
+  TString h1_legend="";	h1_legend.Append(leg1);
+  TString h2_legend="";	h2_legend.Append(leg2);
 
   double h1_scale = h1->Integral();
   double h2_scale = h2->Integral();
@@ -487,7 +494,7 @@ void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr
   h2->Scale(1./h2_scale);
   
   double h1_max = h1->GetMaximum();
-  double h2_max = h2->GetMaximum();    
+  double h2_max = h2->GetMaximum();
   
   TCanvas *c1 = new TCanvas();
   
@@ -514,10 +521,12 @@ void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr
   
 
   if (h1_max >= h2_max){
+    h1->SetLineWidth(2);
     h1->Draw();
     h2->Draw("same");
   }
   else{
+    h2->SetLineWidth(2);
     h2->Draw();
     h1->Draw("same");
   
@@ -542,7 +551,17 @@ void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr
   l->Draw("same");
   
   drawRatio(h1, h2, 0.5, 1.5, *gStyle);
+
+  //New naming for the single plot files
+  TString singlename = ""; 
+  if (dirstr.Contains("Medium") == 1){
+    singlename.Append(dirstr); singlename.Remove(0, 38); singlename.Replace(22, 1, "_");singlename.Append(hist).Append(".png");
+  }
+  else{
+    singlename.Append(dirstr); singlename.Remove(0, 38); singlename.Replace(21, 1, "_");singlename.Append(hist).Append(".png");
+  }
   
+  c1->Print(singlename);
   c1->Print(outfilename.Append(filetype));
   
 }
@@ -653,7 +672,7 @@ void drawRatio(const TH1* histNumerator, TH1* histDenominator, const Double_t& r
   histNumerator->GetXaxis()->SetTitleSize(0);
   // draw ratio plot
   ratio->DrawClone("p e X0");
-  ratio->SetMarkerSize(1.2);
+  ratio->SetMarkerSize(1.0);
   ratio->SetMarkerStyle(20);
   ratio->DrawClone("p e X0 same");
   rPad->SetTopMargin(0.0);
