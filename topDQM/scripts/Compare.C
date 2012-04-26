@@ -17,78 +17,21 @@ void Compare(){
   cout<<"****************************************************************"<<endl;
   
   TString particle, WP, step, outname, f1_name, f2_name;
-  
-  TFile *f1, *f2;
-  
-  /*
-  //*********     Plotting out all the Histograms from a file **********************
-  f1 = TFile::Open("DQM_V0001_R000000001__TopVal__CMSSW_5_2_1__GEN-SIM-RECO.root");
-  
-  
-  
-  f1_name = f1->GetName();
-  int size = f1_name.Sizeof();
-  f1_name.Remove(size-6, 5);//Remove .root extension
-  f1_name.Remove(0, 22); //Remove DQM_V0001_R000000001__ extension
-  
-  //******** DiLetponDQM/step0 *******
-  particle.Append("DiLepton");
-  WP.Append("Medium");
-  step.Append("step0");
-  outname = f1_name.Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Plot1File(f1, particle, WP, step, outname);
-  
-  //******** DiLetponDQM/step1 *******
-  step.Clear();		step.Append("step1");
-  outname.Clear();	outname	= f1_name.Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Plot1File(f1, particle, WP, step, outname);
-  
-  //******** SingleMuonLooseDQM/step0 *******
-  particle.Clear();	particle.Append("SingleMuon");
-  WP.Clear();		WP.Append("Medium");
-  step.Clear();		step.Append("step0");
-  outname.Clear();	outname = f1_name.Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Plot1File(f1, particle, WP, step, outname);
-  
-  //******** SingleMuonLooseDQM/step1 *******
-  step.Clear();		step.Append("step1");
-  outname.Clear();	outname = f1_name.Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Plot1File(f1, particle, WP, step, outname);
-  
-  //******** SingleMuonLooseDQM/step2 *******
-  step.Clear();		step.Append("step2");
-  outname.Clear();	outname = f1_name.Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Plot1File(f1, particle, WP, step, outname);
-  
-  //******** SingleMuonLooseDQM/step2 *******
-  step.Clear();		step.Append("step2");
-  outname.Clear();	outname = f1_name.Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Plot1File(f1, particle, WP, step, outname);
-  
-  //******** SingleMuonLooseDQM/step3 *******
-  step.Clear();		step.Append("step3");
-  outname.Clear();	outname = f1_name.Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Plot1File(f1, particle, WP, step, outname);
-  
-  //******** SingleMuonLooseDQM/step4 *******
-  step.Clear();		step.Append("step4");
-  outname.Clear();	outname = f1_name.Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
-  Plot1File(f1, particle, WP, step, outname);
-  
-  
-  */
-  // ********************** Compare the histograms from 2 different files ***************************************
-
   TString leg1="" , leg2="";
-  
-  f1 = TFile::Open("Week15/DQM_V0001_R000000001__TopVal__190456-190688__SingleMu_Run2012A-PromptReco-v1_week15.root");	leg1.Append("Week15");
-  f2 = TFile::Open("Week16/DQM_V0001_R000000001__TopVal__190689-191276__SingleMu_Run2012A-PromptReco-v1_week16.root");	leg2.Append("Week16");
+  TFile *f1, *f2;
+
   /*
-  f1 = TFile::Open("Week16/DQM_V0001_R000000001__TopVal__190689-191276__SingleMu_Run2012A-PromptReco-v1_week16.root");		leg1.Append("Certif.");
-  f2 = TFile::Open("Week16/DQM_V0001_R000000001__TopVal__191277-191939__SingleMu_Run2012A-PromptReco-v1_DCSONLY_week16.root");	leg2.Append("Non Certif.");
+  f1 = TFile::Open("week15/DQM_V0001_R000000001__TopVal__190456-190688__SingleMu_Run2012A-PromptReco-v1_week15.root");	leg1.Append("190456-190688");		 particle.Clear();	particle.Append("SingleMuon");
+  f2 = TFile::Open("week16/DQM_V0001_R000000001__TopVal__190689-191276__SingleMu_Run2012A-PromptReco-v1_week16.root");	leg2.Append("190689-191276");
   */
-  
-  
+  /*
+  f1 = TFile::Open("week16/DQM_V0001_R000000001__TopVal__190689-191276__SingleMu_Run2012A-PromptReco-v1_week16.root");		leg1.Append("Certif.");		 particle.Clear();	particle.Append("SingleMuon");
+  f2 = TFile::Open("week16/DQM_V0001_R000000001__TopVal__191277-191939__SingleMu_Run2012A-PromptReco-v1_DCSONLY_week16.root");	leg2.Append("Non Certif.");
+  */
+  /**/
+  f1 = TFile::Open("week16/DQM_V0001_R000000001__TopVal__190689-191276__SingleElectron_Run2012A-PromptReco-v1_week16.root");		leg1.Append("Certif.");		 particle.Clear();	particle.Append("SingleElectron");
+  f2 = TFile::Open("week16/DQM_V0001_R000000001__TopVal__191277-191939__SingleElectron_Run2012A-PromptReco-v1_DCSONLY_week16.root");	leg2.Append("Non Certif.");
+  /**/
   
   f1_name = f1->GetName();
   int size = f1_name.Sizeof();
@@ -106,61 +49,66 @@ void Compare(){
   */
 
   //********  SingleMuonLooseDQM/step0 ***************
-  particle.Clear();	particle.Append("SingleMuon");
-  WP.Clear();		WP.Append("Loose");
+   WP.Clear();		WP.Append("Loose");
   step.Clear();		step.Append("step0");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
   Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonLooseDQM/step1 ***************
-  particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Loose");
   step.Clear();		step.Append("step1");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
   Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonLooseDQM/step2 ***************
-  particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Loose");
   step.Clear();		step.Append("step2");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
   Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
-    //********  SingleMuonLooseDQM/step3 ***************
-  particle.Clear();	particle.Append("SingleMuon");
+  //********  SingleMuonLooseDQM/step3 ***************
   WP.Clear();		WP.Append("Loose");
   step.Clear();		step.Append("step3");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
   Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
+  //********  SingleMuonLooseDQM/step4 ***************
+  WP.Clear();		WP.Append("Loose");
+  step.Clear();		step.Append("step4");
+  outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
+  
+  
+  
   //********  SingleMuonMediumDQM/step0 ***************
-  particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Medium");
   step.Clear();		step.Append("step0");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
   Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonMediumDQM/step1 ***************
-  particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Medium");
   step.Clear();		step.Append("step1");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
   Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
   //********  SingleMuonMediumDQM/step2 ***************
-  particle.Clear();	particle.Append("SingleMuon");
   WP.Clear();		WP.Append("Medium");
   step.Clear();		step.Append("step2");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
   Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
-    //********  SingleMuonMediumDQM/step3 ***************
-  particle.Clear();	particle.Append("SingleMuon");
+  //********  SingleMuonMediumDQM/step3 ***************
   WP.Clear();		WP.Append("Medium");
   step.Clear();		step.Append("step3");
   outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
   Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
+  //********  SingleMuonMediumDQM/step4 ***************
+  WP.Clear();		WP.Append("Medium");
+  step.Clear();		step.Append("step4");
+  outname.Clear();	outname = f1_name.Copy().Append("---VS---").Append(f2_name).Copy().Append("__").Append(particle).Append(WP).Append("__").Append(step).Append(".pdf");
+  Compare2Files(f1, f2, particle, WP, step, outname, leg1, leg2);
 
 
   
@@ -333,9 +281,9 @@ void Compare2Files(TFile* f1, TFile* f2, TString particle, TString WP, TString s
     Plot1D(f1, f2, "Jet3PtRaw", output, dirstr, leg1, leg2);
     Plot1D(f1, f2, "Jet4Pt", output, dirstr, leg1, leg2);
     Plot1D(f1, f2, "Jet4PtRaw", output, dirstr, leg1, leg2);
-    Plot1D(f1, f2, "JetBDiscEff", output, dirstr, leg1, leg2);
-    Plot1D(f1, f2, "JetBDiscPur", output, dirstr, leg1, leg2);
-    Plot1D(f1, f2, "JetBDiscVtx", output, dirstr, leg1, leg2);
+    Plot1D(f1, f2, "JetBDiscEff", output, dirstr, leg1, leg2, 1);
+    Plot1D(f1, f2, "JetBDiscPur", output, dirstr, leg1, leg2, 1);
+    Plot1D(f1, f2, "JetBDiscVtx", output, dirstr, leg1, leg2, 1);
     Plot1D(f1, f2, "JetMult", output, dirstr, leg1, leg2);
     Plot1D(f1, f2, "JetMultBEff", output, dirstr, leg1, leg2);
     Plot1D(f1, f2, "JetMultBPur", output, dirstr, leg1, leg2);
@@ -431,7 +379,7 @@ void Plot1D(TFile *f1, TString hist, TString filename, TString dirstr){
   
   double scaleh1 = h1->Integral();
   
-  TCanvas *c1 = new TCanvas();
+  TCanvas *c1 = new TCanvas("", "", 1000, 1000);
   
   h1->Draw();
   gPad->Update();
@@ -464,7 +412,7 @@ void Plot1D(TFile *f1, TString hist, TString filename, TString dirstr){
 
 
 //Function to compare 2 files' histograms and plot also the Ratio plot
-void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr, TString leg1, TString leg2){
+void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr, TString leg1, TString leg2, int LogY=0){
   
   TDirectoryFile *dir1 = (TFile*) f1->Get(dirstr);
   TDirectoryFile *dir2 = (TFile*) f2->Get(dirstr);
@@ -484,6 +432,9 @@ void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr
 //   TString h1_legend = f1->GetName(); h1_legend.Remove(6);
 //   TString h2_legend = f2->GetName(); h2_legend.Remove(6);
 
+  h1->Sumw2();
+  h2->Sumw2();
+  
   TString h1_legend="";	h1_legend.Append(leg1);
   TString h2_legend="";	h2_legend.Append(leg2);
 
@@ -497,6 +448,9 @@ void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr
   double h2_max = h2->GetMaximum();
   
   TCanvas *c1 = new TCanvas();
+  
+  if(LogY == 1){c1->SetLogy(1);}
+  else {c1->SetLogy(0);}
   
   h1->Draw();
   gPad->Update();
@@ -522,22 +476,22 @@ void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr
 
   if (h1_max >= h2_max){
     h1->SetLineWidth(2);
-    h1->Draw();
-    h2->Draw("same");
+    h1->Draw("h");
+    h2->Draw("h same");
   }
   else{
     h2->SetLineWidth(2);
-    h2->Draw();
-    h1->Draw("same");
+    h2->Draw("h");
+    h1->Draw("h same");
   
   }
   
   
   TLegend *l = new TLegend();
-//  l->SetFillStyle(0);
-  l->SetBorderSize(1);
-  l->SetX1NDC(0.15);
-  l->SetX2NDC(0.35);
+  l->SetFillStyle(0);
+  l->SetBorderSize(0);
+  l->SetX1NDC(0.05);
+  l->SetX2NDC(0.25);
   l->SetY1NDC(0.91);
   l->SetY2NDC(0.99);
 /*  l->SetX1NDC(1.0-gStyle->GetPadRightMargin()-gStyle->GetTickLength()-1.0);
@@ -553,12 +507,22 @@ void Plot1D(TFile *f1, TFile *f2, TString hist, TString filetype, TString dirstr
   drawRatio(h1, h2, 0.5, 1.5, *gStyle);
 
   //New naming for the single plot files
-  TString singlename = ""; 
-  if (dirstr.Contains("Medium") == 1){
-    singlename.Append(dirstr); singlename.Remove(0, 38); singlename.Replace(22, 1, "_");singlename.Append(hist).Append(".png");
+   TString singlename="";
+  if (dirstr.Contains("Electron") == 1 ){
+    if (dirstr.Contains("Medium") == 1){
+      singlename.Append(dirstr); singlename.Remove(0, 38);singlename.Replace(26, 1, "_");singlename.Append(hist).Append(".pdf");//.png");
+    }
+    else if(dirstr.Contains("Loose") == 1){
+      singlename.Append(dirstr); singlename.Remove(0, 38);singlename.Replace(25, 1, "_");singlename.Append(hist).Append(".pdf");//.png");
+    }
   }
-  else{
-    singlename.Append(dirstr); singlename.Remove(0, 38); singlename.Replace(21, 1, "_");singlename.Append(hist).Append(".png");
+  else if (dirstr.Contains("Muon") == 1 ){
+    if (dirstr.Contains("Medium") == 1){
+      singlename.Append(dirstr); singlename.Remove(0, 38);singlename.Replace(22, 1, "_");singlename.Append(hist).Append(".pdf");//.png");
+    }
+    else if(dirstr.Contains("Loose") == 1){
+      singlename.Append(dirstr); singlename.Remove(0, 38);singlename.Replace(21, 1, "_");singlename.Append(hist).Append(".pdf");//.png");
+    }
   }
   
   c1->Print(singlename);
@@ -593,6 +557,7 @@ void drawRatio(const TH1* histNumerator, TH1* histDenominator, const Double_t& r
   // create ratio
   TH1F* ratio = (TH1F*)histNumerator->Clone();
   ratio->Divide(histDenominator);
+/*
   // calculate error for ratio
   // a) from err_
   if(err_.size()==(unsigned int)histNumerator->GetNbinsX()){
@@ -609,6 +574,7 @@ void drawRatio(const TH1* histNumerator, TH1* histDenominator, const Double_t& r
       ratio->SetBinError(bin, 0);
     }
   }
+  */
   // get some values from old pad
   //Int_t    logx = gPad->GetLogx();
   //Double_t left = gPad->GetLeftMargin();
@@ -652,6 +618,8 @@ void drawRatio(const TH1* histNumerator, TH1* histDenominator, const Double_t& r
   ratio->SetMaximum(ratioMax);
   ratio->SetMinimum(ratioMin);
   ratio->SetLineWidth(1);
+  ratio->SetFillColor(kBlack);
+  //ratio->SetLineColor(kBlack);
   // configure axis of ratio plot
   ratio->GetXaxis()->SetTitleSize(histNumerator->GetXaxis()->GetTitleSize()*scaleFactor*1.3);
   ratio->GetXaxis()->SetTitleOffset(histNumerator->GetXaxis()->GetTitleOffset()*0.9);
@@ -672,7 +640,7 @@ void drawRatio(const TH1* histNumerator, TH1* histDenominator, const Double_t& r
   histNumerator->GetXaxis()->SetTitleSize(0);
   // draw ratio plot
   ratio->DrawClone("p e X0");
-  ratio->SetMarkerSize(1.0);
+  ratio->SetMarkerSize(0.5);
   ratio->SetMarkerStyle(20);
   ratio->DrawClone("p e X0 same");
   rPad->SetTopMargin(0.0);
