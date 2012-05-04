@@ -197,13 +197,21 @@ namespace TopSingleLepton {
     // multiplicity of btagged jets (for track counting high efficiency) with pt(L2L3)>30
     hists_["jetMultBEff_"] = store_->book1D("JetMultBEff", "N_{30}(b/eff)"    ,     10,     0.,     10.);   
     // btag discriminator for track counting high efficiency for jets with pt(L2L3)>30
-    hists_["jetBDiscEff_"] = store_->book1D("JetBDiscEff", "Disc_{b/eff}(jet)",     100,     0.,     10.);   
+    hists_["jetBDiscEff_"] = store_->book1D("JetBDiscEff", "Disc_{b/eff}(jet)",     100,     0.,    10.);   
+    // eta of the 1. leading jet (corrected to L2+L3)
+    hists_["jet1Eta_"    ] = store_->book1D("Jet1Eta"    , "#eta_{L2L3}(jet1)",     30,     -3.,     3.);   
     // pt of the 1. leading jet (corrected to L2+L3)
     hists_["jet1Pt_"     ] = store_->book1D("Jet1Pt"     , "pt_{L2L3}(jet1)"  ,     60,     0.,    300.);   
+   // eta of the 2. leading jet (corrected to L2+L3)
+    hists_["jet2Eta_"    ] = store_->book1D("Jet2Eta"    , "#eta_{L2L3}(jet2)",     30,     -3.,     3.);   
     // pt of the 2. leading jet (corrected to L2+L3)
     hists_["jet2Pt_"     ] = store_->book1D("Jet2Pt"     , "pt_{L2L3}(jet2)"  ,     60,     0.,    300.);   
+   // eta of the 3. leading jet (corrected to L2+L3)
+    hists_["jet3Eta_"    ] = store_->book1D("Jet3Eta"    , "#eta_{L2L3}(jet3)",     30,     -3.,     3.);   
     // pt of the 3. leading jet (corrected to L2+L3)
     hists_["jet3Pt_"     ] = store_->book1D("Jet3Pt"     , "pt_{L2L3}(jet3)"  ,     60,     0.,    300.);   
+   // eta of the 4. leading jet (corrected to L2+L3)
+    hists_["jet4Eta_"    ] = store_->book1D("Jet4Eta"    , "#eta_{L2L3}(jet4)",     30,     -3.,     3.);   
     // pt of the 4. leading jet (corrected to L2+L3)
     hists_["jet4Pt_"     ] = store_->book1D("Jet4Pt"     , "pt_{L2L3}(jet4)"  ,     60,     0.,    300.);   
     // MET (tc)
@@ -245,6 +253,10 @@ namespace TopSingleLepton {
     hists_["jet3PtRaw_"  ] = store_->book1D("Jet3PtRaw"  , "pt_{Raw}(jet3)"   ,     60,     0.,    300.);   
     // pt of the 4. leading jet (uncorrected)
     hists_["jet4PtRaw_"  ] = store_->book1D("Jet4PtRaw"  , "pt_{Raw}(jet4)"   ,     60,     0.,    300.);   
+    //Run Number
+    hists_["RunNumb_"    ] = store_->book1D("RunNumber"  , "Run Nr.       "   ,    100,   1.e4,    1.e7);
+    //instantaneous luminosity
+    hists_["InstLumi_"   ] = store_->book1D("InstLumi"   , "Inst. Lumi."      ,    100,     0.,    1.e3);
     // selected events
     hists_["eventLogger_"] = store_->book2D("EventLogger", "Logged Events"    ,      9,     0.,      9.,   10,   0.,   10.);
 
@@ -461,10 +473,10 @@ namespace TopSingleLepton {
 	fill("jetBDiscVtx_", (*btagVtx)[jetRef]); if( (*btagVtx)[jetRef]>btagVtxWP_ ) ++multBVtx; 
       }
       // fill pt (raw or L2L3) for the leading four jets  
-      if(idx==0) {fill("jet1Pt_" , monitorJet.pt()); fill("jet1PtRaw_", jet->pt() );}
-      if(idx==1) {fill("jet2Pt_" , monitorJet.pt()); fill("jet2PtRaw_", jet->pt() );}
-      if(idx==2) {fill("jet3Pt_" , monitorJet.pt()); fill("jet3PtRaw_", jet->pt() );}
-      if(idx==3) {fill("jet4Pt_" , monitorJet.pt()); fill("jet4PtRaw_", jet->pt() );}
+      if(idx==0) {fill("jet1Pt_" , monitorJet.pt()); fill("jet1PtRaw_", jet->pt() ); fill("jet1Eta_", monitorJet.eta());}
+      if(idx==1) {fill("jet2Pt_" , monitorJet.pt()); fill("jet2PtRaw_", jet->pt() ); fill("jet2Eta_", monitorJet.eta());}
+      if(idx==2) {fill("jet3Pt_" , monitorJet.pt()); fill("jet3PtRaw_", jet->pt() ); fill("jet3Eta_", monitorJet.eta());}
+      if(idx==3) {fill("jet4Pt_" , monitorJet.pt()); fill("jet4PtRaw_", jet->pt() ); fill("jet4Eta_", monitorJet.eta());}
     }
     fill("jetMult_"    , mult    );
     fill("jetMultBEff_", multBEff);
@@ -506,6 +518,12 @@ namespace TopSingleLepton {
     if(wMass>=0 && topMass>=0) {fill("massW_" , wMass  ); fill("massTop_" , topMass);}
     // fill plots for trigger monitoring
     if((lowerEdge_==-1. && upperEdge_==-1.) || (lowerEdge_<wMass && wMass<upperEdge_) ){
+      
+      fill("RunNumb_", event.eventAuxiliary().run());
+      
+      double dummy=5.;
+      fill("InstLumi_", dummy);
+      
       if(!triggerTable_.label().empty()) fill(event, *triggerTable, "trigger", triggerPaths_);
       if(logged_<=hists_.find("eventLogger_")->second->getNbinsY()){
 	// log runnumber, lumi block, event number & some
