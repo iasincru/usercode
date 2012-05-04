@@ -240,7 +240,7 @@ namespace TopSingleLepton {
     // multiplicity of btagged jets (for track counting high purity) with pt(L2L3)>30
     hists_["jetMultBPur_"] = store_->book1D("JetMultBPur", "N_{30}(b/pur)"    ,     10,     0.,     10.);   
     // btag discriminator for track counting high purity
-    hists_["jetBDiscPur_"] = store_->book1D("JetBDiscPur", "Disc_{b/pur}(Jet)",     100,     0.,     10.);   
+    hists_["jetBDiscPur_"] = store_->book1D("JetBDiscPur", "Disc_{b/pur}(Jet)",     100,     0.,    10.);   
     // multiplicity of btagged jets (for simple secondary vertex) with pt(L2L3)>30
     hists_["jetMultBVtx_"] = store_->book1D("JetMultBVtx", "N_{30}(b/vtx)"    ,     10,     0.,     10.);   
     // btag discriminator for simple secondary vertex
@@ -300,6 +300,22 @@ namespace TopSingleLepton {
 	pvMult++;
     }
     fill("pvMult_",    pvMult   );
+
+
+    /*
+    ------------------------------------------------------------
+    
+    Run and Inst. Luminosity information
+    
+    ------------------------------------------------------------
+    */
+    if (!event.eventAuxiliary().run()) return;
+    fill("RunNumb_", event.eventAuxiliary().run());   
+    double dummy=5.;
+    fill("InstLumi_", dummy);
+      
+
+
 
     /* 
     ------------------------------------------------------------
@@ -473,10 +489,18 @@ namespace TopSingleLepton {
 	fill("jetBDiscVtx_", (*btagVtx)[jetRef]); if( (*btagVtx)[jetRef]>btagVtxWP_ ) ++multBVtx; 
       }
       // fill pt (raw or L2L3) for the leading four jets  
-      if(idx==0) {fill("jet1Pt_" , monitorJet.pt()); fill("jet1PtRaw_", jet->pt() ); fill("jet1Eta_", monitorJet.eta());}
-      if(idx==1) {fill("jet2Pt_" , monitorJet.pt()); fill("jet2PtRaw_", jet->pt() ); fill("jet2Eta_", monitorJet.eta());}
-      if(idx==2) {fill("jet3Pt_" , monitorJet.pt()); fill("jet3PtRaw_", jet->pt() ); fill("jet3Eta_", monitorJet.eta());}
-      if(idx==3) {fill("jet4Pt_" , monitorJet.pt()); fill("jet4PtRaw_", jet->pt() ); fill("jet4Eta_", monitorJet.eta());}
+      if(idx==0) {fill("jet1Pt_" , monitorJet.pt()); fill("jet1PtRaw_", jet->pt() );
+                  fill("jet1Eta_", monitorJet.eta());
+		 };
+      if(idx==1) {fill("jet2Pt_" , monitorJet.pt()); fill("jet2PtRaw_", jet->pt() );
+                  fill("jet2Eta_", monitorJet.eta());
+		 }
+      if(idx==2) {fill("jet3Pt_" , monitorJet.pt()); fill("jet3PtRaw_", jet->pt() );
+                  fill("jet3Eta_", monitorJet.eta());
+		 }
+      if(idx==3) {fill("jet4Pt_" , monitorJet.pt()); fill("jet4PtRaw_", jet->pt() );
+                  fill("jet4Eta_", monitorJet.eta());
+		 }
     }
     fill("jetMult_"    , mult    );
     fill("jetMultBEff_", multBEff);
@@ -518,12 +542,6 @@ namespace TopSingleLepton {
     if(wMass>=0 && topMass>=0) {fill("massW_" , wMass  ); fill("massTop_" , topMass);}
     // fill plots for trigger monitoring
     if((lowerEdge_==-1. && upperEdge_==-1.) || (lowerEdge_<wMass && wMass<upperEdge_) ){
-      
-      fill("RunNumb_", event.eventAuxiliary().run());
-      
-      double dummy=5.;
-      fill("InstLumi_", dummy);
-      
       if(!triggerTable_.label().empty()) fill(event, *triggerTable, "trigger", triggerPaths_);
       if(logged_<=hists_.find("eventLogger_")->second->getNbinsY()){
 	// log runnumber, lumi block, event number & some
