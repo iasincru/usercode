@@ -104,6 +104,8 @@ namespace TopSingleLepton {
 	btagPur_= btagPur.getParameter<edm::InputTag>("label"); btagPurWP_= btagPur.getParameter<double>("workingPoint");
 	edm::ParameterSet btagVtx=jetExtras.getParameter<edm::ParameterSet>("jetBTaggers").getParameter<edm::ParameterSet>("secondaryVertex" );
 	btagVtx_= btagVtx.getParameter<edm::InputTag>("label"); btagVtxWP_= btagVtx.getParameter<double>("workingPoint");
+        edm::ParameterSet btagCSV=jetExtras.getParameter<edm::ParameterSet>("jetBTaggers").getParameter<edm::ParameterSet>("cvsVertex");
+        btagCSV_= btagCSV.getParameter<edm::InputTag>("label"); btagCSVWP_= btagCSV.getParameter<double>("workingPoint");
       }
     }
 
@@ -247,6 +249,10 @@ namespace TopSingleLepton {
     hists_["jetMultBVtx_"] = store_->book1D("JetMultBVtx", "N_{30}(b/vtx)"    ,     10,     0.,     10.);   
     // btag discriminator for simple secondary vertex
     hists_["jetBDiscVtx_"] = store_->book1D("JetBDiscVtx", "Disc_{b/vtx}(Jet)",     35,    -1.,      6.);   
+    // multiplicity for combined secondary vertex
+    hists_["jetMultCSVtx_"]= store_->book1D("JetMultCSVtx", "N_{30}(CSV)"     ,     10,     0.,     10.);
+    // btag discriminator for combined secondary vertex
+    hists_["jetBCVtx_"]   = store_->book1D("JetCSVtx"    ,  "Disc_{CSV}(JET)" ,     100,   -1.,      2.);
     // pt of the 1. leading jet (uncorrected)
     hists_["jet1PtRaw_"  ] = store_->book1D("Jet1PtRaw"  , "pt_{Raw}(jet1)"   ,     60,     0.,    300.);   
     // pt of the 2. leading jet (uncorrected)
@@ -413,11 +419,12 @@ namespace TopSingleLepton {
     */
 
     // check availability of the btaggers
-    edm::Handle<reco::JetTagCollection> btagEff, btagPur, btagVtx;
+    edm::Handle<reco::JetTagCollection> btagEff, btagPur, btagVtx, btagCSV;
     if( includeBTag_ ){ 
       if( !event.getByLabel(btagEff_, btagEff) ) return;
       if( !event.getByLabel(btagPur_, btagPur) ) return;
       if( !event.getByLabel(btagVtx_, btagVtx) ) return;
+      if( !event.getByLabel(btagCSV_, btagCSV)) return;
     }
     // load jet corrector if configured such
     const JetCorrector* corrector=0;
@@ -444,7 +451,7 @@ namespace TopSingleLepton {
 
     // loop jet collection
     std::vector<reco::Jet> correctedJets;
-    unsigned int mult=0, multBEff=0, multBPur=0, multBVtx=0;
+    unsigned int mult=0, multBEff=0, multBPur=0, multBVtx=0, multCSV=0;
     std::vector<bool> bjet;
     
     edm::Handle<edm::View<reco::Jet> > jets; 
@@ -495,6 +502,7 @@ namespace TopSingleLepton {
         else {bjet.push_back(0);};
 	fill("jetBDiscPur_", (*btagPur)[jetRef]); if( (*btagPur)[jetRef]>btagPurWP_ ) ++multBPur; 
 	fill("jetBDiscVtx_", (*btagVtx)[jetRef]); if( (*btagVtx)[jetRef]>btagVtxWP_ ) ++multBVtx; 
+        fill("jetBCVtx_"   , (*btagCSV)[jetRef]); if( (*btagCSV)[jetRef]>btagCSVWP_ ) ++multCSV;
       }
       // fill pt (raw or L2L3) for the leading four jets  
       if(idx==0) {fill("jet1Pt_" , monitorJet.pt()); fill("jet1PtRaw_", jet->pt() );
@@ -510,10 +518,11 @@ namespace TopSingleLepton {
                   fill("jet4Eta_", monitorJet.eta());
 		 }
     }
-    fill("jetMult_"    , mult    );
-    fill("jetMultBEff_", multBEff);
-    fill("jetMultBPur_", multBPur);
-    fill("jetMultBVtx_", multBVtx);
+    fill("jetMult_"     , mult    );
+    fill("jetMultBEff_" , multBEff);
+    fill("jetMultBPur_" , multBPur);
+    fill("jetMultBVtx_" , multBVtx);
+    fill("jetMultCSVtx_", multCSV );
     
     /* 
     ------------------------------------------------------------
@@ -544,11 +553,12 @@ namespace TopSingleLepton {
     */
 
     // fill W boson and top mass estimates
-    if (!includeBTag_) return;
-    if (correctedJets.size() != bjet.size()) return;
+    
     Calculate eventKinematics(MAXJETS, WMASS);
     double wMass   = eventKinematics.massWBoson   (correctedJets);
     double topMass = eventKinematics.massTopQuark (correctedJets);
+    if (!includeBTag_) return;
+    if (correctedJets.size() != bjet.size()) return;
     double btopMass= eventKinematics.massBTopQuark(correctedJets, bjet);
     if(wMass>=0 && topMass>=0 ) {
         fill("massW_" , wMass  );
