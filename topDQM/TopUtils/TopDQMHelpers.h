@@ -74,7 +74,8 @@ class Calculate {
   /// calculate t-quark mass estimate
   double massTopQuark(const std::vector<reco::Jet>& jets);
   /// calculate b-tagged t-quark mass estimate
-  double massBTopQuark(const std::vector<reco::Jet>& jets, std::vector<bool> bjet);
+  //double massBTopQuark(const std::vector<reco::Jet>& jets, std::vector<bool> bjet);
+  double massBTopQuark(const std::vector<reco::Jet>& jets, std::vector<double> VbtagWP, double btagWP_);
   
  private:
   /// do the calculation; this is called only once per event by the first 
@@ -82,7 +83,7 @@ class Calculate {
   /// are cached afterwards
   void operator()(const std::vector<reco::Jet>& jets);
   ///do the calculation of the t-quark mass with one b-jet
-  void operator2(const std::vector<reco::Jet>& , std::vector<bool> );
+  void operator2(const std::vector<reco::Jet>& , std::vector<double> , double);
   
  private:
   /// indicate failed associations

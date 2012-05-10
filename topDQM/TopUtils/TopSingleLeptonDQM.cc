@@ -452,7 +452,8 @@ namespace TopSingleLepton {
     // loop jet collection
     std::vector<reco::Jet> correctedJets;
     unsigned int mult=0, multBEff=0, multBPur=0, multBVtx=0, multCSV=0;
-    std::vector<bool> bjet;
+    //std::vector<bool> bjet;
+    std::vector<double> bjet;
     
     edm::Handle<edm::View<reco::Jet> > jets; 
     if( !event.getByLabel(jets_, jets) ) return;
@@ -497,9 +498,11 @@ namespace TopSingleLepton {
 	fill("jetBDiscEff_", (*btagEff)[jetRef]); 
         if( (*btagEff)[jetRef]>btagEffWP_ ) {
             ++multBEff;
-            bjet.push_back(1);
+            //bjet.push_back(1);
+            
         }
-        else {bjet.push_back(0);};
+        bjet.push_back( (*btagEff)[jetRef]);
+//         else {bjet.push_back(0);};
 	fill("jetBDiscPur_", (*btagPur)[jetRef]); if( (*btagPur)[jetRef]>btagPurWP_ ) ++multBPur; 
 	fill("jetBDiscVtx_", (*btagVtx)[jetRef]); if( (*btagVtx)[jetRef]>btagVtxWP_ ) ++multBVtx; 
         fill("jetBCVtx_"   , (*btagCSV)[jetRef]); if( (*btagCSV)[jetRef]>btagCSVWP_ ) ++multCSV;
@@ -557,14 +560,14 @@ namespace TopSingleLepton {
     Calculate eventKinematics(MAXJETS, WMASS);
     double wMass   = eventKinematics.massWBoson   (correctedJets);
     double topMass = eventKinematics.massTopQuark (correctedJets);
-    if (!includeBTag_) return;
-    if (correctedJets.size() != bjet.size()) return;
-    double btopMass= eventKinematics.massBTopQuark(correctedJets, bjet);
     if(wMass>=0 && topMass>=0 ) {
         fill("massW_" , wMass  );
         fill("massTop_" , topMass);
-        fill("massBTop_", btopMass);
     }
+    if (!includeBTag_) return;
+    if (correctedJets.size() != bjet.size()) return;
+    double btopMass= eventKinematics.massBTopQuark(correctedJets, bjet, btagEffWP_);
+    if (btopMass>=0) fill("massBTop_", btopMass);
     // fill plots for trigger monitoring
     if((lowerEdge_==-1. && upperEdge_==-1.) || (lowerEdge_<wMass && wMass<upperEdge_) ){
       if(!triggerTable_.label().empty()) fill(event, *triggerTable, "trigger", triggerPaths_);

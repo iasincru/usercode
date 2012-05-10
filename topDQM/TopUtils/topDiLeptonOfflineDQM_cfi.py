@@ -34,7 +34,7 @@ topDiLeptonOfflineDQM = cms.EDAnalyzer("TopDiLeptonOfflineDQM",
       ),
       ## when omitted electron plots will be filled w/o additional pre-
       ## selection of the electron candidates                                                 
-      select = cms.string("pt>5 && abs(eta)<2.4 && abs(gsfTrack.d0)<1 && abs(gsfTrack.dz)<20"),
+      select = cms.string("pt>5. && abs(eta)<2.4 && abs(gsfTrack.d0)<1. && abs(gsfTrack.dz)<20."),
       ## when omitted isolated electron multiplicity plot will be equi-
       ## valent to inclusive electron multiplicity plot                                                
       isolation = cms.string("(dr03TkSumPt+dr03EcalRecHitSumEt+dr03HcalTowerSumEt)/pt<0.2"),
@@ -44,7 +44,7 @@ topDiLeptonOfflineDQM = cms.EDAnalyzer("TopDiLeptonOfflineDQM",
     muonExtras = cms.PSet(
       ## when omitted muon plots will be filled w/o additional pre-
       ## selection of the muon candidates   
-      select = cms.string("pt>1 && abs(eta)<2.4 && abs(globalTrack.d0)<1 && abs(globalTrack.dz)<20"),
+      select = cms.string("pt>1. && abs(eta)<2.4 && abs(globalTrack.d0)<1. && abs(globalTrack.dz)<20."),
       ## when omitted isolated muon multiplicity plot will be equi-
       ## valent to inclusive muon multiplicity plot                                                  
       isolation = cms.string("(isolationR03.sumPt+isolationR03.emEt+isolationR03.hadEt)/pt<0.2"),
@@ -64,13 +64,13 @@ topDiLeptonOfflineDQM = cms.EDAnalyzer("TopDiLeptonOfflineDQM",
       ## when omitted no extra selection will be applied on jets before
       ## filling the monitor histograms; if jetCorrector is present the
       ## selection will be applied to corrected jets
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"), 
+      select = cms.string("pt>15. & abs(eta)<2.5 & emEnergyFraction>0.01"), 
     ),
     ## [optional] : when omitted no mass window will be applied
     ## for the same flavor lepton monitoring plots 
     massExtras = cms.PSet(
-      lowerEdge = cms.double( 76.),
-      upperEdge = cms.double(106.)
+      lowerEdge = cms.double(  0.0),
+      upperEdge = cms.double(116.0)
     ),
     ## [optional] : when omitted all monitoring plots for triggering
     ## will be empty
@@ -118,25 +118,17 @@ topDiLeptonOfflineDQM = cms.EDAnalyzer("TopDiLeptonOfflineDQM",
   ## number of PSets as given below:
   ##
   selection = cms.VPSet(
+    #cms.PSet(
+      ### [mandatory] : 'jets' defines the objects to
+      ### select on, 'step0' labels the histograms;
+      ### instead of 'step0' you can choose any label
+      #label  = cms.string("empty:step0")
+    #),
     cms.PSet(
-      ## [mandatory] : 'jets' defines the objects to
-      ## select on, 'step0' labels the histograms;
-      ## instead of 'step0' you can choose any label
       label  = cms.string("muons:step0"),
       src    = cms.InputTag("muons"),
       select = cms.string("pt>10 & abs(eta)<2.1 & isGlobalMuon & innerTrack.numberOfValidHits>10 & globalTrack.normalizedChi2>-1 & globalTrack.normalizedChi2<10"),
       min    = cms.int32(2),
-    ),
-    cms.PSet(
-      label  = cms.string("jets/calo:step1"),
-      src    = cms.InputTag("ak5CaloJets"),
-      jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>55 & abs(eta)<2.5 & emEnergyFraction>0.01"),
-      jetID  = cms.PSet(
-        label  = cms.InputTag("ak5JetID"),
-        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
-      ),
-      min = cms.int32(2),
     ),
   ),
 )

@@ -141,7 +141,7 @@ namespace TopDiLeptonOffline {
     // monitored trigger occupancy for the di muon channel
     hists_["diMuonMon_"   ] = store_->book1D("DiMuonMon"   , "Mon(#mu/#mu paths)"      ,  nDiMuon,   0.,  nDiMuon);
     // pt of the leading lepton
-    hists_["lep1Pt_"      ] = store_->book1D("LeptPt"      , "pt(lep1)"                ,       50,   0.,     200.);
+    hists_["lep1Pt_"      ] = store_->book1D("Lep1Pt"      , "pt(lep1)"                ,       50,   0.,     200.);
     // pt of the 2. leading lepton
     hists_["lep2Pt_"      ] = store_->book1D("Lep2Pt"      , "pt(lep2)"                ,       50,   0.,     200.);
     // multiplicity of jets with pt>30 (corrected to L2+L3)

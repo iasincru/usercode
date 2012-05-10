@@ -1,4 +1,6 @@
 #include "DQM/Physics/interface/TopDQMHelpers.h"
+#include <stdio.h>
+
 
 Calculate::Calculate(int maxNJets, double wMass): 
   failed_(false), maxNJets_(maxNJets), wMass_(wMass), massWBoson_(-1.), massTopQuark_(-1.), massBTopQuark_(-1.)
@@ -19,37 +21,42 @@ Calculate::massTopQuark(const std::vector<reco::Jet>& jets)
 
 
 double 
-Calculate::massBTopQuark(const std::vector<reco::Jet>& jets, std::vector<bool> btagWP_) 
+Calculate::massBTopQuark(const std::vector<reco::Jet>& jets, std::vector<double> VbtagWP, double btagWP_)
 { 
-  if(!failed_&& massBTopQuark_<0) operator2(jets, btagWP_); return massBTopQuark_; 
+  if(!failed_&& massBTopQuark_<0) operator2(jets, VbtagWP, btagWP_); return massBTopQuark_; 
 }
 
 
 
 void
-Calculate::operator2(const std::vector<reco::Jet>& jets, std::vector<bool> bjet)
+Calculate::operator2(const std::vector<reco::Jet>& jets, std::vector<double> bjet, double btagWP)
 {
   if(maxNJets_<0) maxNJets_=jets.size();
   failed_= jets.size()<(unsigned int) maxNJets_;
   if( failed_){ return; }
   if (jets.size() != bjet.size()){return;}
 
-  
-  // associate those jets with maximum pt of the vectorial 
+/*  FILE *f;
+  f=fopen("BTagValues.txt", "a");
+*/ // associate those jets with maximum pt of the vectorial 
   // sum to the hadronic decay chain
   double maxBPt=-1.;
   std::vector<int> maxBPtIndices;
   maxBPtIndices.push_back(-1);
   maxBPtIndices.push_back(-1);
   maxBPtIndices.push_back(-1);
-  
-  for(int idx=0; idx<maxNJets_; ++idx){
+/*  fprintf(f,"======================\n");
+  fprintf(f,"WP %f\n", btagWP);
+*/  for(int idx=0; idx<maxNJets_; ++idx){
+//    fprintf(f,"----------------------\n");
     for(int jdx=0; jdx<maxNJets_; ++jdx){ if(jdx<=idx) continue;
         for(int kdx=0; kdx<maxNJets_; ++kdx){if(kdx==idx || kdx==jdx) continue;
-            if ((bjet[idx]==1 && bjet[jdx]==0 && bjet[kdx]==0) ||
-                (bjet[idx]==0 && bjet[jdx]==1 && bjet[kdx]==0) ||
-                (bjet[idx]==0 && bjet[jdx]==0 && bjet[kdx]==1) ){
+//            fprintf(f,"idx: %d btag.: %f pT= %f | jdx: %d BTagger: %f pT= %f | kdx: %d BTagger: %f pT= %f \n", idx, bjet[idx], jets[idx].pt(), jdx, bjet[jdx], jets[jdx].pt(), kdx, bjet[kdx], jets[kdx].pt());
+            if ((bjet[idx]>  btagWP && bjet[jdx]<= btagWP && bjet[kdx]<= btagWP) ||
+                (bjet[idx]<= btagWP && bjet[jdx]>  btagWP && bjet[kdx]<= btagWP) ||
+                (bjet[idx]<= btagWP && bjet[jdx]<= btagWP && bjet[kdx]>  btagWP) ){
                     reco::Particle::LorentzVector sum = jets[idx].p4()+jets[jdx].p4()+jets[kdx].p4();
+//                    fprintf(f, "sum.pt %f\n", sum.pt());
                     if( maxBPt<0. || maxBPt<sum.pt() ){
                         maxBPt=sum.pt();
                         maxBPtIndices.clear();
@@ -58,6 +65,7 @@ Calculate::operator2(const std::vector<reco::Jet>& jets, std::vector<bool> bjet)
                         maxBPtIndices.push_back(kdx);
                     }
             }
+//            fprintf(f, "MaxBpT= %f\n",maxBPt);
         }
     }
   }
@@ -65,8 +73,10 @@ Calculate::operator2(const std::vector<reco::Jet>& jets, std::vector<bool> bjet)
   massBTopQuark_= (jets[maxBPtIndices[0]].p4()+
                    jets[maxBPtIndices[1]].p4()+
                    jets[maxBPtIndices[2]].p4()).mass();
+/*  fprintf(f, "Final Mass=%f\n", massBTopQuark_);
 
-}
+  fclose(f);
+*/}
 
 void
 Calculate::operator()(const std::vector<reco::Jet>& jets)
