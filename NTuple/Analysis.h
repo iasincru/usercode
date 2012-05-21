@@ -157,7 +157,7 @@ public :
    vector<int>     *BHadronVsJet;
    vector<int>     *AntiBHadronVsJet;   
    
-   Int_t           BHadronJet_;
+   /*   Int_t           BHadronJet_;
    Double_t	   BHadronJetpX;
    Double_t	   BHadronJetpY;
    Double_t	   BHadronJetpZ;
@@ -167,7 +167,7 @@ public :
    Double_t	   AntiBHadronJetpY;
    Double_t	   AntiBHadronJetpZ;
    Double_t	   AntiBHadronJetE;
-   
+   */
    Int_t           HypTop_;
    Double_t        HypToppX[kMaxHypTop];   //[HypTop_]
    Double_t        HypToppY[kMaxHypTop];   //[HypTop_]
@@ -333,7 +333,7 @@ public :
    TBranch        *b_BHadronVsJet;   //!
    TBranch        *b_AntiBHadronVsJet;   //!
 
-   TBranch	  *b_BHadronJet_;   //!
+   /*   TBranch	  *b_BHadronJet_;   //!
    TBranch        *b_BHadronJetpX;   //!
    TBranch        *b_BHadronJetpY;   //!
    TBranch        *b_BHadronJetpZ;   //!
@@ -343,7 +343,7 @@ public :
    TBranch        *b_AntiBHadronJetpY;   //!
    TBranch        *b_AntiBHadronJetpZ;   //!
    TBranch        *b_AntiBHadronJetE;   //!
-   
+   */
    
    TBranch        *b_HypTop_;   //!
    TBranch        *b_HypToppX;   //!
@@ -428,7 +428,7 @@ public :
    
    TH1D *h_NJetMatching;
 
-   TH1D *Looseh1, *Allh1, *Zh1, *TTh1, *h_GenAll, *h_jetMulti, *h_BjetMulti,*h_jetMultiXSec,*h_jetMultiAll, *h_jetMultiNoPU, *h_jetMultiVisTop, *h_VisGenAll, *h_diLepMassFull;
+   TH1D *Looseh1, *Allh1, *Zh1, *TTh1, *h_GenAll, *h_jetMulti,*h_jetMulti_diLep, *h_BjetMulti,*h_jetMultiXSec,*h_jetMultiAll, *h_jetMultiNoPU, *h_jetMultiVisTop, *h_VisGenAll, *h_diLepMassFull, *h_diLepMassFull_fullSel;
 
    TH1D *h_HypTTBarMass, *h_HypTTBarRapidity, *h_HypTTBarpT;
    TH1D *h_HypLLBarMass, *h_HypLLBarpT;
@@ -445,13 +445,15 @@ public :
    TH1D *h_RecoLeptonpT,*h_RecoAntiLeptonpT,*h_RecoLeptonEta,*h_RecoAntiLeptonEta;
    TH1D *h_RecoBJetpT,*h_RecoAntiBJetpT, *h_RecoBJetRapidity,*h_RecoAntiBJetRapidity,*h_RecoBJetEta,*h_RecoAntiBJetEta;
 
-   TH1D *h_vertMulti, *h_MET;
+   TH1D *h_vertMulti, *h_vertMulti_noPU, *h_MET;
 
    TH1D *h_jetpT,*h_jetHT;
    TH1D *h_MuonpT, *h_MuonEta;
    TH1D *h_ElectronpT, *h_ElectronEta;
    TH1D *h_LeptonpT, *h_LeptonEta;
    TH1D *h_AntiLeptonpT, *h_AntiLeptonEta;
+   TH1D *h_LeptonpT_diLep, *h_LeptonEta_diLep;
+   TH1D *h_AntiLeptonpT_diLep, *h_AntiLeptonEta_diLep;
 
    TH1D *h_HypAntiToppT, *h_HypAntiTopEta, *h_HypAntiTopMass,*h_HypAntiTopRapidity;
    TH1D *h_HypToppT, *h_HypTopEta,*h_HypTopMass, *h_HypTopRapidity ;
@@ -461,6 +463,8 @@ public :
 
    TH1D *h_HypAntiLeptonpT, *h_HypAntiLeptonEta;
    TH1D *h_HypLeptonpT, *h_HypLeptonEta;
+
+   TH1D *h_step5,*h_step6,*h_step7,*h_step8,*h_step9;
 
    TH1D *h_VisGenAntiToppT, *h_VisGenAntiTopEta;
    TH1D *h_VisGenToppT, *h_VisGenTopEta;
@@ -485,7 +489,7 @@ public :
    
    TH1D *h_GenAntiLeptonpT, *h_GenAntiLeptonEta;
    TH1D *h_GenLeptonpT, *h_GenLeptonEta;
-
+   
    TH1D *h_LeadJetDR, *h_LeadTopJetDR, *h_NLeadJetDR, *h_NLeadTopJetDR;
    TH1D *h_LeadJet, *h_LeadTopJet, *h_NLeadJet, *h_NLeadTopJet;
    
@@ -495,8 +499,11 @@ public :
    TH1D *h_DRLeadJet, *h_DRNLeadJet, *h_DRLeadJetDR, *h_DRNLeadJetDR;
    TH1D *h_DRLeadTopJet, *h_DRNLeadTopJet, *h_DRLeadTopJetDR, *h_DRNLeadTopJetDR;
    
-   TH1D *h_JetSize, *h_TopJetSize;
-   
+   TH1D *h_JetSize, *h_TopJetSize, *h_allGenJetKinCutPt, *h_allGenJetPt;
+   TH1D *h_allGenJetWBHad, *h_allGenJetWBHadFTop;
+
+   TH1D *h_DPhiLep1Lep2, *h_MassL1Jet1, *h_MassL2Jet2;
+
    ClassDef(Analysis,0);
 };
 
@@ -828,7 +835,7 @@ void Analysis::GetSignalBranches(Long64_t & entry)
    fChain->SetBranchAddress("BHadronVsJet", &BHadronVsJet, &b_BHadronVsJet);
    fChain->SetBranchAddress("AntiBHadronVsJet", &AntiBHadronVsJet, &b_AntiBHadronVsJet);
 
-   fChain->SetBranchAddress("GenJetHadronB.", &BHadronJet_, &b_BHadronJet_);
+   /*   fChain->SetBranchAddress("GenJetHadronB.", &BHadronJet_, &b_BHadronJet_);
    fChain->SetBranchAddress("GenJetHadronB.fCoordinates.fX", &BHadronJetpX, &b_BHadronJetpX);
    fChain->SetBranchAddress("GenJetHadronB.fCoordinates.fY", &BHadronJetpY, &b_BHadronJetpY);
    fChain->SetBranchAddress("GenJetHadronB.fCoordinates.fZ", &BHadronJetpZ, &b_BHadronJetpZ);
@@ -839,7 +846,7 @@ void Analysis::GetSignalBranches(Long64_t & entry)
    fChain->SetBranchAddress("GenJetHadronAntiB.fCoordinates.fY", &AntiBHadronJetpY, &b_AntiBHadronJetpY);
    fChain->SetBranchAddress("GenJetHadronAntiB.fCoordinates.fZ", &AntiBHadronJetpZ, &b_AntiBHadronJetpZ);
    fChain->SetBranchAddress("GenJetHadronAntiB.fCoordinates.fT", &AntiBHadronJetE, &b_AntiBHadronJetE);
-   
+   */
   b_GenToppX->GetEntry(entry,1);   //!
   b_GenToppY->GetEntry(entry,1);   //!
   b_GenToppZ->GetEntry(entry,1);   //!
@@ -911,7 +918,7 @@ void Analysis::GetSignalBranches(Long64_t & entry)
   b_AntiBHadronVsJet->GetEntry(entry);   //!
   
   
-  b_BHadronJet_->GetEntry(entry);   //!
+  /*  b_BHadronJet_->GetEntry(entry);   //!
   b_BHadronJetpX->GetEntry(entry);   //!
   b_BHadronJetpY->GetEntry(entry);   //!
   b_BHadronJetpZ->GetEntry(entry);   //!
@@ -922,6 +929,6 @@ void Analysis::GetSignalBranches(Long64_t & entry)
   b_AntiBHadronJetpY->GetEntry(entry);   //!
   b_AntiBHadronJetpZ->GetEntry(entry);   //!
   b_AntiBHadronJetE->GetEntry(entry);   //!
-  
+  */
 }
 #endif // #ifdef Analysis_cxx
