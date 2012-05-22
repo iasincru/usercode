@@ -5,6 +5,8 @@
 #include "DQM/Physics/src/TopDiLeptonOfflineDQM.h"
 #include "DataFormats/JetReco/interface/PFJet.h"
 #include "DQM/Physics/interface/TopDQMHelpers.h"
+#include <typeinfo>
+
 
 namespace TopDiLeptonOffline {
 
@@ -145,7 +147,7 @@ namespace TopDiLeptonOffline {
     // pt of the 2. leading lepton
     hists_["lep2Pt_"      ] = store_->book1D("Lep2Pt"      , "pt(lep2)"                ,       50,   0.,     200.);
     // multiplicity of jets with pt>30 (corrected to L2+L3)
-    hists_["jetMult_"     ] = store_->book1D("JetMult"     , "N_{30}(jet)"             ,       10,   0.,      10.); 
+    hists_["jetMult_"     ] = store_->book1D("JetMult"     , "N_{30}(jet)"             ,       21, -0.5,      20.5); 
     // MET (calo)
     hists_["metCalo_"     ] = store_->book1D("METCalo"     , "MET_{Calo}"              ,       50,   0.,     200.);
 
@@ -161,11 +163,11 @@ namespace TopDiLeptonOffline {
 
     // --- [VERBOSE] --- //
     // mean eta of the candidate leptons
-    hists_["sumEtaL1L2_"  ] = store_->book1D("SumEtaL1L2"  , "<#eta>(lep1, lep2)"      ,       30,  -5.,       5.); 
+    hists_["sumEtaL1L2_"  ] = store_->book1D("SumEtaL1L2"  , "<#eta>(lep1, lep2)"      ,       100,  -5.,       5.); 
     // deltaEta between the 2 candidate leptons
-    hists_["dEtaL1L2_"    ] = store_->book1D("DEtaL1L2"    , "#Delta#eta(lep1,lep2)"   ,       30,   0.,       3.);
+    hists_["dEtaL1L2_"    ] = store_->book1D("DEtaL1L2"    , "#Delta#eta(lep1,lep2)"   ,       80,  -4.,       4.);
     // deltaPhi between the 2 candidate leptons
-    hists_["dPhiL1L2_"    ] = store_->book1D("DPhiL1L2"    , "#Delta#phi(lep1,lep2)"   ,       32,   0.,      3.2);
+    hists_["dPhiL1L2_"    ] = store_->book1D("DPhiL1L2"    , "#Delta#phi(lep1,lep2)"   ,       64, -3.2,      3.2);
     // pt of the candidate electron (depending on the decay channel)
     hists_["elecPt_"      ] = store_->book1D("ElecPt"      , "pt(e)"                   ,       50,   0.,     200.);
     // relative isolation of the candidate electron (depending on the decay channel)
@@ -185,7 +187,7 @@ namespace TopDiLeptonOffline {
     // dz for muons (to suppress cosmis)
     hists_["muonDelZ_"    ] = store_->book1D("MuonDelZ"    , "d_{z}(#mu)"              ,       50, -25.,      25.);
     // dxy for muons (to suppress cosmics)
-    hists_["muonDelXY_"   ] = store_->book2D("MuonDelXY"   , "d_{xy}(#mu)"                , 50,  -0.1,  0.1, 50, -0.1,  0.1 );
+    hists_["muonDelXY_"   ] = store_->book2D("MuonDelXY"   , "d_{xy}(#mu)"             , 50,  -1.,  1., 50, -1., 1.);
     // lepton multiplicity after std isolation
     hists_["lepMultIso_"  ] = store_->book2D("LepMultIso"  , "N_{Iso}(e) vs N_{Iso}(#mu)" ,  5,    0.,   5.,  5,   0.,    5.);
 
@@ -218,21 +220,21 @@ namespace TopDiLeptonOffline {
     // pt of the 2. leading jet (not corrected)     
     hists_["jet2PtRaw_"   ] = store_->book1D("Jet2PtRaw"   , "pt_{Raw}(jet2)"          ,       60,   0.,     300.);
     // deltaEta between the 2 leading jets
-    hists_["dEtaJet1Jet2_"] = store_->book1D("DEtaJet1Jet2", "#Delta#eta(jet1,jet2)"   ,       30,   0.,       3.);
+    hists_["dEtaJet1Jet2_"] = store_->book1D("DEtaJet1Jet2", "#Delta#eta(jet1,jet2)"   ,       60,  -3.,       3.);
     // deltaEta between the lepton and the leading jet
-    hists_["dEtaJet1Lep1_"] = store_->book1D("DEtaJet1Lep1", "#Delta#eta(jet1,lep1)"   ,       30,   0.,       3.);
+    hists_["dEtaJet1Lep1_"] = store_->book1D("DEtaJet1Lep1", "#Delta#eta(jet1,lep1)"   ,       60,  -3.,       3.);
     // deltaEta between the lepton and MET
-    hists_["dEtaLep1MET_" ] = store_->book1D("DEtaLep1MET" , "#Delta#eta(lep1,MET)"    ,       30,   0.,       3.);
+    hists_["dEtaLep1MET_" ] = store_->book1D("DEtaLep1MET" , "#Delta#eta(lep1,MET)"    ,       60,  -3.,       3.);
     // deltaEta between leading jet and MET
-    hists_["dEtaJet1MET_" ] = store_->book1D("DEtaJet1MET" , "#Delta#eta(jet1,MET)"    ,       30,   0.,       3.);
+    hists_["dEtaJet1MET_" ] = store_->book1D("DEtaJet1MET" , "#Delta#eta(jet1,MET)"    ,       60,  -3.,       3.);
     // deltaPhi of 2 leading jets
-    hists_["dPhiJet1Jet2_"] = store_->book1D("DPhiJet1Jet2", "#Delta#phi(jet1,jet2)"   ,       32,   0.,      3.2);
+    hists_["dPhiJet1Jet2_"] = store_->book1D("DPhiJet1Jet2", "#Delta#phi(jet1,jet2)"   ,       64, -3.2,      3.2);
     // deltaPhi of 1. lepton and 1. jet
-    hists_["dPhiJet1Lep1_"] = store_->book1D("DPhiJet1Lep1", "#Delta#phi(jet1,lep1)"   ,       32,   0.,      3.2);
+    hists_["dPhiJet1Lep1_"] = store_->book1D("DPhiJet1Lep1", "#Delta#phi(jet1,lep1)"   ,       64, -3.2,      3.2);
     // deltaPhi of 1. lepton and MET
-    hists_["dPhiLep1MET_" ] = store_->book1D("DPhiLep1MET" , "#Delta#phi(lep1,MET)"    ,       32,   0.,      3.2);
+    hists_["dPhiLep1MET_" ] = store_->book1D("DPhiLep1MET" , "#Delta#phi(lep1,MET)"    ,       64, -3.2,      3.2);
     // deltaPhi of 1. jet and MET
-    hists_["dPhiJet1MET_" ] = store_->book1D("DPhiJet1MET" , "#Delta#phi(jet1,MET)"    ,       32,   0.,      3.2);
+    hists_["dPhiJet1MET_" ] = store_->book1D("DPhiJet1MET" , "#Delta#phi(jet1,MET)"    ,       64, -3.2,      3.2);
     // selected dimuon events
     hists_["diMuonLogger_"] = store_->book2D("DiMuonLogger", "Logged DiMuon Events"    ,        8,   0.,       8.,   10,   0.,   10.);
     // selected dielec events
@@ -476,7 +478,17 @@ namespace TopDiLeptonOffline {
     if( decayChannel(isoMuons, isoElecs) == ELECMU ){
       fill("decayChannel_", 0.5);
       double mass = (isoElecs[0]->p4()+isoMuons[0]->p4()).mass();
-      if( (lowerEdge_==-1. && upperEdge_==-1.) || (lowerEdge_<mass && mass<upperEdge_) ){
+      if((lowerEdge_==-1. && upperEdge_==-1.) || (lowerEdge_<mass && mass<upperEdge_) ){
+        FILE *g;
+        g=fopen("ElecMuLogger.txt", "a");
+        fprintf(g,"=========================\n");
+        fprintf(g, "EventNumber: %d\n", event.eventAuxiliary().event());
+        fprintf(g, "Mu0 => pT: %f  | charge: %d  | eta: %f\n", isoMuons[0]->pt(), isoMuons[0]->charge(), isoMuons[0]->eta());
+        fprintf(g, "El0 => pT: %f  | charge: %d  | eta: %f\n", isoElecs[0]->pt(), isoElecs[0]->charge(), isoElecs[0]->eta());
+        fprintf(g, "(Mu0+El0).Mass()= %f\n", mass);
+        fprintf(g, "Mu[0].Eta-El[0].Eta=%f\n", isoElecs[0]->eta()-isoMuons[0]->eta());
+        fclose(g);
+        
 	fill("dEtaL1L2_"  , isoElecs[0]->eta()-isoMuons[0]->eta()); 
 	fill("sumEtaL1L2_", (isoElecs[0]->eta()+isoMuons[0]->eta())/2); 
 	fill("dPhiL1L2_"  , reco::deltaPhi(isoElecs[0]->phi(), isoMuons[0]->eta())); 
@@ -506,12 +518,38 @@ namespace TopDiLeptonOffline {
       fill("decayChannel_", 1.5);
       int charge = isoMuons[0]->charge()*isoMuons[1]->charge();
       double mass = (isoMuons[0]->p4()+isoMuons[1]->p4()).mass();
+      FILE *f;
+      f=fopen("DiMuLogger.txt", "a");
+      fprintf(f,"================================================\n");
+      fprintf(f, "EventNumber: %d\n", event.eventAuxiliary().event());
+      fprintf(f, "Mu0 => pT: %f  | charge: %d  | eta: %f\n", isoMuons[0]->pt(), isoMuons[0]->charge(), isoMuons[0]->eta());
+      fprintf(f, "Mu1 => pT: %f  | charge: %d  | eta: %f\n", isoMuons[1]->pt(), isoMuons[1]->charge(), isoMuons[1]->eta());
+      if (leadingJets.size()>=1) fprintf(f, "Jet0=> pT: %f  | eta: %f\n", leadingJets[0].pt(), leadingJets[0].eta());
+      if (leadingJets.size()>1)  fprintf(f, "Jet1=> pT: %f  | eta: %f\n", leadingJets[1].pt(), leadingJets[1].eta());
+      fprintf(f, "(Mu0+Mu1).Mass()= %f\n", mass);
+      fprintf(f, "Mu[0].Eta-Mu[1].Eta=%f\n",  isoMuons[0]->eta()-isoMuons[1]->eta());
+      fprintf(f, "Mu[0].Eta-Mu[1].Eta=%s\n", typeid(isoMuons[0]->eta()-isoMuons[1]->eta()).name());
+      
       fill(charge<0 ? "invMass_"    : "invMassWC_"    , mass       );
       fill(charge<0 ? "invMassLog_" : "invMassWCLog_" , log10(mass));
       if((lowerEdge_==-1. && upperEdge_==-1.) || (lowerEdge_<mass && mass<upperEdge_) ){
-	fill("dEtaL1L2"  , isoMuons[0]->eta()-isoMuons[1]->eta() );
+        fprintf(f,"------------------------------------------------\n");
+        fprintf(f, "Mu0 => pT: %f  | charge: %d  | eta: %f\n", isoMuons[0]->pt(), isoMuons[0]->charge(), isoMuons[0]->eta());
+        fprintf(f, "Mu1 => pT: %f  | charge: %d  | eta: %f\n", isoMuons[1]->pt(), isoMuons[1]->charge(), isoMuons[1]->eta());
+        fprintf(f, "(Mu0+Mu1).Mass()= %f\n", mass);
+        double detaL1L2 = isoMuons[0]->eta()-isoMuons[1]->eta();
+        fprintf(f, "Mu[0].Eta-Mu[1].Eta=%f\n",  isoMuons[0]->eta()-isoMuons[1]->eta());
+        fprintf(f, "detaL1L2=%f\n", detaL1L2);
+        
+        //fill("dEtaL1L2_", -0.06);
+        double detaL1L22 = 0.0;
+        fill("dEtaL1L2", detaL1L22);
+        //fill("dEtaL1L2"  , isoMuons[0]->eta()-isoMuons[1]->eta() );
 	fill("sumEtaL1L2", (isoMuons[0]->eta()+isoMuons[1]->eta())/2);
-	fill("dPhiL1L2"  , reco::deltaPhi(isoMuons[0]->phi(),isoMuons[1]->phi()) );
+	fill("dPhiL1L2", reco::deltaPhi(isoMuons[0]->phi(),isoMuons[1]->phi()) );
+        
+        fprintf(f,"Passing DEta and DPhi filling areas\n");
+        
 	fill("muonPt_", isoMuons[0]->pt()); fill("muonPt_", isoMuons[1]->pt()); 
 	fill("lep1Pt_", isoMuons[0]->pt()); fill("lep2Pt_", isoMuons[1]->pt()); 
 	// fill plots for trigger monitoring
@@ -530,6 +568,7 @@ namespace TopDiLeptonOffline {
 	  ++diMuonLogged_; 
 	}
       }
+      fclose(f);
     }
 
     // DIELEC channel
