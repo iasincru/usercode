@@ -540,13 +540,9 @@ namespace TopDiLeptonOffline {
         double detaL1L2 = isoMuons[0]->eta()-isoMuons[1]->eta();
         fprintf(f, "Mu[0].Eta-Mu[1].Eta=%f\n",  isoMuons[0]->eta()-isoMuons[1]->eta());
         fprintf(f, "detaL1L2=%f\n", detaL1L2);
-        
-        //fill("dEtaL1L2_", -0.06);
-        double detaL1L22 = 0.0;
-        fill("dEtaL1L2", detaL1L22);
-        //fill("dEtaL1L2"  , isoMuons[0]->eta()-isoMuons[1]->eta() );
-	fill("sumEtaL1L2", (isoMuons[0]->eta()+isoMuons[1]->eta())/2);
-	fill("dPhiL1L2", reco::deltaPhi(isoMuons[0]->phi(),isoMuons[1]->phi()) );
+        fill("dEtaL1L2_"  , isoMuons[0]->eta()-isoMuons[1]->eta() );
+	fill("sumEtaL1L2_", (isoMuons[0]->eta()+isoMuons[1]->eta())/2);
+	fill("dPhiL1L2_", reco::deltaPhi(isoMuons[0]->phi(),isoMuons[1]->phi()) );
         
         fprintf(f,"Passing DEta and DPhi filling areas\n");
         
@@ -579,9 +575,9 @@ namespace TopDiLeptonOffline {
       fill(charge<0 ? "invMass_"    : "invMassWC_"    , mass       );
       fill(charge<0 ? "invMassLog_" : "invMassWCLog_" , log10(mass));
       if((lowerEdge_==-1. && upperEdge_==-1.) || (lowerEdge_<mass && mass<upperEdge_) ){
-	fill("dEtaL1L2"  , isoElecs[0]->eta()-isoElecs[1]->eta() );
-	fill("sumEtaL1L2", (isoElecs[0]->eta()+isoElecs[1]->eta())/2);
-	fill("dPhiL1L2"  , reco::deltaPhi(isoElecs[0]->phi(),isoElecs[1]->phi()) );
+	fill("dEtaL1L2_"  , isoElecs[0]->eta()-isoElecs[1]->eta() );
+	fill("sumEtaL1L2_", (isoElecs[0]->eta()+isoElecs[1]->eta())/2);
+	fill("dPhiL1L2_"  , reco::deltaPhi(isoElecs[0]->phi(),isoElecs[1]->phi()) );
 	fill("elecPt_", isoElecs[0]->pt()); fill("elecPt_", isoElecs[1]->pt()); 
 	fill("lep1Pt_", isoElecs[0]->pt()); fill("lep2Pt_", isoElecs[1]->pt()); 
 	if(diElecLogged_<=hists_.find("diElecLogger_")->second->getNbinsY()){
