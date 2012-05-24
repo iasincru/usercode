@@ -490,20 +490,12 @@ public :
    TH1D *h_GenAntiLeptonpT, *h_GenAntiLeptonEta;
    TH1D *h_GenLeptonpT, *h_GenLeptonEta;
    
-   TH1D *h_LeadJetDR, *h_LeadTopJetDR, *h_NLeadJetDR, *h_NLeadTopJetDR;
-   TH1D *h_LeadJet, *h_LeadTopJet, *h_NLeadJet, *h_NLeadTopJet;
-   
-   TH1D *h_JetDRsize, *h_TopJetDRsize, *h_JetDRindex, *h_TopJetDRindex;
-   TH1D *h_Jetsize, *h_TopJetsize, *h_Jetindex, *h_TopJetindex;
-   
-   TH1D *h_DRLeadJet, *h_DRNLeadJet, *h_DRLeadJetDR, *h_DRNLeadJetDR;
-   TH1D *h_DRLeadTopJet, *h_DRNLeadTopJet, *h_DRLeadTopJetDR, *h_DRNLeadTopJetDR;
-   
-   TH1D *h_JetSize, *h_TopJetSize, *h_allGenJetKinCutPt, *h_allGenJetPt;
-   TH1D *h_allGenJetWBHad, *h_allGenJetWBHadFTop;
-
-   TH1D *h_DPhiLep1Lep2, *h_MassL1Jet1, *h_MassL2Jet2;
-
+   TH1D *h_GenLepAntiLepDPhi,  *h_GenLepAntiBJetMass,  *h_GenAntiLepBJetMass;
+   TH2D *h_GenRecoLepAntiLepDPhi,  *h_GenRecoLepAntiBJetMass,  *h_GenRecoAntiLepBJetMass;
+   TH1D *h_VisGenLepAntiLepDPhi,  *h_VisGenLepAntiBJetMass,  *h_VisGenAntiLepBJetMass;
+   TH1D *h_RecoLepAntiLepDPhi, *h_RecoLepAntiBJetMass, *h_RecoAntiLepBJetMass;
+   TH1D *h_HypLepAntiLepDPhi,  *h_HypLepAntiBJetMass,  *h_HypAntiLepBJetMass;
+      
    ClassDef(Analysis,0);
 };
 
