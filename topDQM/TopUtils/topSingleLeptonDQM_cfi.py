@@ -199,8 +199,8 @@ topSingleMuonLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
         ),
         cvsVertex = cms.PSet(
           label = cms.InputTag("combinedSecondaryVertexBJetTags"),
-          workingPoint = cms.double(0.244) 
-          # CSVL from https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagPerformanceOP#B_tagging_Operating_Points_for_5
+          workingPoint = cms.double(0.898) 
+          # CSV Tight from https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagPerformanceOP#B_tagging_Operating_Points_for_5
         )
       ),
     ),
@@ -311,6 +311,17 @@ topSingleMuonLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       ),
       min = cms.int32(4),                                               
     ), 
+    cms.PSet(
+      label  = cms.string("jets/calo:step5"),
+      src    = cms.InputTag("ak5CaloJets"),
+      jetCorrector = cms.string("ak5CaloL2L3"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      jetID  = cms.PSet(
+        label  = cms.InputTag("ak5JetID"),
+        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
+      ),
+      min = cms.int32(4),                                               
+    ), 
   )
 )
 topSingleMuonMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
@@ -387,8 +398,8 @@ topSingleMuonMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
         ),
         cvsVertex = cms.PSet(
           label = cms.InputTag("combinedSecondaryVertexBJetTags"),
-          workingPoint = cms.double(0.244) 
-          # CSVL from https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagPerformanceOP#B_tagging_Operating_Points_for_5
+          workingPoint = cms.double(0.898) 
+          # CSV Tight from https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagPerformanceOP#B_tagging_Operating_Points_for_5
         )
       ),                                                
     ),
@@ -488,6 +499,17 @@ topSingleMuonMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       ),
       min = cms.int32(4),                                                
     ),
+    cms.PSet(
+      label  = cms.string("jets/calo:step5"),
+      src    = cms.InputTag("ak5CaloJets"),
+      jetCorrector = cms.string("ak5CaloL2L3"),
+      select = cms.string("pt>30. & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      jetID  = cms.PSet(
+        label  = cms.InputTag("ak5JetID"),
+        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
+      ),
+      min = cms.int32(4),                                                
+    ),
   )
 )
 
@@ -567,8 +589,8 @@ topSingleElectronLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
         ),
         cvsVertex = cms.PSet(
           label = cms.InputTag("combinedSecondaryVertexBJetTags"),
-          workingPoint = cms.double(0.244) 
-          # CSVL from https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagPerformanceOP#B_tagging_Operating_Points_for_5
+          workingPoint = cms.double(0.898) 
+          # CSV Tight from https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagPerformanceOP#B_tagging_Operating_Points_for_5
         )
       ),
     ),
@@ -663,7 +685,18 @@ topSingleElectronLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
       ),
       min = cms.int32(4),
-    ), 
+    ),
+    cms.PSet(
+      label  = cms.string("jets/calo:step5"),
+      src    = cms.InputTag("ak5CaloJets"),
+      jetCorrector = cms.string("ak5CaloL2L3"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      jetID  = cms.PSet(
+        label  = cms.InputTag("ak5JetID"),
+        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
+      ),
+      min = cms.int32(4),
+    ),
   )
 )
 
@@ -743,8 +776,8 @@ topSingleElectronMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
         ),
         cvsVertex = cms.PSet(
           label = cms.InputTag("combinedSecondaryVertexBJetTags"),
-          workingPoint = cms.double(0.244) 
-          # CSVL from https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagPerformanceOP#B_tagging_Operating_Points_for_5
+          workingPoint = cms.double(0.898) 
+          # CSV Tight from https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagPerformanceOP#B_tagging_Operating_Points_for_5
         )
       ),
     ),
@@ -840,6 +873,17 @@ topSingleElectronMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
       ),
       min = cms.int32(4),
-    ), 
+    ),
+    cms.PSet(
+      label  = cms.string("jets/calo:step5"),
+      src    = cms.InputTag("ak5CaloJets"),
+      jetCorrector = cms.string("ak5CaloL2L3"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      jetID  = cms.PSet(
+        label  = cms.InputTag("ak5JetID"),
+        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
+      ),
+      min = cms.int32(4),
+    ),
   )
 )
