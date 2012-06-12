@@ -1,5 +1,4 @@
 #include "DQM/Physics/interface/TopDQMHelpers.h"
-#include <stdio.h>
 
 
 Calculate::Calculate(int maxNJets, double wMass): 
@@ -26,57 +25,6 @@ Calculate::massBTopQuark(const std::vector<reco::Jet>& jets, std::vector<double>
   if(!failed_&& massBTopQuark_<0) operator2(jets, VbtagWP, btagWP_); return massBTopQuark_; 
 }
 
-
-
-void
-Calculate::operator2(const std::vector<reco::Jet>& jets, std::vector<double> bjet, double btagWP)
-{
-  if(maxNJets_<0) maxNJets_=jets.size();
-  failed_= jets.size()<(unsigned int) maxNJets_;
-  if( failed_){ return; }
-  if (jets.size() != bjet.size()){return;}
-
-/*  FILE *f;
-  f=fopen("BTagValues.txt", "a");
-*/ // associate those jets with maximum pt of the vectorial 
-  // sum to the hadronic decay chain
-  double maxBPt=-1.;
-  std::vector<int> maxBPtIndices;
-  maxBPtIndices.push_back(-1);
-  maxBPtIndices.push_back(-1);
-  maxBPtIndices.push_back(-1);
-/*  fprintf(f,"======================\n");
-  fprintf(f,"WP %f\n", btagWP);
-*/  for(int idx=0; idx<maxNJets_; ++idx){
-//    fprintf(f,"----------------------\n");
-    for(int jdx=0; jdx<maxNJets_; ++jdx){ if(jdx<=idx) continue;
-        for(int kdx=0; kdx<maxNJets_; ++kdx){if(kdx==idx || kdx==jdx) continue;
-//            fprintf(f,"idx: %d btag.: %f pT= %f | jdx: %d BTagger: %f pT= %f | kdx: %d BTagger: %f pT= %f \n", idx, bjet[idx], jets[idx].pt(), jdx, bjet[jdx], jets[jdx].pt(), kdx, bjet[kdx], jets[kdx].pt());
-            if ((bjet[idx]>  btagWP && bjet[jdx]<= btagWP && bjet[kdx]<= btagWP) ||
-                (bjet[idx]<= btagWP && bjet[jdx]>  btagWP && bjet[kdx]<= btagWP) ||
-                (bjet[idx]<= btagWP && bjet[jdx]<= btagWP && bjet[kdx]>  btagWP) ){
-                    reco::Particle::LorentzVector sum = jets[idx].p4()+jets[jdx].p4()+jets[kdx].p4();
-//                    fprintf(f, "sum.pt %f\n", sum.pt());
-                    if( maxBPt<0. || maxBPt<sum.pt() ){
-                        maxBPt=sum.pt();
-                        maxBPtIndices.clear();
-                        maxBPtIndices.push_back(idx);
-                        maxBPtIndices.push_back(jdx);
-                        maxBPtIndices.push_back(kdx);
-                    }
-            }
-//            fprintf(f, "MaxBpT= %f\n",maxBPt);
-        }
-    }
-  }
-  if (maxBPtIndices[0]<0 || maxBPtIndices[1]<0 || maxBPtIndices[2]<0) return;
-  massBTopQuark_= (jets[maxBPtIndices[0]].p4()+
-                   jets[maxBPtIndices[1]].p4()+
-                   jets[maxBPtIndices[2]].p4()).mass();
-/*  fprintf(f, "Final Mass=%f\n", massBTopQuark_);
-
-  fclose(f);
-*/}
 
 void
 Calculate::operator()(const std::vector<reco::Jet>& jets)
@@ -131,4 +79,45 @@ Calculate::operator()(const std::vector<reco::Jet>& jets)
   }
   massWBoson_= (jets[wMassIndices[0]].p4()+
 		jets[wMassIndices[1]].p4()).mass();
+}
+
+
+void
+Calculate::operator2(const std::vector<reco::Jet>& jets, std::vector<double> bjet, double btagWP)
+{
+  if(maxNJets_<0) maxNJets_=jets.size();
+  failed_= jets.size()<(unsigned int) maxNJets_;
+  if( failed_){ return; }
+  if (jets.size() != bjet.size()){return;}
+
+  // associate those jets with maximum pt of the vectorial 
+  // sum to the hadronic decay chain. Require ONLY 1 btagged jet
+  double maxBPt=-1.;
+  std::vector<int> maxBPtIndices;
+  maxBPtIndices.push_back(-1);
+  maxBPtIndices.push_back(-1);
+  maxBPtIndices.push_back(-1);
+  for(int idx=0; idx<maxNJets_; ++idx){
+    for(int jdx=0; jdx<maxNJets_; ++jdx){ if(jdx<=idx) continue;
+        for(int kdx=0; kdx<maxNJets_; ++kdx){if(kdx==idx || kdx==jdx) continue;
+        //require only 1b-jet
+            if ((bjet[idx]>  btagWP && bjet[jdx]<= btagWP && bjet[kdx]<= btagWP) ||
+                (bjet[idx]<= btagWP && bjet[jdx]>  btagWP && bjet[kdx]<= btagWP) ||
+                (bjet[idx]<= btagWP && bjet[jdx]<= btagWP && bjet[kdx]>  btagWP) ){
+                    reco::Particle::LorentzVector sum = jets[idx].p4()+jets[jdx].p4()+jets[kdx].p4();
+                    if( maxBPt<0. || maxBPt<sum.pt() ){
+                        maxBPt=sum.pt();
+                        maxBPtIndices.clear();
+                        maxBPtIndices.push_back(idx);
+                        maxBPtIndices.push_back(jdx);
+                        maxBPtIndices.push_back(kdx);
+                    }
+            }
+        }
+    }
+  }
+  if (maxBPtIndices[0]<0 || maxBPtIndices[1]<0 || maxBPtIndices[2]<0) return;
+  massBTopQuark_= (jets[maxBPtIndices[0]].p4()+
+                   jets[maxBPtIndices[1]].p4()+
+                   jets[maxBPtIndices[2]].p4()).mass();
 }
