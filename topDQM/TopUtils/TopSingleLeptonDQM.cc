@@ -155,6 +155,10 @@ namespace TopSingleLepton {
     unsigned int nPaths=triggerPaths_.size();
 
     // --- [STANDARD] --- //
+    //Run Number
+    hists_["RunNumb_"    ] = store_->book1D("RunNumber"  , "Run Nr."          ,   1.e4,  1.5e5,    3.e5);
+    //instantaneous luminosity
+    hists_["InstLumi_"   ] = store_->book1D("InstLumi"   , "Inst. Lumi."      ,    100,     0.,    1.e3);
     // number of selected primary vertices
     hists_["pvMult_"     ] = store_->book1D("PvMult"     , "N_{pvs}"          ,     100,     0.,    100.);  
     // pt of the leading muon
@@ -199,9 +203,9 @@ namespace TopSingleLepton {
     // std isolation variable of the leading electron
     hists_["elecRelIso_" ] = store_->book1D("ElecRelIso" , "Iso_{Rel}(e)"     ,     50,     0.,      1.);   
     // multiplicity of btagged jets (for track counting high efficiency) with pt(L2L3)>30
-    hists_["jetMultBEff_"] = store_->book1D("JetMultBEff", "N_{30}(b/eff)"    ,     10,     0.,     10.);   
+    hists_["jetMultBEff_"] = store_->book1D("JetMultBEff", "N_{30}(TCHE)"    ,     10,     0.,     10.);   
     // btag discriminator for track counting high efficiency for jets with pt(L2L3)>30
-    hists_["jetBDiscEff_"] = store_->book1D("JetBDiscEff", "Disc_{b/eff}(jet)",     100,     0.,    10.);   
+    hists_["jetBDiscEff_"] = store_->book1D("JetBDiscEff", "Disc_{TCHE}(jet)",     100,     0.,    10.);   
     // eta of the 1. leading jet (corrected to L2+L3)
     hists_["jet1Eta_"    ] = store_->book1D("Jet1Eta"    , "#eta_{L2L3}(jet1)",     60,     -3.,     3.);   
     // pt of the 1. leading jet (corrected to L2+L3)
@@ -242,17 +246,17 @@ namespace TopSingleLepton {
     // relative electron isolation in ecal+hcal for the leading electron
     hists_["elecCalIso_" ] = store_->book1D("ElecCalIso" , "Iso_{Ecal}(e)"    ,     50,     0.,      1.);   
     // multiplicity of btagged jets (for track counting high purity) with pt(L2L3)>30
-    hists_["jetMultBPur_"] = store_->book1D("JetMultBPur", "N_{30}(b/pur)"    ,     10,     0.,     10.);   
+    hists_["jetMultBPur_"] = store_->book1D("JetMultBPur", "N_{30}(TCHP)"    ,     10,     0.,     10.);   
     // btag discriminator for track counting high purity
-    hists_["jetBDiscPur_"] = store_->book1D("JetBDiscPur", "Disc_{b/pur}(Jet)",     100,     0.,    10.);   
+    hists_["jetBDiscPur_"] = store_->book1D("JetBDiscPur", "Disc_{TCHP}(Jet)",    100,     0.,    10.);   
     // multiplicity of btagged jets (for simple secondary vertex) with pt(L2L3)>30
-    hists_["jetMultBVtx_"] = store_->book1D("JetMultBVtx", "N_{30}(b/vtx)"    ,     10,     0.,     10.);   
+    hists_["jetMultBVtx_"] = store_->book1D("JetMultBVtx", "N_{30}(SSVHE)"    ,    10,     0.,     10.);   
     // btag discriminator for simple secondary vertex
-    hists_["jetBDiscVtx_"] = store_->book1D("JetBDiscVtx", "Disc_{b/vtx}(Jet)",     35,    -1.,      6.);   
+    hists_["jetBDiscVtx_"] = store_->book1D("JetBDiscVtx", "Disc_{SSVHE}(Jet)",    35,    -1.,      6.);   
     // multiplicity for combined secondary vertex
-    hists_["jetMultCSVtx_"]= store_->book1D("JetMultCSVtx", "N_{30}(CSV)"     ,     10,     0.,     10.);
+    hists_["jetMultCSVtx_"]= store_->book1D("JetMultCSV" , "N_{30}(CSV)"     ,      10,     0.,     10.);
     // btag discriminator for combined secondary vertex
-    hists_["jetBCVtx_"]   = store_->book1D("JetCSVtx"    ,  "Disc_{CSV}(JET)" ,     100,   -1.,      2.);
+    hists_["jetBCVtx_"]   = store_->book1D("JetDiscCSV"  , "Disc_{CSV}(JET)" ,     100,   -1.,      2.);
     // pt of the 1. leading jet (uncorrected)
     hists_["jet1PtRaw_"  ] = store_->book1D("Jet1PtRaw"  , "pt_{Raw}(jet1)"   ,     60,     0.,    300.);   
     // pt of the 2. leading jet (uncorrected)
@@ -261,10 +265,6 @@ namespace TopSingleLepton {
     hists_["jet3PtRaw_"  ] = store_->book1D("Jet3PtRaw"  , "pt_{Raw}(jet3)"   ,     60,     0.,    300.);   
     // pt of the 4. leading jet (uncorrected)
     hists_["jet4PtRaw_"  ] = store_->book1D("Jet4PtRaw"  , "pt_{Raw}(jet4)"   ,     60,     0.,    300.);   
-    //Run Number
-    hists_["RunNumb_"    ] = store_->book1D("RunNumber"  , "Run Nr."          ,   1.e4,  1.5e5,    1.e8);
-    //instantaneous luminosity
-    hists_["InstLumi_"   ] = store_->book1D("InstLumi"   , "Inst. Lumi."      ,    100,     0.,    1.e3);
     // selected events
     hists_["eventLogger_"] = store_->book2D("EventLogger", "Logged Events"    ,      9,     0.,      9.,   10,   0.,   10.);
 
@@ -313,17 +313,15 @@ namespace TopSingleLepton {
     /*
     ------------------------------------------------------------
     
-    Run and Inst. Luminosity information
+    Run and Inst. Luminosity information (Inst. Lumi. filled now with a dummy value=5.0)
     
     ------------------------------------------------------------
     */
     if (!event.eventAuxiliary().run()) return;
     fill("RunNumb_", event.eventAuxiliary().run());   
-    double dummy=5.;
-    fill("InstLumi_", dummy);
-      
-
-
+    
+    double dummy=5.; fill("InstLumi_", dummy);
+     
 
     /* 
     ------------------------------------------------------------
@@ -451,9 +449,8 @@ namespace TopSingleLepton {
 
     // loop jet collection
     std::vector<reco::Jet> correctedJets;
+    std::vector<double> JetTagValues;
     unsigned int mult=0, multBEff=0, multBPur=0, multBVtx=0, multCSV=0;
-    //std::vector<bool> bjet;
-    std::vector<double> bjet;
     
     edm::Handle<edm::View<reco::Jet> > jets; 
     if( !event.getByLabel(jets_, jets) ) return;
@@ -494,18 +491,14 @@ namespace TopSingleLepton {
       ++mult; // determine jet multiplicity
       if( includeBTag_ ){
 	// fill b-discriminators
-	edm::RefToBase<reco::Jet> jetRef = jets->refAt(idx);	
-	fill("jetBDiscEff_", (*btagEff)[jetRef]); 
-        if( (*btagEff)[jetRef]>btagEffWP_ ) {
-            ++multBEff;
-            //bjet.push_back(1);
-            
-        }
-        bjet.push_back( (*btagEff)[jetRef]);
-//         else {bjet.push_back(0);};
+	edm::RefToBase<reco::Jet> jetRef = jets->refAt(idx);
+	fill("jetBDiscEff_", (*btagEff)[jetRef]); if( (*btagEff)[jetRef]>btagEffWP_ ) ++multBEff; 
 	fill("jetBDiscPur_", (*btagPur)[jetRef]); if( (*btagPur)[jetRef]>btagPurWP_ ) ++multBPur; 
 	fill("jetBDiscVtx_", (*btagVtx)[jetRef]); if( (*btagVtx)[jetRef]>btagVtxWP_ ) ++multBVtx; 
         fill("jetBCVtx_"   , (*btagCSV)[jetRef]); if( (*btagCSV)[jetRef]>btagCSVWP_ ) ++multCSV;
+        
+        //Fill a vector with Jet b-tag WP for later M3+1tag calculation: CSV tagger
+        JetTagValues.push_back( (*btagCSV)[jetRef]);
       }
       // fill pt (raw or L2L3) for the leading four jets  
       if(idx==0) {fill("jet1Pt_" , monitorJet.pt()); fill("jet1PtRaw_", jet->pt() );
@@ -560,14 +553,15 @@ namespace TopSingleLepton {
     Calculate eventKinematics(MAXJETS, WMASS);
     double wMass   = eventKinematics.massWBoson   (correctedJets);
     double topMass = eventKinematics.massTopQuark (correctedJets);
-    if(wMass>=0 && topMass>=0 ) {
-        fill("massW_" , wMass  );
-        fill("massTop_" , topMass);
-    }
+    if(wMass>=0 && topMass>=0 ) {fill("massW_" ,   wMass  );fill("massTop_" , topMass);}
+    
+    // Fill M3 with Btag (CSV Tight) requirement
+    
     if (!includeBTag_) return;
-    if (correctedJets.size() != bjet.size()) return;
-    double btopMass= eventKinematics.massBTopQuark(correctedJets, bjet, btagEffWP_);
+    if (correctedJets.size() != JetTagValues.size()) return;
+    double btopMass= eventKinematics.massBTopQuark(correctedJets, JetTagValues, btagCSVWP_);
     if (btopMass>=0) fill("massBTop_", btopMass);
+    
     // fill plots for trigger monitoring
     if((lowerEdge_==-1. && upperEdge_==-1.) || (lowerEdge_<wMass && wMass<upperEdge_) ){
       if(!triggerTable_.label().empty()) fill(event, *triggerTable, "trigger", triggerPaths_);

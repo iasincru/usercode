@@ -255,23 +255,11 @@ topSingleMuonLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       select = cms.string("pt>10 & abs(eta)<2.1 & isGlobalMuon & innerTrack.numberOfValidHits>10 & globalTrack.normalizedChi2>-1 & globalTrack.normalizedChi2<10"),
       min    = cms.int32(1),
     ),
-    #cms.PSet(
-    #  label  = cms.string("jets/calo:24jets"),
-    #  src    = cms.InputTag("ak5CaloJets"),
-    #  jetCorrector = cms.string("ak5CaloL2L3"),
-    #  select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
-    #  jetID  = cms.PSet(
-    #    label  = cms.InputTag("ak5JetID"),
-    #    select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
-    #  ),
-    #  min = cms.int32(2),                                               
-    #  max = cms.int32(4),                                               
-    #), 
     cms.PSet(
       label  = cms.string("jets/calo:step1"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -282,7 +270,7 @@ topSingleMuonLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step2"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -293,7 +281,7 @@ topSingleMuonLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step3"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -302,17 +290,6 @@ topSingleMuonLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
     ), 
     cms.PSet(
       label  = cms.string("jets/calo:step4"),
-      src    = cms.InputTag("ak5CaloJets"),
-      jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
-      jetID  = cms.PSet(
-        label  = cms.InputTag("ak5JetID"),
-        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
-      ),
-      min = cms.int32(4),                                               
-    ), 
-    cms.PSet(
-      label  = cms.string("jets/calo:step5"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
       select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
@@ -459,7 +436,7 @@ topSingleMuonMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step1"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -470,7 +447,7 @@ topSingleMuonMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step2"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -481,7 +458,7 @@ topSingleMuonMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step3"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -492,18 +469,7 @@ topSingleMuonMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step4"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
-      jetID  = cms.PSet(
-        label  = cms.InputTag("ak5JetID"),
-        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
-      ),
-      min = cms.int32(4),                                                
-    ),
-    cms.PSet(
-      label  = cms.string("jets/calo:step5"),
-      src    = cms.InputTag("ak5CaloJets"),
-      jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>30. & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -646,7 +612,7 @@ topSingleElectronLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step1"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -657,7 +623,7 @@ topSingleElectronLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step2"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -668,7 +634,7 @@ topSingleElectronLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step3"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -677,17 +643,6 @@ topSingleElectronLooseDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
     ), 
     cms.PSet(
       label  = cms.string("jets/calo:step4"),
-      src    = cms.InputTag("ak5CaloJets"),
-      jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
-      jetID  = cms.PSet(
-        label  = cms.InputTag("ak5JetID"),
-        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
-      ),
-      min = cms.int32(4),
-    ),
-    cms.PSet(
-      label  = cms.string("jets/calo:step5"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
       select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
@@ -834,7 +789,7 @@ topSingleElectronMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label = cms.string("jets/calo:step1"),
       src   = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -845,7 +800,7 @@ topSingleElectronMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step2"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -856,7 +811,7 @@ topSingleElectronMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
       label  = cms.string("jets/calo:step3"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
+      select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
       jetID  = cms.PSet(
         label  = cms.InputTag("ak5JetID"),
         select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
@@ -865,17 +820,6 @@ topSingleElectronMediumDQM = cms.EDAnalyzer("TopSingleLeptonDQM",
     ), 
     cms.PSet(
       label  = cms.string("jets/calo:step4"),
-      src    = cms.InputTag("ak5CaloJets"),
-      jetCorrector = cms.string("ak5CaloL2L3"),
-      select = cms.string("pt>15 & abs(eta)<2.5 & emEnergyFraction>0.01"),
-      jetID  = cms.PSet(
-        label  = cms.InputTag("ak5JetID"),
-        select = cms.string("fHPD < 0.98 & n90Hits>1 & restrictedEMF<1")
-      ),
-      min = cms.int32(4),
-    ),
-    cms.PSet(
-      label  = cms.string("jets/calo:step5"),
       src    = cms.InputTag("ak5CaloJets"),
       jetCorrector = cms.string("ak5CaloL2L3"),
       select = cms.string("pt>30 & abs(eta)<2.5 & emEnergyFraction>0.01"),
