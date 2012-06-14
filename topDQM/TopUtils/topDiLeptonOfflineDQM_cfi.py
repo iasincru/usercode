@@ -65,7 +65,7 @@ topDiLeptonOfflineDQM = cms.EDAnalyzer("TopDiLeptonOfflineDQM",
       ## when omitted no extra selection will be applied on jets before
       ## filling the monitor histograms; if jetCorrector is present the
       ## selection will be applied to corrected jets
-      select = cms.string("pt>15. & abs(eta)<2.4 & emEnergyFraction>0.01"), 
+      select = cms.string("pt>30. & abs(eta)<2.4 & emEnergyFraction>0.01"), 
     ),
     ## [optional] : when omitted no mass window will be applied
     ## for the same flavor lepton monitoring plots 
@@ -214,7 +214,7 @@ DiMuonDQM = cms.EDAnalyzer("TopDiLeptonOfflineDQM",
       ## when omitted no extra selection will be applied on jets before
       ## filling the monitor histograms; if jetCorrector is present the
       ## selection will be applied to corrected jets
-      select = cms.string("pt>15. & abs(eta)<2.4 & emEnergyFraction>0.01"), 
+      select = cms.string("pt>30. & abs(eta)<2.4 & emEnergyFraction>0.01"), 
     ),
     ## [optional] : when omitted no mass window will be applied
     ## for the same flavor lepton monitoring plots 
@@ -361,7 +361,7 @@ DiElectronDQM = cms.EDAnalyzer("TopDiLeptonOfflineDQM",
       ## when omitted no extra selection will be applied on jets before
       ## filling the monitor histograms; if jetCorrector is present the
       ## selection will be applied to corrected jets
-      select = cms.string("pt>15. & abs(eta)<2.4 & emEnergyFraction>0.01"), 
+      select = cms.string("pt>30. & abs(eta)<2.4 & emEnergyFraction>0.01"), 
     ),
     ## [optional] : when omitted no mass window will be applied
     ## for the same flavor lepton monitoring plots 
@@ -512,7 +512,7 @@ ElecMuonDQM = cms.EDAnalyzer("TopDiLeptonOfflineDQM",
       ## when omitted no extra selection will be applied on jets before
       ## filling the monitor histograms; if jetCorrector is present the
       ## selection will be applied to corrected jets
-      select = cms.string("pt>15. & abs(eta)<2.4 & emEnergyFraction>0.01"), 
+      select = cms.string("pt>30. & abs(eta)<2.4 & emEnergyFraction>0.01"), 
     ),
     ## [optional] : when omitted no mass window will be applied
     ## for the same flavor lepton monitoring plots 
