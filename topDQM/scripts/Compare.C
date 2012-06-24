@@ -7,8 +7,29 @@
 #include <TStyle.h>
 #include <TString.h>
 
+void Compare() {
+  Run("SingleMuon","Medium","step0", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+//   Run("SingleMuon","Medium","step1", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+//   Run("SingleMuon","Medium","step2", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+//   Run("SingleMuon","Medium","step3", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  Run("SingleMuon","Medium","step4", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  
+  Run("SingleMuon","Loose","step0", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+//   Run("SingleMuon","Loose","step1", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+//   Run("SingleMuon","Loose","step2", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+//   Run("SingleMuon","Loose","step3", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  Run("SingleMuon","Loose","step4", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  
+  Run("DiMuon","","step0", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  Run("DiMuon","","step1", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  
+  Run("DiElectron","","step0", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  Run("DiElectron","","step1", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
 
-void Compare(){
+}
+
+
+void Run(TString particle="SingleMuon",TString WP="Medium",TString step="step0",TString dir1="histos",TString dir2="histos", TString runrange1="195017-195396", TString runrange2="195971-195947",TString week1="23", TString week2="24"){
   std::cout<<"****************************************************************"<<std::endl;
   std::cout<<"**** Great that you choose this macro to Compare Top DQM histograms."<<std::endl;
   std::cout<<"**** Do you know which Modules are you running? And how many steps do they have?"<<std::endl;
@@ -23,16 +44,23 @@ void Compare(){
   std::cout<<"****         -> Step: step0, step1, step2 (only ElecMu)"<<std::endl;
   std::cout<<"****************************************************************"<<std::endl;
   
-  TString particle, WP, step, outname, f1_name, f2_name;
+  TString outname, f1_name, f2_name;
   TString leg1="" , leg2="";
   TFile *f1, *f2;
   double Lumi1, Lumi2;
 
-  f1 = TFile::Open("week23/DQM_V0001_R000000001__TopVal__195017-195396__DoubleElectron_Run2012B-PromptReco-v1_week23.root"); leg1.Append("195017-195396");   Lumi1 = 1.0;
-  f2 = TFile::Open("week23/DQM_V0001_R000000001__TopVal__195397-195870__DoubleElectron_Run2012B-PromptReco-v1_DCSONLY_week23.root"); leg2.Append("195397-195870");   Lumi2 = 1.0;
-  particle.Clear();     particle.Append("DiElectron");
-  WP.Clear();           WP.Append("");
-  step.Clear();         step.Append("step0");
+  TString dataset; dataset.Clear();
+  if (particle=="SingleMuon") dataset="SingleMu";
+  if (particle=="DiMuon") dataset="DoubleMu";
+  if (particle=="SingleElectron") dataset=particle;
+  if (particle=="DiElectron") dataset="DoubleElectron";
+
+
+  f1 = TFile::Open(dir1+"/DQM_V0001_R000000001__TopVal__"+runrange1+"__"+dataset+"_Run2012B-PromptReco-v1_week"+week1+".root"); leg1.Append(runrange1);   Lumi1 = 1.0;
+  f2 = TFile::Open(dir2+"/DQM_V0001_R000000001__TopVal__"+runrange2+"__"+dataset+"_Run2012B-PromptReco-v1_week"+week2+".root"); leg2.Append(runrange2);   Lumi1 = 1.0;
+  //  particle.Clear();     particle.Append("SingleMuon");
+  //  WP.Clear();           WP.Append("Medium");
+  //  step.Clear();         step.Append("step3");
 
   f1_name = f1->GetName(); f1_name.Remove(6);
   f2_name = f2->GetName(); f2_name.Remove(6);
@@ -217,13 +245,13 @@ void Compare2Files(TFile* f1, TFile* f2, TString particle, TString WP="", TStrin
         Plot1D(f1, f2, "ElecRelIso",    output, dirstr, leg1, leg2, Lumi1, Lumi2);
         Plot1D(f1, f2, "ElecTrkIso",    output, dirstr, leg1, leg2, Lumi1, Lumi2);
         Plot1D(f1, f2, "InvMass",       output, dirstr, leg1, leg2, Lumi1, Lumi2);
-        Plot1D(f1, f2, "InvMass",       output, dirstr, leg1, leg2, Lumi1, Lumi2, 1);
+//        Plot1D(f1, f2, "InvMass",       output, dirstr, leg1, leg2, Lumi1, Lumi2, 1);
         Plot1D(f1, f2, "InvMassLog",    output, dirstr, leg1, leg2, Lumi1, Lumi2);
-        Plot1D(f1, f2, "InvMassLog",    output, dirstr, leg1, leg2, Lumi1, Lumi2, 1);
+//        Plot1D(f1, f2, "InvMassLog",    output, dirstr, leg1, leg2, Lumi1, Lumi2, 1);
         Plot1D(f1, f2, "InvMassLogWC",  output, dirstr, leg1, leg2, Lumi1, Lumi2);
-        Plot1D(f1, f2, "InvMassLogWC",  output, dirstr, leg1, leg2, Lumi1, Lumi2, 1);
+//        Plot1D(f1, f2, "InvMassLogWC",  output, dirstr, leg1, leg2, Lumi1, Lumi2, 1);
         Plot1D(f1, f2, "InvMassWC",     output, dirstr, leg1, leg2, Lumi1, Lumi2);
-        Plot1D(f1, f2, "InvMassWC",     output, dirstr, leg1, leg2, Lumi1, Lumi2, 1);
+//        Plot1D(f1, f2, "InvMassWC",     output, dirstr, leg1, leg2, Lumi1, Lumi2, 1);
         Plot1D(f1, f2, "Jet1Eta",       output, dirstr, leg1, leg2, Lumi1, Lumi2);
         Plot1D(f1, f2, "Jet1Pt",        output, dirstr, leg1, leg2, Lumi1, Lumi2);
         Plot1D(f1, f2, "Jet1PtRaw",     output, dirstr, leg1, leg2, Lumi1, Lumi2);
