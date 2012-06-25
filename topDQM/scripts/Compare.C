@@ -8,23 +8,36 @@
 #include <TString.h>
 
 void Compare() {
-  Run("SingleMuon","Medium","step0", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-//   Run("SingleMuon","Medium","step1", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-//   Run("SingleMuon","Medium","step2", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-//   Run("SingleMuon","Medium","step3", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-  Run("SingleMuon","Medium","step4", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  Run("SingleMuon","Medium","step0", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleMuon","Medium","step1", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleMuon","Medium","step2", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleMuon","Medium","step3", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+  Run("SingleMuon","Medium","step4", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
   
-  Run("SingleMuon","Loose","step0", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-//   Run("SingleMuon","Loose","step1", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-//   Run("SingleMuon","Loose","step2", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-//   Run("SingleMuon","Loose","step3", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-  Run("SingleMuon","Loose","step4", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+//   Run("SingleMuon","Loose","step0", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleMuon","Loose","step1", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleMuon","Loose","step2", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleMuon","Loose","step3", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleMuon","Loose","step4", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+
+  Run("SingleElectron","Medium","step0", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleElectron","Medium","step1", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleElectron","Medium","step2", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleElectron","Medium","step3", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+  Run("SingleElectron","Medium","step4", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
   
-  Run("DiMuon","","step0", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-  Run("DiMuon","","step1", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+//   Run("SingleElectron","Loose","step0", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleElectron","Loose","step1", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleElectron","Loose","step2", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleElectron","Loose","step3", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+//   Run("SingleElectron","Loose","step4", "week24", "week25", "195397-195947", "195948-196509", "24", "25");
+
   
-  Run("DiElectron","","step0", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
-  Run("DiElectron","","step1", "week22", "week25", "194480-195016", "195948-196509", "22", "25");
+  Run("DiMuon","","step0", "week23", "week25", "195017-195396", "195948-196509", "23", "25");
+  Run("DiMuon","","step1", "week23", "week25", "195017-195396", "195948-196509", "23", "25");
+  
+  Run("DiElectron","","step0", "week23", "week25", "195017-195396", "195948-196509", "23", "25");
+  Run("DiElectron","","step1", "week23", "week25", "195017-195396", "195948-196509", "23", "25");
 
 }
 
