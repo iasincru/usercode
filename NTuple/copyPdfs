@@ -1,0 +1,15 @@
+#!/bin/sh
+
+ ls Notes/papers/TOP-11-013/trunk/figures/dilepton/*.pdf > /tmp/tmpCopyFiles
+
+ while read xx
+ do
+    echo "file" $xx 
+
+    ps2pdf14 -dEPSCrop Plots/combined/`basename $xx .pdf`.eps
+    echo `basename $xx`  "done"
+    mv `basename $xx` Plots/combined
+    cp Plots/combined/`basename $xx` Notes/papers/TOP-11-013/trunk/figures/dilepton
+    
+ done < /tmp/tmpCopyFiles
+ rm /tmp/tmpCopyFiles
