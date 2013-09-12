@@ -1,0 +1,101 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%          This LaTeX file can be compiled via:
+%%%          > pdflatex -shell-escape controlPlots.tex
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[12pt, a4paper, titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%all the graphics will be contained in here
+\usepackage{graphicx, subfigure, fancyhdr}
+\usepackage{epstopdf}
+\usepackage[landscape]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%    Set the header
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\lhead{Distributions}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%    Title, author and date information
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Control Plots}
+\author{Ivan Asin}
+\date{\today}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Path to the input graphics
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{./Plots/Nominal/}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Start here the document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+\maketitle
+
+
+\clearpage
+\newpage
+
+
+
+\begin{figure}
+    \subfigure
+    {
+      \centering
+      \includegraphics[width=0.325\textwidth, keepaspectratio=1]{ee/HypBBBarMass}
+    }
+    \subfigure
+    {
+      \centering
+      \includegraphics[width=0.325\textwidth, keepaspectratio=1]{ee/ESP_HypBBBarMass}
+    }
+    \subfigure
+    {
+      \centering
+      \includegraphics[width=0.325\textwidth, keepaspectratio=1]{ee/DiffXS_HypBBBarMass}
+    }
+    \subfigure
+    {
+      \centering
+      \includegraphics[width=0.325\textwidth, keepaspectratio=1]{emu/HypBBBarMass}
+    }
+    \subfigure
+    {
+      \centering
+      \includegraphics[width=0.325\textwidth, keepaspectratio=1]{emu/ESP_HypBBBarMass}
+    }
+    \subfigure
+    {
+      \centering
+      \includegraphics[width=0.325\textwidth, keepaspectratio=1]{emu/DiffXS_HypBBBarMass}
+    }
+\end{figure}
+\clearpage
+\newpage
+
+\end{document}
+
+
+
