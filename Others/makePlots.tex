@@ -1,0 +1,89 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%          This LaTeX file can be compiled via:
+%%%          > pdflatex -shell-escape makePlots.tex
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[12pt, a4paper, titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%all the graphics will be contained in here
+\usepackage{graphicx, subfigure, fancyhdr}
+\usepackage{epstopdf}
+%\usepackage[landscape]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%    Title, author and date information
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\title{Plots}
+\author{Ivan Asin}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%    Set the header
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\lhead{CSVT tagger, combination at yield level, SVD unfolding}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Path to the input graphics
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{../Plots_2bTags/Nominal/}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Start here the document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+\begin{titlepage}
+\begin{center}
+\LARGE{Plots}\\
+\large{Ivan Asin}\\
+\today\\
+\vspace{3cm}
+Event selection: CSV tight working point.\\
+Combination of channels: at event yield.\\
+Unfolding method: SVD\\
+DY: SF($ee$) = SF($\mu\mu$) = 0.79
+\end{center}
+\end{titlepage}
+
+
+
+\clearpage
+\newpage
+% 
+% 
+% \input{binnedControlPlots.tex}
+% \clearpage
+% \newpage
+% 
+% \input{plotsEverySelectionStep.tex}
+% \clearpage
+% \newpage
+
+\input{controlPlots.tex}
+\clearpage
+\newpage
+
+\input{differentialXSections.tex}
+
+
+\end{document}
