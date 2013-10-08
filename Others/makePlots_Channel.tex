@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%          This LaTeX file can be compiled via:
+%%%          > pdflatex -shell-escape makePlots_Channel.tex
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[12pt, a4paper, titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%all the graphics will be contained in here
+\usepackage{graphicx, subfigure, fancyhdr}
+\usepackage{epstopdf}
+\usepackage{geometry}
+\usepackage{lscape}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%    Title, author and date information
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\title{Plots}
+\author{Ivan Asin}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%    Set the header
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\lhead{Default analysis, statistical combination of results, SVD unfolding}
+\rhead{\thepage}
+\cfoot{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Path to the input graphics
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{./Plots_Nominal/Nominal/mumu/}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%  Start here the document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\LARGE{Plots}\\
+\large{Ivan Asin}\\
+\today\\
+\vspace{3cm}
+Event selection: Default.\\
+Combination of channels: statistical combination of results.\\
+Unfolding method: SVD\\
+DY: SF($ee$) = SF($\mu\mu$) = 0.79\\
+$\sigma = 248.00$pb
+\end{center}
+\end{titlepage}
+
+
+
+\clearpage
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%   emu channel
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{./Plots_Nominal/Nominal/emu/}}
+\input{cpInBins_Channel}
+\clearpage
+\newpage
+
+% \input{cpSelStep_Channel}
+% \clearpage
+% % \newpage
+
+\input{cp_Channel}
+\clearpage
+\newpage
+
+\input{diffXS_Channel}
+\clearpage
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%   ee channel
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \graphicspath{{./Plots_Nominal/Nominal/ee/}}
+% \input{cpInBins_Channel}
+% \clearpage
+% \newpage
+% 
+% \input{cpSelStep_Channel}
+% \clearpage
+% \newpage
+% 
+% \input{cp_Channel}
+% \clearpage
+% \newpage
+% 
+% \input{diffXS_Channel}
+% 
+% 
+% \clearpage
+% \newpage
+
+\end{document}
