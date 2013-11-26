@@ -182,6 +182,7 @@ void makeVariationPlot(TString variable)
 
         histo = new TH1D("histo", "", vec_histo.size(), -0.5, -0.5+vec_histo.size());
         histo->SetTitle(variable+" bin "+buffer);
+        histo->GetYaxis()->SetTitle("Variation/Default");
         for(unsigned int iter=0 ; iter<vec_histo.size(); iter++){
             histo->SetBinContent(iter+1, vec_histo.at(iter)->GetBinContent(nbins));
             histo->SetBinError(iter+1, vec_histo.at(iter)->GetBinError(nbins));
