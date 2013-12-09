@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////
 ////
-////     root -l -b -q compareTrees.cc++
+////     root -l -b -q macros/compareTrees.cc++
 ////
 //////////////////////////////////////////////////////////////////
 
@@ -26,17 +26,18 @@ void compareTrees(){
     TH1D* h0 = new TH1D("h0", "h0", 60, -0.5, 59.5);   h0->SetLineColor(kRed);
     TH1D* h1 = new TH1D("h1", "h1", 60, -0.5, 59.5);   h1->SetLineColor(kBlue);
 
+    TCanvas *c1 = new TCanvas();
     tree0->Draw("@allGenJets.size()>>h0", "", "norm");
     tree1->Draw("@allGenJets.size()>>h1", "", "norm,same");
 
-
+    h0->Scale(1./h0->Integral());
+    h1->Scale(1./h1->Integral());
     TLegend *leg = new TLegend(0.75, 0.75, 0.9, 0.9);
     leg->AddEntry(h0, "Madgraph", "l");
     leg->AddEntry(h1, "MadSpin", "l");
 
-    TCanvas *c1 = new TCanvas();
-    h0->DrawNormalized();
-    h1->DrawNormalized("same");
+    h0->Draw();
+    h1->Draw("same");
     leg->Draw("same");
 
     c1->Print("compareTree.eps");
