@@ -141,14 +141,35 @@ void setHHStyle(TStyle& HHStyle)
 }
 
 
-void makeVariationPlot(TString variable)
+// void makeVariationPlot(TString variable)
+void makePlot(TString variable)
 {
     setHHStyle(*gStyle);
 
-    const TString basedir[] = {"Plots_FullAnalysis/Nominal/", "Nominal_PU_LessEq5/Plots_PUleq5/Nominal/", "Nominal_PULessEq10/Plots_LowPU/Nominal/", "Nominal_PUMore10_LessEq16/Plots_MediumPU_SVD/Nominal/", 
-                         "Nominal_PUMore16/Plots_HighPU_SVD/Nominal/", "Nominal_TightMuon_Selection/Plots_TightMuons/Nominal/", "Nominal_TightMuon_Selection/Plots_TightMuonsCSVT_FullSVD/Nominal/", 
-                         "Nominal_2CSVLoose/Plots_2bTags/Nominal/", "Nominal_CSVT/Plots_CSVT/Nominal/"};
-    const TString xTitles[] = {"Nominal", "PU #leq 5", "PU #leq 10", "10 #leq PU #leq 16", "PU #geq 16", "Tight #mu", "Tight #mu + CSVT", "2 CSVL", "1 CSVT"};
+//     const double ymin = 0.95, ymax = 1.05;
+//     const TString basedir[] = {"Plots_FullAnalysis/Nominal/", "Nominal_PU_LessEq5/Plots_PUleq5/Nominal/", "Nominal_PULessEq10/Plots_LowPU/Nominal/", "Nominal_PUMore10_LessEq16/Plots_MediumPU_SVD/Nominal/", 
+//                          "Nominal_PUMore16/Plots_HighPU_SVD/Nominal/", "Nominal_TightMuon_Selection/Plots_TightMuons/Nominal/", "Nominal_TightMuon_Selection/Plots_TightMuonsCSVT_FullSVD/Nominal/", 
+//                          "Nominal_2CSVLoose/Plots_2bTags/Nominal/", "Nominal_CSVT/Plots_CSVT/Nominal/"};
+//     const TString xTitles[] = {"Nominal", "PU #leq 5", "PU #leq 10", "10 #leq PU #leq 16", "PU #geq 16", "Tight #mu", "Tight #mu + CSVT", "2 CSVL", "1 CSVT"};
+
+
+    const double ymin = 0.99, ymax = 1.01;
+//     const TString baseBasedir = "MadSpin_FullStats_FullAnalysis/";
+    const TString baseBasedir = "MadSpin_FullStats_bTagSFperEvent/";
+    const TString basedir[] = {baseBasedir.Copy()+"Plots/Nominal/",
+                               baseBasedir.Copy()+"Plots/BTAG_UP/", baseBasedir.Copy()+"Plots/BTAG_DOWN/",
+                               baseBasedir.Copy()+"Plots/BTAG_LJET_UP/", baseBasedir.Copy()+"Plots/BTAG_LJET_DOWN/",
+                               baseBasedir.Copy()+"Plots/BTAG_PT_UP/", baseBasedir.Copy()+"Plots/BTAG_PT_DOWN/",
+                               baseBasedir.Copy()+"Plots/BTAG_LJET_PT_UP/", baseBasedir.Copy()+"Plots/BTAG_LJET_PT_DOWN/",
+                               baseBasedir.Copy()+"Plots/BTAG_ETA_UP/", baseBasedir.Copy()+"Plots/BTAG_ETA_DOWN/",
+                               baseBasedir.Copy()+"Plots/BTAG_LJET_ETA_UP/", baseBasedir.Copy()+"Plots/BTAG_LJET_ETA_DOWN/"};
+    const TString xTitles[] = {"Default",
+                               "UP", "DOWN",
+                               "UP Ljet", "DOWN",
+                               "PT UP", "PT DOWN",
+                               "PT Ljet UP", "PT Ljet DOWN",
+                               "ETA UP", "ETA DOWN",
+                               "ETA Ljet UP", "ETA Ljet DOWN"};
 
     const std::vector<TString>vec_baseDir (basedir, basedir + sizeof(basedir)/sizeof(basedir[0]));
     const std::vector<TString>vec_xTitles (xTitles, xTitles + sizeof(xTitles)/sizeof(xTitles[0]));
@@ -180,10 +201,11 @@ void makeVariationPlot(TString variable)
         char buffer[10];
         sprintf(buffer, "%d", nbins);
 
-        histo = new TH1D("histo", "", vec_histo.size(), -0.5, -0.5+vec_histo.size());
+        histo = new TH1D("histo_"+*(Form("%i",nbins)), "", vec_histo.size(), -0.5, -0.5+vec_histo.size());
         histo->SetTitle(variable+" bin "+buffer);
-        histo->GetYaxis()->SetTitle("Variation/Default");
-        histo->GetYaxis()->SetRangeUser(0.95, 1.05);
+        histo->GetYaxis()->SetTitle("Variation/"+vec_xTitles.at(0));
+        histo->GetYaxis()->SetRangeUser(ymin, ymax);
+        histo->GetYaxis()->SetTitleOffset(1.5*histo->GetYaxis()->GetTitleOffset());
         for(unsigned int iter=0 ; iter<vec_histo.size(); iter++){
             histo->SetBinContent(iter+1, vec_histo.at(iter)->GetBinContent(nbins));
             histo->SetBinError(iter+1, vec_histo.at(iter)->GetBinError(nbins));
@@ -193,7 +215,34 @@ void makeVariationPlot(TString variable)
         histo->Draw();
     }
     TString outdir = TString("ComparisonPlots/");
-    gSystem->mkdir(outdir);
+    gSystem->mkdir(outdir, kTRUE);
     c->Print(outdir.Copy()+variable+".eps");
     c->Print(outdir.Copy()+variable+".C");
+    delete c;
+    delete histo;
+}
+
+
+
+void makeVariationPlot()
+{
+    makePlot("HypBBBarMass");
+    makePlot("HypBBBarpT");
+    makePlot("HypBJetEta");
+    makePlot("HypBJetpT");
+//     makePlot("HypLLBarDPhi");
+    makePlot("HypLLBarMass");
+    makePlot("HypLLBarpT");
+    makePlot("HypLeptonBjetMass");
+    makePlot("HypLeptonEta");
+    makePlot("HypLeptonpT");
+    makePlot("HypTTBarDeltaPhi");
+    makePlot("HypTTBarDeltaRapidity");
+    makePlot("HypTTBarMass");
+    makePlot("HypTTBarRapidity");
+    makePlot("HypTTBarpT");
+    makePlot("HypTopRapidity");
+    makePlot("HypToppT");
+    makePlot("HypToppTTTRestFrame");
+    
 }
