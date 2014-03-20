@@ -1,19 +1,15 @@
 #include "iostream"
-#include "cmath"
-#include <fstream>
+#include "string"
+#include "vector"
+#include "iomanip"
+#include "fstream"
+
 
 #include <TFile.h>
 #include <TTree.h>
 #include <TString.h>
 #include <TH1.h>
-#include <TCanvas.h>
-#include <TSystem.h>
-#include <TLegend.h>
-#include <TStyle.h>
-#include <TPaveStats.h>
 #include <TError.h>
-
-
 
 
 
@@ -25,24 +21,29 @@
 */
 
 
-
-std::string dir1 = "2014_02_10_TAG_N004";
-std::string dir2 = "2014_03_14_TAG_N005";
+std::string basedir ("/data/group/top/DiffXS/");
+std::string dir1 ("2014_02_10_TAG_N004");
+std::string dir2 ("2014_03_14_TAG_N005");
 
 int nrEntries(TTree *tree, TString variable)
 {
-//     TH1I *histo = new TH1I("histo", "histo", 100, 0, 100);
-//     tree->Draw(variable+">>histo");
-//     TH1I *h0 = (TH1I*)histo->Clone("h0");
-//     delete histo;
-//     return h0->GetEntries();
     TH1I histo = TH1I("histo", "histo", 100, 0, 100);
     tree->Draw(variable+">>histo");
     return histo.GetEntries();
 }
 
 
-
+bool checkFile(const TString &file0)
+{
+    ifstream _file0(file0);
+    if(!_file0.is_open()){
+        std::cout<<"File: "<<file0<<std::endl;
+        std::cout<<" doesn't exist or cannot be opened. Continue"<<std::endl;
+        return 0;
+    };
+    _file0.close();
+    return 1;
+}
 
 void compareTrees()
 {
@@ -72,22 +73,15 @@ void compareTrees()
                                       "ttbarZ"
     };
 
-    std::vector<std::string> samples (samples_array, samples_array+ sizeof(samples_array) / sizeof(samples_array[0]));
-    std::string basedir ("/data/group/top/DiffXS/");
-    
-    printf("Sample  %s   %s    diff(%%)  variable: %s\n", dir1.c_str(), dir2.c_str(), "met.pt()");
+    std::vector<std::string> samples(samples_array, samples_array+sizeof(samples_array)/sizeof(samples_array[0]));
+
+    std::cout<<std::setw(40)<<"Sample "<<std::setw(15)<<dir1.c_str()<<" "<<std::setw(15)<<dir2.c_str()<<std::setw(15)<<" diff(%)  variable: met.pt()"<<std::endl;
     for (size_t iter = 0 ; iter<samples.size(); iter++){
         TString file0=basedir+dir1+"/"+samples.at(iter)+".root";
         TString file1=basedir+dir2+"/"+samples.at(iter)+".root";
-        ifstream _file0(file0), _file1(file1);
 
-        if(!_file0.is_open() || !_file1.is_open()){
-            std::cout<<"File: "<<file0<<std::endl;
-            std::cout<<"  or: "<<file1<<std::endl;
-            std::cout<<" doesn't exist or cannot be opened. Continue"<<std::endl;
-            continue;
-        }
-        _file0.close(); _file1.close();
+        if(!checkFile(file0)) continue;
+        if(!checkFile(file1)) continue;
 
         TFile *f0 = new TFile(file0);
         TFile *f1 = new TFile(file1);
@@ -98,25 +92,21 @@ void compareTrees()
         int nrEvents_old = nrEntries(t0, "met.pt()");
         int nrEvents_new = nrEntries(t1, "met.pt()");
 
-        printf("%s %10i %10i %2.3e \n", samples.at(iter).c_str(), nrEvents_old, nrEvents_new, 100*(1.*nrEvents_old-nrEvents_new)/nrEvents_old);
+        std::cout<<std::setw(40)<<samples.at(iter).c_str()<<std::setw(15)<<nrEvents_old<<std::setw(15)<<nrEvents_new<<std::setw(15)<<100*(1.*nrEvents_old-nrEvents_new)/nrEvents_old<<std::endl;
+
         delete t0; delete t1;
         f0->Close(); f1->Close();
         delete f0;   delete f1;
     }
-    printf("--------------------------------------------------------------------------------------\n");
-    printf("Sample  %s   %s    diff(%%)  variable: %s\n", dir1.c_str(), dir2.c_str(), "unweightedEvents");
+
+    std::cout<<"\n--------------------------------------------------------------------------------------"<<std::endl;
+    std::cout<<std::setw(40)<<"Sample "<<std::setw(15)<<dir1.c_str()<<" "<<std::setw(15)<<dir2.c_str()<<std::setw(15)<<" diff(%)  variable: met.pt()"<<std::endl;
     for (size_t iter = 0 ; iter<samples.size(); iter++){
         TString file0=basedir+dir1+"/"+samples.at(iter)+".root";
         TString file1=basedir+dir2+"/"+samples.at(iter)+".root";
-        ifstream _file0(file0), _file1(file1);
 
-        if(!_file0.is_open() || !_file1.is_open()){
-            std::cout<<"File: "<<file0<<std::endl;
-            std::cout<<"  or: "<<file1<<std::endl;
-            std::cout<<" doesn't exist or cannot be opened. Continue"<<std::endl;
-            continue;
-        }
-        _file0.close(); _file1.close();
+        if(!checkFile(file0)) continue;
+        if(!checkFile(file1)) continue;
 
         TFile *f0 = new TFile(file0);
         TFile *f1 = new TFile(file1);
@@ -127,12 +117,9 @@ void compareTrees()
         int nrEvents_old = t0->GetEntries();
         int nrEvents_new = t1->GetEntries();
 
-        printf("%s %10i %10i %2.3e \n", samples.at(iter).c_str(), nrEvents_old, nrEvents_new, 100*(1.*nrEvents_old-nrEvents_new)/nrEvents_old);
+        std::cout<<std::setw(40)<<samples.at(iter).c_str()<<std::setw(15)<<nrEvents_old<<std::setw(15)<<nrEvents_new<<std::setw(15)<<100*(1.*nrEvents_old-nrEvents_new)/nrEvents_old<<std::endl;
         delete t0; delete t1;
         f0->Close(); f1->Close();
         delete f0;   delete f1;
     }
-
-    
-    
 }
