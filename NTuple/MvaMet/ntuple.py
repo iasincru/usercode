@@ -321,6 +321,28 @@ getattr(process,'selectedPatMuons'+pfpostfix).cut = 'isPFMuon && pt > 20 && abs(
 process.selectedPatJets.cut = 'abs(eta)<5.4'
 
 
+####################################################################
+##  MVA met
+process.load('RecoMET.METPUSubtraction.mvaPFMET_leptons_cff')
+process.calibratedAK5PFJetsForPFMEtMVA.src = 'pfJets' +pfpostfix
+if options.runOnMC:
+    process.calibratedAK5PFJetsForPFMEtMVA.correctors= cms.vstring("ak5PFL1FastL2L3")
+else:
+    process.calibratedAK5PFJetsForPFMEtMVA.correctors= cms.vstring("ak5PFL1FastL2L3Residual")
+process.pfMEtMVA.srcUncorrJets='pfJets' +pfpostfix
+process.pfMEtMVA.srcVertices = 'goodOfflinePrimaryVertices'
+process.pfMEtMVA.inputFileNames = cms.PSet(
+    U = cms.FileInPath('RecoMET/METPUSubtraction/data/gbrmet_53_June2013_type1.root'),
+    DPhi = cms.FileInPath('RecoMET/METPUSubtraction/data/gbrmetphi_53_June2013_type1.root'),
+    CovU1 = cms.FileInPath('RecoMET/METPUSubtraction/data/gbru1cov_53_Dec2012.root'),
+    CovU2 = cms.FileInPath('RecoMET/METPUSubtraction/data/gbru2cov_53_Dec2012.root')
+    )
+process.pfMEtMVA.srcLeptons=cms.VInputTag("isomuons","isoelectrons","isotaus") #should be adapted to analysis selection..
+process.pfMEtMVA.srcRho = cms.InputTag("kt6PFJets","rho","RECO")
+process.patMEtMVA= getattr(process,'patMETs'+pfpostfix).clone()
+process.patMEtMVA.metSource = 'pfMEtMVA'
+
+
 
 ####################################################################
 ## Basic debugging analyzer
@@ -539,6 +561,7 @@ process.writeNTuple = writeNTuple.clone(
     elecs = isolatedElecCollection,
     jets = jetCollection,
     met = metCollection,
+    mvamet = 'patMEtMVA',
     genMET = "genMetTrue",
     genJets = genJetCollection,
 
@@ -763,6 +786,8 @@ process.p = cms.Path(
     process.filterOppositeCharge          *
     process.filterChannel                 *
     process.filterDiLeptonMassQCDveto     *
+    process.pfMEtMVAsequence              *
+    process.patMEtMVA                     *
     process.makeTtFullLepEvent            *
     process.ntupleInRecoSeq
 )
@@ -773,6 +798,8 @@ if signal or higgsSignal or zGenInfo:
         getattr(process,'patPF2PATSequence'+pfpostfix) *
         process.buildJets *
         process.zsequence *
+        process.pfMEtMVAsequence *
+        process.patMEtMVA *
         process.writeNTuple
         )
 
