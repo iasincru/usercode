@@ -30,6 +30,7 @@ class HiggsGenObjects;
 class KinRecoObjects;
 namespace ztop{
     class PUReweighter;
+    class RecoilCorrector;
 }
 
 
@@ -88,6 +89,9 @@ public:
     /// Set folder for basic analysis output
     void SetAnalysisOutputBase(const char* analysisOutputBase);
     
+    /// Set the Met recoil corrector
+    void SetMetRecoilCorrector(ztop::RecoilCorrector* recoilCorrector);
+    
     /// Set the kinematic reconstruction
     void SetKinematicReconstruction(KinematicReconstruction* kinematicReconstruction);
     
@@ -122,7 +126,12 @@ public:
     /// Class definition
     ClassDef(AnalysisBase, 0);
     
-    
+    /// Pointer to the Met Recoil correction tools
+    ztop::RecoilCorrector *recoilCorrector_;
+
+    ///  Recoil Correction of the Mva Met
+    void correctMvaMet(LV met, LV dilepton, int njets);
+
     
 protected:
     
@@ -497,6 +506,7 @@ private:
     
     /// nTuple branch for Drell-Yan decay mode
     TBranch* b_ZDecayMode;
+    TBranch* b_genZ;
     
     /// nTuple branch for Top decay mode
     TBranch* b_TopDecayMode;
@@ -579,7 +589,6 @@ private:
     /// Struct for holding variables associated to nTuple branches of kinematic reconstruction
     KinRecoObjects* kinRecoObjects_;
     
-
     /// Variables associated to nTuple branches holding trigger bits
     UInt_t triggerBits_;
     //UInt_t triggerBitsTau_;
@@ -597,6 +606,9 @@ private:
     /// Variables associated to nTuple branch for Drell-Yan decay mode
     std::vector<int>* ZDecayMode_;
 
+    /// Variables associated to nTuple branch for generator level Z-boson TLorentzVector
+    VLV* genZ_;
+    
     /// Variables associated to nTuple branch for Top decay mode
     Int_t topDecayMode_;
     
