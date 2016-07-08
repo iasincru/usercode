@@ -1,2 +1,3 @@
 This is a test directory
 This file corresponds to the branch 'testExample'
+The directory "Example" contains now the file "script.cpp" (usercode/Example/script.cpp), it was previously stored in the directory above (usercode/script.cpp)
