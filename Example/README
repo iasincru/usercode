@@ -1,3 +1,4 @@
 This is a test directory located in the 'master' branch.
 The branch master __DOES CONTAIN__ the file 'script.cpp' stored previously in the branch 'testExample' :)
 This is the cool part of branching
+Modified from GIT GUI
