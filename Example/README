@@ -1,3 +1,3 @@
 This is a test directory located in the 'master' branch.
-For the time being only contains this README file
-The branch master does not contain the file 'script.cpp' stored in the branch 'testExample'
+The branch master __DOES CONTAIN__ the file 'script.cpp' stored previously in the branch 'testExample' :)
+This is the cool part of branching
